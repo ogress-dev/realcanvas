@@ -1,0 +1,81 @@
+/* Satoshi Font Family */
+@font-face {
+  font-family: 'Satoshi';
+  src:
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Light.woff2')
+      format('woff2'),
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Light.woff')
+      format('woff');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src:
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Regular.woff2')
+      format('woff2'),
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Regular.woff')
+      format('woff');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src:
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Medium.woff2')
+      format('woff2'),
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Medium.woff')
+      format('woff');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src:
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Bold.woff2')
+      format('woff2'),
+    url('/dd_website_fonts/Satoshi/Fonts/WEB/fonts/Satoshi-Bold.woff')
+      format('woff');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Gyst Font Family */
+@font-face {
+  font-family: 'Gyst';
+  src: url('/dd_website_fonts/Gyst/Gyst-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gyst';
+  src: url('/dd_website_fonts/Gyst/Gyst-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gyst';
+  src: url('/dd_website_fonts/Gyst/Gyst-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gyst';
+  src: url('/dd_website_fonts/Gyst/Gyst-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
