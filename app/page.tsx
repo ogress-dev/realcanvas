@@ -1,153 +1,284 @@
-"use client"
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import CircularText from "./components/circularText";
-import Logo from "./components/logo";
-import Contacts from "./components/contacts";
+'use client';
+import { LogoIcon } from '@/components/logo-icon';
+import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselApi,
+} from '@/components/ui/carousel';
+import { cn } from '@/lib/utils';
+import { Chapters } from '@/lib/chapters';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { RoundText } from '@/components/hero/round-text';
 
-const chapters = [
-  {
-    title: "chapter 1",
-    content: `Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi.
-              Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,
-              mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. 
-              Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. 
-              Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. 
-              Pellentesque commodo lacus at sodales sodales. 
-              Quisque sagittis orci ut diam condimentum, vel euismod erat placerat.`
-  },
-  {
-    title: "chapter 2",
-    content: `Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi.
-              Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,
-              mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. 
-              Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. 
-              Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. 
-              Pellentesque commodo lacus at sodales sodales. 
-              Quisque sagittis orci ut diam condimentum, vel euismod erat placerat.`
-  },
-  {
-    title: "chapter 3",
-    content: `Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi.
-              Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,
-              mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. 
-              Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. 
-              Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. 
-              Pellentesque commodo lacus at sodales sodales. 
-              Quisque sagittis orci ut diam condimentum, vel euismod erat placerat.`
-  }
-];
+function CarouselDots({
+  api,
+  count,
+}: {
+  api: CarouselApi | undefined;
+  count: number;
+}) {
+  const [selected, setSelected] = useState(0);
 
-export default function Home() {
-  const [rotation, setRotation] = useState(0);
-  const [isTop, setIsTop] = useState(false);
-  const [isCenter, setIsCenter] = useState(false);
-
-  const handleRotate = () => {
-    setRotation((prev) => prev + 90);
-    setIsCenter(true);
-  };
-
-  const handleSlideToTop = () => {
-    setIsTop((prev) => !prev);
-  };
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % chapters.length);
-  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + chapters.length) % chapters.length);
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    api.on('select', onSelect);
+    return () => {
+      api.off('select', onSelect);
+    };
+  }, [api]);
 
   return (
-    <div className="min-h-screen w-screen bg-blue-100 overflow-hidden p-5 hero-bg flex flex-col items-center justify-center">
-      
-    <Logo rotation={rotation} isCenter={isCenter} />
-      <div
-        className={`flex flex-col sm:flex-row gap-10 items-center mt-4 transition-opacity duration-700 ${
-          isCenter ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
-      >
-        
-        <div className="flex flex-col items-center">
-          <Image
-            src="/daviddoro.jpg"
-            alt="daviddoroimage"
-            width={538}
-            height={592}
-            className="object-cover w-[327px] h-[400px] sm:w-[538px] sm:h-[592px] rounded-[32px] sm:rounded-[40px]"
-          />
+    <div className="flex gap-2 justify-center mt-4">
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => api?.scrollTo(i)}
+          className={cn(
+            'w-2 h-2 rounded-full transition-colors',
+            i === selected ? 'bg-foreground' : 'bg-foreground/30'
+          )}
+        />
+      ))}
+    </div>
+  );
+}
 
-          {/* Mobile only: read me -> /chaptermobile */}
-          <div className="sm:hidden mt-4 w-full flex flex-col items-center gap-3">
-            <Link
-              href="/chaptermobile"
-              className="w-[327px] text-[24px] text-right z-2"
-              style={{ fontFamily: "Gyst, serif", fontWeight: 400, fontStyle: "italic", lineHeight: "100%", letterSpacing: "0%", color: "#1E1E1D" }}
-            >
-              read me
-            </Link>
+export default function Page() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [isShakaMoved, setIsShakaMoved] = useState(false);
+  const [isReadingMe, setIsReadingMe] = useState(false);
+  const [isHavingALook, setIsHavingALook] = useState(false);
 
-            <CircularText text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"  spinDuration={20} className="custom-class" />
+  function contactClick() {
+    setIsShakaMoved((prev) => !prev);
+  }
 
-            <div className="flex gap-3 mt-12">
-              <Link href="/contact" className=" z-2 w-[140px] h-[48px] rounded-[16px] bg-black shadow-sm flex items-center justify-center">
-                <span className="text-[24px] font-bold italic" style={{ color: '#ffffff' }}>Contacts</span>
-              </Link>
-              <button
-                onClick={handleRotate}
-                className="z-2 w-[180px] h-[48px] rounded-[16px] bg-white shadow flex items-center justify-center"
-              >
-                <span className="text-[24px] font-bold italic" style={{ color: '#1E1E1D' }}>have a look</span>
-              </button>
-            </div>
+  function readMeClick() {
+    setIsReadingMe((prev) => !prev);
+  }
+
+  function haveLookClick() {
+    setIsHavingALook((prev) => !prev);
+  }
+
+  return (
+    <>
+      <div className="hero w-dvw h-dvh overflow-hidden">
+        <section
+          className={cn(
+            'h-dvh',
+            'flex flex-col gap-6 sm:gap-8',
+            'bg-linear-to-b from-transparent to-foreground/20',
+            'relative'
+          )}>
+          <div className="top w-full relative flex sm:items-center sm:gap-6">
+            <span className="flex flex-col">
+              <div className="flex gap-1 sm:gap-2">
+                <h1 className="">David Doro</h1> <LogoIcon />
+              </div>
+              <h1 className="sm:text-nowrap ">
+                Brand{' '}
+                <span className="font-display text-5xl sm:text-6xl md:text-7xl font-normal">
+                  &
+                </span>{' '}
+                Product Design
+              </h1>
+            </span>
+
+            <Image
+              src="/images/shaka.png"
+              alt="David Doro"
+              width={500}
+              height={500}
+              className={cn(
+                'absolute z-21 right-0 top-4/5 sm:static h-26 sm:h-48 w-fit object-contain shaka-image shaka-hero',
+                'transition-all duration-500',
+                isShakaMoved && 'shaka-hero--move',
+                isHavingALook &&
+                  'scale-[300%] right-[33vw] sm:-translate-x-[18vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
+              )}
+            />
           </div>
-        </div>
 
-        {/* Desktop area */}
-        <div className="hidden sm:flex flex-col justify-between w-[800px]">
-          <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <button onClick={prevSlide} className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-800 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>←</button>
-            <button onClick={nextSlide} className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-800 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>→</button>
+          <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10">
+            <div className="relative aspect-9/10 sm:max-w-1/3 flex-1">
+              <Image
+                src="/images/daviddoro.jpg"
+                alt="David Doro"
+                fill
+                className="object-cover rounded-2xl"
+              />
+            </div>
 
-            <div className="overflow-hidden bg-green-100">
-              <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                {chapters.map((chapter, i) => (
-                  <div key={i} className="w-full flex-shrink-0 px-4">
-                    <h2 className="text-4xl font-bold mb-6 text-black">{chapter.title}</h2>
-                    <p className="text-lg leading-relaxed text-black">{chapter.content}</p>
-                  </div>
-                ))}
+            <Button
+              variant="link"
+              onClick={readMeClick}
+              className="sm:hidden w-fit ml-auto italic font-display">
+              Read me
+            </Button>
+
+            <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden">
+              <div className="chapters w-full flex-1 min-h-0">
+                <Carousel setApi={setApi} className="w-full">
+                  <CarouselContent>
+                    {Chapters.map((chapter, index) => (
+                      <CarouselItem key={index}>
+                        <div className="p-1">
+                          <h4 className="mb-2">{chapter.title}</h4>
+                          <p className="">{chapter.description}</p>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselDots api={api} count={Chapters.length} />
+                </Carousel>
+              </div>
+
+              <div className="contact flex items-end gap-8 justify-between">
+                <div className="w-full flex flex-col gap-1">
+                  <h4>Contact</h4>
+                  <Link href="mailto:hello@dorodavid.com">
+                    hello@dorodavid.com
+                  </Link>
+                  <Link href="tel:+393456366497">+39 345 636 6497</Link>
+                  <Link href="https://instagram.com/daviddoro.design">
+                    Instagram
+                  </Link>
+                  <Link href="https://www.linkedin.com/in/daviddoro/">
+                    LinkedIn
+                  </Link>
+                </div>
+
+                <Button onClick={haveLookClick}>
+                  Have a look <ArrowUpRight />
+                </Button>
               </div>
             </div>
 
-            <div className="flex justify-center mt-2 space-x-2">
-              {chapters.map((_, i) => (
-                <button key={i} onClick={() => setCurrentIndex(i)} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-black w-6' : 'bg-gray-300'}`} />
-              ))}
+            <div className="bottom z-10 w-full flex sm:hidden items-center justify-between gap-4">
+              <Button onClick={contactClick} variant="secondary">
+                Contact
+              </Button>
+
+              <Button onClick={haveLookClick}>
+                Have a look <ArrowUpRight className="size-5" />
+              </Button>
             </div>
           </div>
 
-          <div className="flex flex-row items-end justify-between mt-6 bg-blue-100">
-            <div className="w-64 text-sm text-black bg-transparent">
-              <p className="text-[24px]">Contact</p>
-              <p className="text-[24px] text-orange">hello@dorodavid.com</p>
-              <p className="text-[24px]">+39 345 636 6497</p>
-              <p className="text-[24px]">Instagram</p>
-              <p className="text-[24px]">LinkedIn</p>
-            </div>
+          <div
+            className={cn(
+              'round-stuff',
+              'round-text',
+              'absolute z-21 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
+              'transition-all duration-500',
+              isShakaMoved && 'round-text--move'
+            )}>
+            <RoundText
+              text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
+              size={isShakaMoved ? 470 : 540}
+            />
+          </div>
 
-            <div className="flex items-center justify-center gap-4">
-              <CircularText text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"  spinDuration={20} className="custom-class" />
-              <button onClick={handleRotate} className="z-2 w-[245px] h-[56px] rounded-[20px] bg-white shadow-xl flex items-center justify-center">
-                <span style={{ color: '#1E1E1D' }} className="text-[24px]">have a look</span>
-              </button>
+          <div
+            className={cn(
+              'mobile-contact-thingie',
+              'absolute z-20 left-0 top-0',
+              'flex sm:hidden h-dvh w-dvw flex-col justify-end px-6 py-8',
+              'bg-foreground',
+              'transition-all duration-500',
+              isShakaMoved
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
+            )}>
+            <div className="w-full flex flex-col gap-1 *:text-background">
+              <h1 className="font-display">Contact</h1>
+              <Link className="text-2xl" href="mailto:hello@dorodavid.com">
+                hello@dorodavid.com
+              </Link>
+              <Link className="text-2xl" href="tel:+393456366497">
+                +39 345 636 6497
+              </Link>
+              <Link
+                className="text-2xl"
+                href="https://instagram.com/daviddoro.design">
+                Instagram
+              </Link>
+              <Link
+                className="text-2xl"
+                href="https://www.linkedin.com/in/daviddoro/">
+                LinkedIn
+              </Link>
+
+              <Button
+                variant="outline"
+                className="mt-6"
+                onClick={() => setIsShakaMoved(false)}>
+                <ArrowLeft />
+                Back
+              </Button>
             </div>
           </div>
-        </div>
+
+          <div
+            className={cn(
+              'mobile-carousel',
+              'absolute z-30 left-0 top-0',
+              'flex sm:hidden h-dvh w-dvw flex-col justify-between px-6 py-8',
+              'transition-all duration-500',
+              isReadingMe
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
+            )}>
+            <Carousel setApi={setApi} className="w-full z-31">
+              <CarouselContent>
+                {Chapters.map((chapter, index) => (
+                  <CarouselItem key={index}>
+                    <div className="p-1">
+                      <h4 className="mb-2">{chapter.title}</h4>
+                      <p className="">{chapter.description}</p>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselDots api={api} count={Chapters.length} />
+            </Carousel>
+
+            <Button
+              variant="outline"
+              className="mt-6 border-foreground text-foreground z-31"
+              onClick={() => setIsReadingMe(false)}>
+              <ArrowLeft />
+              Back
+            </Button>
+          </div>
+
+          <div
+            className={cn(
+              'have-a-look-overlay',
+              'absolute z-30 left-0 top-0',
+              'flex h-dvh w-dvw flex-col items-center justify-end px-6 py-8',
+              'transition-all duration-500',
+              isHavingALook
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
+            )}>
+            <Button
+              variant="outline"
+              className="mt-12 border-foreground text-foreground z-31 w-full"
+              onClick={() => setIsHavingALook(false)}>
+              <ArrowLeft />
+              Back
+            </Button>
+          </div>
+        </section>
       </div>
-    </div>
-
-
-
+    </>
   );
 }
