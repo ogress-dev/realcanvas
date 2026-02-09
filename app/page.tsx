@@ -158,7 +158,7 @@ export default function Page() {
                   <Link href="https://instagram.com/daviddoro.design">
                     Instagram
                   </Link>
-                  <Link href="https://www.linkedin.com/in/daviddoro/">
+                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/">
                     LinkedIn
                   </Link>
                 </div>
@@ -224,7 +224,7 @@ export default function Page() {
               </Link>
               <Link
                 className="text-2xl"
-                href="https://www.linkedin.com/in/daviddoro/">
+                href="https://www.linkedin.com/in/david-doro-design-industriale/">
                 LinkedIn
               </Link>
 

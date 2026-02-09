@@ -17,7 +17,7 @@ export function RoundText({
   duration = 10,
   reverse = false,
 }: RoundTextProps) {
-  const repeatedText = `${text} • `.repeat(10);
+  const repeatedText = `${text} `.repeat(3);
 
   return (
     <div
@@ -37,8 +37,8 @@ export function RoundText({
             fill="none"
           />
         </defs>
-        <text className="fill-background text-[8px] font-sans">
-          <textPath href="#circlePath" startOffset="1%">
+        <text className="fill-background text-[7px] font-sans">
+          <textPath href="#circlePath" startOffset="0%">
             {repeatedText}
           </textPath>
         </text>
