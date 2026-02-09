@@ -69,26 +69,34 @@ export default function Page() {
 
   return (
     <>
-      <div className="hero w-dvw h-dvh overflow-hidden">
+      <div className="hero w-dvw h-dvh overflow-hidden mx-auto">
         <section
           className={cn(
             'h-dvh',
             'flex flex-col gap-6 sm:gap-8',
             'bg-linear-to-b from-transparent to-foreground/20',
-            'relative'
+            'relative',
+            'p-10', 
+            
           )}>
           <div className="top w-full relative flex sm:items-center sm:gap-6">
-            <span className="flex flex-col">
-              <div className="flex gap-1 sm:gap-2">
-                <h1 className="">David Doro</h1> <LogoIcon />
+            <span className="flex flex-col mt-0">
+              <div className="flex gap-1 sm:gap-2 items-start">
+                <h1 className="sm:text-[112px] text-[40px] leading-none">David Doro</h1> 
+                <LogoIcon size={50} className="sm:mt-2 mt-1" />
               </div>
-              <h1 className="sm:text-nowrap ">
+              <h1 className="sm:text-nowrap text-[40px] sm:text-[112px] whitespace-nowrap">
                 Brand{' '}
-                <span className="font-display text-5xl sm:text-6xl md:text-7xl font-normal">
+                <span className="font-display text-5xl sm:text-8xl md:text-8xl font-normal">
                   &
                 </span>{' '}
-                Product Design
+                Product
+                <span className="sm:hidden">
+                  <br />
+                </span>
+                Design
               </h1>
+
             </span>
 
             <Image
@@ -101,13 +109,13 @@ export default function Page() {
                 'transition-all duration-500',
                 isShakaMoved && 'shaka-hero--move',
                 isHavingALook &&
-                  'scale-[300%] right-[33vw] sm:-translate-x-[18vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
+                'scale-[300%] right-[33vw] sm:-translate-x-[18vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
               )}
             />
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10">
-            <div className="relative aspect-9/10 sm:max-w-1/3 flex-1">
+            <div className="relative w-[327px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1">
               <Image
                 src="/images/daviddoro.jpg"
                 alt="David Doro"
@@ -161,7 +169,10 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="bottom z-10 w-full flex sm:hidden items-center justify-between gap-4">
+            <div className={cn(
+              'bottom w-full flex sm:hidden items-center justify-between gap-4 z-42',
+              (isShakaMoved || isHavingALook || isReadingMe) && 'opacity-0 pointer-events-none'
+            )}>
               <Button onClick={contactClick} variant="secondary">
                 Contact
               </Button>
@@ -176,9 +187,10 @@ export default function Page() {
             className={cn(
               'round-stuff',
               'round-text',
-              'absolute z-21 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
+              'absolute z-40 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
               'transition-all duration-500',
-              isShakaMoved && 'round-text--move'
+              isShakaMoved && 'round-text--move',
+              (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
               text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
