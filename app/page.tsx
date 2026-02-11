@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { RoundText } from '@/components/hero/round-text';
+import { useIsMobile } from '@/hooks/useMobile';
 
 function CarouselDots({
   api,
@@ -67,14 +68,17 @@ export default function Page() {
     setIsHavingALook((prev) => !prev);
   }
 
+  const isMobile = useIsMobile();
+
   return (
     <>
-      <div className="hero w-dvw h-dvh overflow-hidden mx-auto">
+      <div className="hero w-dvw min-h-xl h-dvh overflow-hidden mx-auto">
         <section
           className={cn(
             'h-dvh',
+            'min-h-5xl',
             'flex flex-col gap-6 sm:gap-8',
-            'bg-linear-to-b from-transparent to-foreground/20',
+            // 'bg-linear-to-b from-transparent to-foreground/20',
             'relative',
             'p-10', 
             
@@ -82,12 +86,12 @@ export default function Page() {
           <div className="top w-full relative flex sm:items-center sm:gap-6">
             <span className="flex flex-col mt-0">
               <div className="flex gap-1 sm:gap-2 items-start">
-                <h1 className="sm:text-[112px] text-[40px] leading-none">David Doro</h1> 
+                <h1 className="xl:text-[112px] md:text-[60px] text-[40px] leading-none">David Doro</h1> 
                 <LogoIcon size={50} className="sm:mt-2 mt-1" />
               </div>
-              <h1 className="sm:text-nowrap text-[40px] sm:text-[112px] whitespace-nowrap">
+              <h1 className="sm:text-nowrap text-[40px] xl:text-[112px] md:text-[60px] whitespace-nowrap">
                 Brand{' '}
-                <span className="font-display text-5xl sm:text-8xl md:text-8xl font-normal">
+                <span className="font-display text-5xl xl:text-8xl md:text-[60px] font-normal">
                   &
                 </span>{' '}
                 Product
@@ -139,7 +143,7 @@ export default function Page() {
                       <CarouselItem key={index}>
                         <div className="p-1">
                           <h4 className="mb-2">{chapter.title}</h4>
-                          <p className="">{chapter.description}</p>
+                          <p className="sm:leading-5 md:leading-5 xl:leading-8">{chapter.description}</p>
                         </div>
                       </CarouselItem>
                     ))}
@@ -151,20 +155,20 @@ export default function Page() {
               <div className="contact flex items-end gap-8 justify-between">
                 <div className="w-full flex flex-col gap-1">
                   <h4>Contact</h4>
-                  <Link href="mailto:hello@dorodavid.com">
+                  <Link href="mailto:hello@dorodavid.com" className="hover:text-orange-500">
                     hello@dorodavid.com
                   </Link>
-                  <Link href="tel:+393456366497">+39 345 636 6497</Link>
-                  <Link href="https://instagram.com/daviddoro.design">
+                  <Link href="tel:+393456366497" className="hover:text-orange-500">+39 345 636 6497</Link>
+                  <Link href="https://instagram.com/daviddoro.design" className="hover:text-orange-500">
                     Instagram
                   </Link>
-                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/">
+                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/" className="hover:text-orange-500">
                     LinkedIn
                   </Link>
                 </div>
 
                 <Button onClick={haveLookClick}>
-                  Have a look <ArrowUpRight />
+                  Have a look <ArrowUpRight className="size-8"/>
                 </Button>
               </div>
             </div>
@@ -194,7 +198,12 @@ export default function Page() {
             )}>
             <RoundText
               text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
-              size={isShakaMoved ? 470 : 540}
+              size={isShakaMoved 
+                // img-size:moved mobile : desktop
+                ? isMobile ? 470 : 470
+                // img-size:initial mobile : desktop
+                : isMobile ? 540 : 500
+              }
             />
           </div>
 
