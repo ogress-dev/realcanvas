@@ -52,9 +52,53 @@ function CarouselDots({
 
 export default function Page() {
   const [api, setApi] = useState<CarouselApi>();
+  const [mobileApi, setMobileApi] = useState<CarouselApi>();
   const [isShakaMoved, setIsShakaMoved] = useState(false);
   const [isReadingMe, setIsReadingMe] = useState(false);
   const [isHavingALook, setIsHavingALook] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
+  const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    
+    setCurrentSlide(api.selectedScrollSnap());
+    
+    api.on('select', () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    if (!mobileApi) return;
+    
+    setMobileCurrentSlide(mobileApi.selectedScrollSnap());
+    
+    mobileApi.on('select', () => {
+      setMobileCurrentSlide(mobileApi.selectedScrollSnap());
+    });
+  }, [mobileApi]);
+
+  function goToPrevChapter() {
+    if (!api) return;
+    api.scrollPrev();
+  }
+
+  function goToNextChapter() {
+    if (!api) return;
+    api.scrollNext();
+  }
+
+  function goToPrevChapterMobile() {
+    if (!mobileApi) return;
+    mobileApi.scrollPrev();
+  }
+
+  function goToNextChapterMobile() {
+    if (!mobileApi) return;
+    mobileApi.scrollNext();
+  }
 
   function contactClick() {
     setIsShakaMoved((prev) => !prev);
@@ -109,17 +153,17 @@ export default function Page() {
               width={500}
               height={500}
               className={cn(
-                'absolute z-21 right-0 top-4/5 sm:static h-26 sm:h-48 w-fit object-contain shaka-image shaka-hero',
+                'absolute z-21 right-6 top-4/5 sm:static h-26 sm:h-48 w-fit object-contain shaka-image shaka-hero',
                 'transition-all duration-500',
                 isShakaMoved && 'shaka-hero--move',
                 isHavingALook &&
-                'scale-[300%] right-[33vw] sm:-translate-x-[18vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
+                'scale-[300%] right-[33vw] sm:-translate-x-[33vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
               )}
             />
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10">
-            <div className="relative w-[327px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1">
+            <div className="relative w-[310px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1">
               <Image
                 src="/images/daviddoro.jpg"
                 alt="David Doro"
@@ -137,32 +181,89 @@ export default function Page() {
 
             <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden">
               <div className="chapters w-full flex-1 min-h-0">
-                <Carousel setApi={setApi} className="w-full">
-                  <CarouselContent>
-                    {Chapters.map((chapter, index) => (
-                      <CarouselItem key={index}>
-                        <div className="p-1">
-                          <h4 className="mb-2">{chapter.title}</h4>
-                          <p className="sm:leading-5 md:leading-5 xl:leading-8">{chapter.description}</p>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselDots api={api} count={Chapters.length} />
+                <Carousel setApi={setApi} className="w-full h-full">
+                  <div 
+                    className="relative h-full"
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const midpoint = rect.width / 2;
+                      setHoveredSide(x < midpoint ? 'left' : 'right');
+                    }}
+                    onMouseLeave={() => setHoveredSide(null)}
+                  >
+                    <CarouselContent className="h-full">
+                      {Chapters.map((chapter, index) => (
+                        <CarouselItem key={index}>
+                          <div className="p-1">
+                            <h4 className="mb-2">{chapter.title}</h4>
+                            <p className="sm:leading-5 md:leading-5 xl:leading-8">{chapter.description}</p>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselDots api={api} count={Chapters.length} />
+
+                    {/* Left arrow */}
+                    <button
+                      onClick={goToPrevChapter}
+                      className={cn(
+                        "absolute left-4 top-1/2 -translate-y-1/2",
+                        "flex-shrink-0 transition-all duration-300",
+                        "opacity-0",
+                        hoveredSide === 'left' && "opacity-100",
+                        "disabled:opacity-0 disabled:pointer-events-none",
+                        "cursor-pointer"
+                      )}
+                      disabled={currentSlide === 0}
+                      aria-label="Previous chapter"
+                    >
+                      <Image
+                        src="/images/left.svg"
+                        alt="Previous"
+                        width={40}
+                        height={40}
+                        className="sm:w-14 sm:h-14"
+                      />
+                    </button>
+
+                    {/* Right arrow */}
+                    <button
+                      onClick={goToNextChapter}
+                      className={cn(
+                        "absolute right-4 top-1/2 -translate-y-1/2",
+                        "flex-shrink-0 transition-all duration-300",
+                        "opacity-0",
+                        hoveredSide === 'right' && "opacity-100",
+                        "disabled:opacity-0 disabled:pointer-events-none",
+                        "cursor-pointer"
+                      )}
+                      disabled={currentSlide === Chapters.length - 1}
+                      aria-label="Next chapter"
+                    >
+                      <Image
+                        src="/images/right.svg"
+                        alt="Next"
+                        width={40}
+                        height={40}
+                        className="sm:w-14 sm:h-14"
+                      />
+                    </button>
+                  </div>
                 </Carousel>
               </div>
 
               <div className="contact flex items-end gap-8 justify-between">
                 <div className="w-full flex flex-col gap-1">
                   <h4>Contact</h4>
-                  <Link href="mailto:hello@dorodavid.com" className="hover:text-orange-500">
+                  <Link href="mailto:hello@dorodavid.com" className="hover:text-orange-500 w-fit">
                     hello@dorodavid.com
                   </Link>
-                  <Link href="tel:+393456366497" className="hover:text-orange-500">+39 345 636 6497</Link>
-                  <Link href="https://instagram.com/daviddoro.design" className="hover:text-orange-500">
+                  <Link href="tel:+393456366497" className="hover:text-orange-500 w-fit">+39 345 636 6497</Link>
+                  <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
                     Instagram
                   </Link>
-                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/" className="hover:text-orange-500">
+                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/" className="hover:text-orange-500 w-fit">
                     LinkedIn
                   </Link>
                 </div>
@@ -257,18 +358,68 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <Carousel setApi={setApi} className="w-full z-31">
-              <CarouselContent>
-                {Chapters.map((chapter, index) => (
-                  <CarouselItem key={index}>
-                    <div className="p-1">
-                      <h4 className="mb-2">{chapter.title}</h4>
-                      <p className="">{chapter.description}</p>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselDots api={api} count={Chapters.length} />
+            <Carousel setApi={setMobileApi} className="w-full z-31">
+              <div className="relative">
+                <CarouselContent>
+                  {Chapters.map((chapter, index) => (
+                    <CarouselItem key={index}>
+                      <div className="p-1">
+                        <h4 className="mb-2">{chapter.title}</h4>
+                        <p className="">{chapter.description}</p>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselDots api={mobileApi} count={Chapters.length} />
+
+                {/* Left hover zone */}
+                <div className="absolute left-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
+                  <button
+                    onClick={goToPrevChapterMobile}
+                    className={cn(
+                      "absolute left-0 top-1/2 -translate-y-1/2",
+                      "flex-shrink-0 transition-all duration-300 pointer-events-auto",
+                      "opacity-0",
+                      "group-[&_~_div:first-child]:hover:opacity-100",
+                      "disabled:opacity-0 disabled:pointer-events-none",
+                      "cursor-pointer"
+                    )}
+                    disabled={mobileCurrentSlide === 0}
+                    aria-label="Previous chapter"
+                  >
+                    <Image
+                      src="/images/left.svg"
+                      alt="Previous"
+                      width={40}
+                      height={40}
+                    />
+                  </button>
+                </div>
+
+                {/* Right hover zone */}
+                <div className="absolute right-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
+                  <button
+                    onClick={goToNextChapterMobile}
+                    className={cn(
+                      "absolute right-0 top-1/2 -translate-y-1/2",
+                      "flex-shrink-0 transition-all duration-300 pointer-events-auto",
+                      "opacity-0",
+                      "group-[&_~_div:last-child]:hover:opacity-100",
+                      "disabled:opacity-0 disabled:pointer-events-none",
+                      "cursor-pointer"
+                    )}
+                    disabled={mobileCurrentSlide === Chapters.length - 1}
+                    aria-label="Next chapter"
+                  >
+                    <Image
+                      src="/images/right.svg"
+                      alt="Next"
+                      width={40}
+                      height={40}
+                    />
+                  </button>
+                </div>
+              </div>
             </Carousel>
 
             <Button
