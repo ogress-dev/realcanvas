@@ -62,9 +62,9 @@ export default function Page() {
 
   useEffect(() => {
     if (!api) return;
-    
+
     setCurrentSlide(api.selectedScrollSnap());
-    
+
     api.on('select', () => {
       setCurrentSlide(api.selectedScrollSnap());
     });
@@ -72,9 +72,9 @@ export default function Page() {
 
   useEffect(() => {
     if (!mobileApi) return;
-    
+
     setMobileCurrentSlide(mobileApi.selectedScrollSnap());
-    
+
     mobileApi.on('select', () => {
       setMobileCurrentSlide(mobileApi.selectedScrollSnap());
     });
@@ -124,18 +124,36 @@ export default function Page() {
             'flex flex-col gap-6 sm:gap-8',
             // 'bg-linear-to-b from-transparent to-foreground/20',
             'relative',
-            'p-10', 
-            
+            'p-10',
+
           )}>
           <div className="top w-full relative flex sm:items-center sm:gap-6">
             <span className="flex flex-col mt-0">
               <div className="flex gap-1 sm:gap-2 items-start">
-                <h1 className="xl:text-[112px] md:text-[60px] text-[40px] leading-none">David Doro</h1> 
+                <h1
+                  className="leading-none"
+                  style={{
+                    fontSize: 'clamp(2.5rem, 8vw, 7rem)'
+                    // or more precisely:
+                    // fontSize: 'clamp(40px, 6vw, 112px)'
+                  }}
+                >
+                  David Doro
+                </h1>
                 <LogoIcon size={50} className="sm:mt-2 mt-1" />
               </div>
-              <h1 className="sm:text-nowrap text-[40px] xl:text-[112px] md:text-[60px] whitespace-nowrap">
+              <h1
+                className="sm:text-nowrap whitespace-nowrap"
+                style={{
+                  fontSize: 'clamp(40px, 8vw, 112px)'
+                }}
+              >
                 Brand{' '}
-                <span className="font-display text-5xl xl:text-8xl md:text-[60px] font-normal">
+                <span className="font-display font-normal"
+                  style={{
+                    fontSize: 'clamp(30px, 6vw, 80px)'
+                  }}
+                >
                   &
                 </span>{' '}
                 Product
@@ -163,7 +181,13 @@ export default function Page() {
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10">
-            <div className="relative w-[310px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1">
+            <div
+              className="relative w-[310px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1"
+              style={{
+                width: 'clamp(310px, 30vw, 310px)',
+                height: 'clamp(400px, 40vw, 400px)'
+              }}
+            >
               <Image
                 src="/images/daviddoro.jpg"
                 alt="David Doro"
@@ -182,7 +206,7 @@ export default function Page() {
             <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden">
               <div className="chapters w-full flex-1 min-h-0">
                 <Carousel setApi={setApi} className="w-full h-full">
-                  <div 
+                  <div
                     className="relative h-full"
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
@@ -269,7 +293,7 @@ export default function Page() {
                 </div>
 
                 <Button onClick={haveLookClick}>
-                  Have a look <ArrowUpRight className="size-8"/>
+                  Have a look <ArrowUpRight className="size-8" />
                 </Button>
               </div>
             </div>
@@ -299,7 +323,7 @@ export default function Page() {
             )}>
             <RoundText
               text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
-              size={isShakaMoved 
+              size={isShakaMoved
                 // img-size:moved mobile : desktop
                 ? isMobile ? 470 : 470
                 // img-size:initial mobile : desktop
