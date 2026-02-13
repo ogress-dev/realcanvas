@@ -225,7 +225,7 @@
     transform-origin: center;
   }
   .round-text--move {
-    left: auto;
+    left: 50%;
     right: auto;
     align-self: center;
     top: 0;

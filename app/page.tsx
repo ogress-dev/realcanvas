@@ -116,7 +116,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="hero w-dvw min-h-xl h-dvh overflow-hidden mx-auto">
+      <div className="hero w-dvw min-h-xl h-dvh overflow-hidden mx-auto relative">
         <section
           className={cn(
             'h-dvh',
@@ -124,34 +124,37 @@ export default function Page() {
             'flex flex-col gap-6 sm:gap-8',
             // 'bg-linear-to-b from-transparent to-foreground/20',
             'relative',
-            'p-10',
+            'p-7',
+            'max-w-full',
+            'overflow-hidden',
+            'justify-center sm:justify-start',
 
           )}>
-          <div className="top w-full relative flex sm:items-center sm:gap-6">
-            <span className="flex flex-col mt-0">
-              <div className="flex gap-1 sm:gap-2 items-start">
+          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full">
+            <span className="flex flex-col mt-0 shrink min-w-0">
+              <div className="flex gap-1 sm:gap-2 items-start flex-wrap">
                 <h1
-                  className="leading-none"
+                  className="leading-none break-words"
                   style={{
-                    fontSize: 'clamp(2.5rem, 8vw, 7rem)'
-                    // or more precisely:
-                    // fontSize: 'clamp(40px, 6vw, 112px)'
+                    fontSize: 'clamp(2rem, 6vw, 8rem)',
+                    maxWidth: '100%'
                   }}
                 >
                   David Doro
                 </h1>
-                <LogoIcon size={50} className="sm:mt-2 mt-1" />
+                <LogoIcon size={50} className="sm:mt-2 mt-1 flex-shrink-0" />
               </div>
               <h1
-                className="sm:text-nowrap whitespace-nowrap"
+                className="sm:text-nowrap break-words leading-tight"
                 style={{
-                  fontSize: 'clamp(40px, 8vw, 112px)'
+                  fontSize: 'clamp(32px, 6vw, 100px)',
+                  maxWidth: '100%'
                 }}
               >
                 Brand{' '}
                 <span className="font-display font-normal"
                   style={{
-                    fontSize: 'clamp(30px, 6vw, 80px)'
+                    fontSize: 'clamp(24px, 4.5vw, 70px)'
                   }}
                 >
                   &
@@ -171,22 +174,20 @@ export default function Page() {
               width={500}
               height={500}
               className={cn(
-                'absolute z-21 right-6 top-4/5 sm:static h-26 sm:h-48 w-fit object-contain shaka-image shaka-hero',
+                'absolute z-21 right-6 top-4/5 sm:static sm:h-48 w-auto object-contain shaka-image shaka-hero flex-shrink-0',
                 'transition-all duration-500',
+                'max-h-[6rem] sm:max-h-[12rem]',
                 isShakaMoved && 'shaka-hero--move',
                 isHavingALook &&
-                'scale-[300%] right-[33vw] sm:-translate-x-[33vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
+                'scale-[200%] right-[33vw] sm:-translate-x-[25vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
               )}
             />
           </div>
 
-          <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10">
+          <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10 max-w-full overflow-hidden">
             <div
-              className="relative w-[310px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1"
-              style={{
-                width: 'clamp(310px, 30vw, 310px)',
-                height: 'clamp(400px, 40vw, 400px)'
-              }}
+              className="relative w-[327px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
+
             >
               <Image
                 src="/images/daviddoro.jpg"
@@ -203,8 +204,8 @@ export default function Page() {
               Read me
             </Button>
 
-            <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden">
-              <div className="chapters w-full flex-1 min-h-0">
+            <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0">
+              <div className="chapters w-full flex-1 min-h-0 overflow-hidden">
                 <Carousel setApi={setApi} className="w-full h-full">
                   <div
                     className="relative h-full"
@@ -220,8 +221,18 @@ export default function Page() {
                       {Chapters.map((chapter, index) => (
                         <CarouselItem key={index}>
                           <div className="p-1">
-                            <h4 className="mb-2">{chapter.title}</h4>
-                            <p className="sm:leading-5 md:leading-5 xl:leading-8">{chapter.description}</p>
+                            <h4
+                              className="mb-2"
+                              style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
+                            >
+                              {chapter.title}
+                            </h4>
+                            <p
+                              className="sm:leading-5 md:leading-5 xl:leading-8"
+                              style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+                            >
+                              {chapter.description}
+                            </p>
                           </div>
                         </CarouselItem>
                       ))}
@@ -248,6 +259,10 @@ export default function Page() {
                         width={40}
                         height={40}
                         className="sm:w-14 sm:h-14"
+                        style={{
+                          width: 'clamp(30px, 4vw, 56px)',
+                          height: 'clamp(30px, 4vw, 56px)'
+                        }}
                       />
                     </button>
 
@@ -271,6 +286,10 @@ export default function Page() {
                         width={40}
                         height={40}
                         className="sm:w-14 sm:h-14"
+                        style={{
+                          width: 'clamp(30px, 4vw, 56px)',
+                          height: 'clamp(30px, 4vw, 56px)'
+                        }}
                       />
                     </button>
                   </div>
@@ -318,6 +337,7 @@ export default function Page() {
               'round-text',
               'absolute z-40 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
               'transition-all duration-500',
+              'max-w-[90vw] sm:max-w-none',
               isShakaMoved && 'round-text--move',
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
@@ -325,7 +345,7 @@ export default function Page() {
               text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
               size={isShakaMoved
                 // img-size:moved mobile : desktop
-                ? isMobile ? 470 : 470
+                ? isMobile ? 400 : 400
                 // img-size:initial mobile : desktop
                 : isMobile ? 540 : 500
               }
