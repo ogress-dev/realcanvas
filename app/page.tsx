@@ -186,7 +186,7 @@ export default function Page() {
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10 max-w-full overflow-hidden">
             <div
-              className="relative w-[327px] h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
+              className="relative w-full h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
 
             >
               <Image
@@ -337,7 +337,7 @@ export default function Page() {
               'round-text',
               'absolute z-40 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
               'transition-all duration-500',
-              'max-w-[90vw] sm:max-w-none',
+              'sm:max-w-none',
               isShakaMoved && 'round-text--move',
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
