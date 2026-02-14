@@ -226,6 +226,7 @@
   }
   .round-text--move {
     left: 50%;
+    transform: translate(-50%, 0);
     right: auto;
     align-self: center;
     top: 0;
