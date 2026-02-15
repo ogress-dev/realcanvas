@@ -143,10 +143,11 @@ export default function Page() {
                 >
                   David Doro
                 </h1>
-                <LogoIcon size={50} className="sm:mt-2 mt-1 flex-shrink-0" />
+                <LogoIcon size={90} className="hidden sm:flex sm:mt-2 mt-1 flex-shrink-0" />
+                <LogoIcon size={50} className="sm:hidden sm:mt-2 mt-1 flex-shrink-0" />
               </div>
               <h1
-                className="sm:text-nowrap break-words leading-tight"
+                className="sm:text-nowrap break-words leading-tight gap-y-2"
                 style={{
                   fontSize: 'clamp(32px, 6vw, 100px)',
                   maxWidth: '100%'
@@ -160,7 +161,7 @@ export default function Page() {
                 >
                   &
                 </span>{' '}
-                Product
+                Product{' '}
                 <span className="sm:hidden">
                   <br />
                 </span>
@@ -170,7 +171,7 @@ export default function Page() {
             </span>
 
             <Image
-              src="/images/shaka.png"
+              src="/images/ann.svg"
               alt="David Doro"
               width={500}
               height={500}
@@ -256,8 +257,8 @@ export default function Page() {
                       style={{
                         left: hoveredSide === 'left' ? `${cursorPosition.x}px` : '1rem',
                         top: hoveredSide === 'left' ? `${cursorPosition.y}px` : '50%',
-                        transform: hoveredSide === 'left' 
-                          ? 'translate(-50%, -50%)' 
+                        transform: hoveredSide === 'left'
+                          ? 'translate(-50%, -50%)'
                           : 'translate(0, -50%)'
                       }}
                       disabled={currentSlide === 0}
@@ -291,8 +292,8 @@ export default function Page() {
                         left: hoveredSide === 'right' ? `${cursorPosition.x}px` : 'auto',
                         right: hoveredSide === 'right' ? 'auto' : '1rem',
                         top: hoveredSide === 'right' ? `${cursorPosition.y}px` : '50%',
-                        transform: hoveredSide === 'right' 
-                          ? 'translate(-50%, -50%)' 
+                        transform: hoveredSide === 'right'
+                          ? 'translate(-50%, -50%)'
                           : 'translate(0, -50%)'
                       }}
                       disabled={currentSlide === Chapters.length - 1}
