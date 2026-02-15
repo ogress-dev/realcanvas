@@ -117,7 +117,9 @@ export default function Page() {
 
   return (
     <>
-      <div className="hero w-dvw min-h-xl h-dvh overflow-hidden mx-auto relative">
+      <div
+        className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative"
+      >
         <section
           className={cn(
             'h-dvh',

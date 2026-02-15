@@ -117,10 +117,23 @@
     overflow: hidden;
   }
 
+  @media (max-width: 640px) {
+    html {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Satoshi', system-ui, sans-serif;
     overflow-x: hidden;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      overflow-y: auto;
+    }
   }
 
   h2,
@@ -137,6 +150,14 @@
 
   .hero {
     background: url('/images/bg.png') center/cover;
+  }
+
+  @media (max-width: 640px) {
+    /* Tiny extra room to allow address bar hide without a visible gap */
+    .hero-mobile-extra {
+      min-height: 104dvh;
+      padding-bottom: 4dvh;
+    }
   }
 
   .hero::before {
