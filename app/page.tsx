@@ -59,6 +59,7 @@ export default function Page() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!api) return;
@@ -212,8 +213,10 @@ export default function Page() {
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
                       const midpoint = rect.width / 2;
                       setHoveredSide(x < midpoint ? 'left' : 'right');
+                      setCursorPosition({ x, y });
                     }}
                     onMouseLeave={() => setHoveredSide(null)}
                   >
@@ -243,13 +246,20 @@ export default function Page() {
                     <button
                       onClick={goToPrevChapter}
                       className={cn(
-                        "absolute left-4 top-1/2 -translate-y-1/2",
-                        "flex-shrink-0 transition-all duration-300",
+                        "absolute transition-all duration-300",
+                        "flex-shrink-0",
                         "opacity-0",
                         hoveredSide === 'left' && "opacity-100",
                         "disabled:opacity-0 disabled:pointer-events-none",
                         "cursor-pointer"
                       )}
+                      style={{
+                        left: hoveredSide === 'left' ? `${cursorPosition.x}px` : '1rem',
+                        top: hoveredSide === 'left' ? `${cursorPosition.y}px` : '50%',
+                        transform: hoveredSide === 'left' 
+                          ? 'translate(-50%, -50%)' 
+                          : 'translate(0, -50%)'
+                      }}
                       disabled={currentSlide === 0}
                       aria-label="Previous chapter"
                     >
@@ -270,13 +280,21 @@ export default function Page() {
                     <button
                       onClick={goToNextChapter}
                       className={cn(
-                        "absolute right-4 top-1/2 -translate-y-1/2",
-                        "flex-shrink-0 transition-all duration-300",
+                        "absolute transition-all duration-300",
+                        "flex-shrink-0",
                         "opacity-0",
                         hoveredSide === 'right' && "opacity-100",
                         "disabled:opacity-0 disabled:pointer-events-none",
                         "cursor-pointer"
                       )}
+                      style={{
+                        left: hoveredSide === 'right' ? `${cursorPosition.x}px` : 'auto',
+                        right: hoveredSide === 'right' ? 'auto' : '1rem',
+                        top: hoveredSide === 'right' ? `${cursorPosition.y}px` : '50%',
+                        transform: hoveredSide === 'right' 
+                          ? 'translate(-50%, -50%)' 
+                          : 'translate(0, -50%)'
+                      }}
                       disabled={currentSlide === Chapters.length - 1}
                       aria-label="Next chapter"
                     >
@@ -303,9 +321,9 @@ export default function Page() {
                     hello@dorodavid.com
                   </Link>
                   <Link href="tel:+393456366497" className="hover:text-orange-500 w-fit">+39 345 636 6497</Link>
-                  <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
+                  {/* <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
                     Instagram
-                  </Link>
+                  </Link> */}
                   <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/" className="hover:text-orange-500 w-fit">
                     LinkedIn
                   </Link>
@@ -371,11 +389,11 @@ export default function Page() {
               <Link className="text-2xl" href="tel:+393456366497">
                 +39 345 636 6497
               </Link>
-              <Link
+              {/* <Link
                 className="text-2xl"
                 href="https://instagram.com/daviddoro.design">
                 Instagram
-              </Link>
+              </Link> */}
               <Link
                 className="text-2xl"
                 href="https://www.linkedin.com/in/david-doro-design-industriale/">
