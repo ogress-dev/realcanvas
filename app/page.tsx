@@ -149,26 +149,38 @@ export default function Page() {
                 <LogoIcon size={50} className="sm:hidden sm:mt-2 mt-1 flex-shrink-0" />
               </div>
               <h1
-                className="sm:text-nowrap break-words leading-tight gap-y-2"
-                style={{
-                  fontSize: 'clamp(32px, 6vw, 100px)',
-                  maxWidth: '100%'
-                }}
-              >
-                Brand{' '}
-                <span className="font-display font-normal"
-                  style={{
-                    fontSize: 'clamp(24px, 4.5vw, 70px)'
-                  }}
-                >
-                  &
-                </span>{' '}
-                Product{' '}
-                <span className="sm:hidden">
-                  <br />
-                </span>
-                Design
-              </h1>
+  className="sm:text-nowrap break-words leading-tight gap-y-2"
+  style={{
+    fontSize: 'clamp(32px, 6vw, 100px)',
+    maxWidth: '100%'
+  }}
+>
+  Brand{' '}
+  <span
+    className="font-display font-normal"
+    style={{
+      fontSize: 'clamp(24px, 4.5vw, 70px)'
+    }}
+  >
+    &
+  </span>{' '}
+  Product{' '}
+  
+  <span className="sm:hidden">
+    <br />
+  </span>
+
+  <span className="block mt-0 sm:inline "
+  style={{
+    fontSize: 'clamp(32px, 6vw, 100px)',
+    maxWidth: '100%',
+    marginTop:'-10px'
+  }}
+  >
+    Design
+  </span>
+</h1>
+
 
             </span>
 
