@@ -124,7 +124,7 @@ export default function Page() {
           className={cn(
             'h-dvh',
             'min-h-5xl',
-            'flex flex-col gap-6 sm:gap-8',
+            'flex flex-col gap-6 sm:gap-0',
             // 'bg-linear-to-b from-transparent to-foreground/20',
             'relative',
             'p-7',
@@ -133,9 +133,9 @@ export default function Page() {
             'justify-center sm:justify-start',
 
           )}>
-          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full">
+          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full max-sm:justify-between">
             <span className="flex flex-col mt-0 shrink min-w-0">
-              <div className="flex gap-1 sm:gap-2 items-start flex-wrap">
+              <div className="flex gap-1 sm:gap-1 items-start flex-wrap">
                 <h1
                   className="leading-none break-words"
                   style={{
@@ -145,41 +145,41 @@ export default function Page() {
                 >
                   David Doro
                 </h1>
-                <LogoIcon size={90} className="hidden sm:flex sm:mt-2 mt-1 flex-shrink-0" />
+                <LogoIcon size={80} className="hidden sm:flex sm:mt-5 sm:-ml-2 mt-1 flex-shrink-0 -ml-1" />
                 <LogoIcon size={50} className="sm:hidden sm:mt-2 mt-1 flex-shrink-0" />
               </div>
               <h1
-  className="sm:text-nowrap break-words leading-tight gap-y-2"
-  style={{
-    fontSize: 'clamp(32px, 6vw, 100px)',
-    maxWidth: '100%'
-  }}
->
-  Brand{' '}
-  <span
-    className="font-display font-normal"
-    style={{
-      fontSize: 'clamp(24px, 4.5vw, 70px)'
-    }}
-  >
-    &
-  </span>{' '}
-  Product{' '}
-  
-  <span className="sm:hidden">
-    <br />
-  </span>
+                className="sm:text-nowrap break-words leading-none sm:-mt-4 mt-0"
+                style={{
+                  fontSize: 'clamp(32px, 6vw, 100px)',
+                  maxWidth: '100%'
+                }}
+              >
+                Brand{' '}
+                <span
+                  className="font-display font-normal"
+                  style={{
+                    fontSize: 'clamp(32px, 6vw, 100px)'
+                  }}
+                >
+                  &
+                </span>{' '}
+                Product{' '}
 
-  <span className="block mt-0 sm:inline "
-  style={{
-    fontSize: 'clamp(32px, 6vw, 100px)',
-    maxWidth: '100%',
-    marginTop:'-10px'
-  }}
-  >
-    Design
-  </span>
-</h1>
+                <span className="sm:hidden">
+                  <br />
+                </span>
+
+                <span className="block mt-0 sm:inline "
+                  style={{
+                    fontSize: 'clamp(32px, 6vw, 100px)',
+                    maxWidth: '100%',
+                    marginTop: '-10px'
+                  }}
+                >
+                  Design
+                </span>
+              </h1>
 
 
             </span>
@@ -190,26 +190,25 @@ export default function Page() {
               width={500}
               height={500}
               className={cn(
-                'absolute z-21 right-6 top-4/5 sm:static sm:h-48 w-auto object-contain shaka-image shaka-hero flex-shrink-0',
+                ' z-21 right-6 top-4/5 sm:static sm:h-48 w-auto object-contain shaka-image shaka-hero flex-shrink-0',
                 'transition-all duration-500',
                 'max-h-[6rem] sm:max-h-[12rem]',
-                isShakaMoved && 'shaka-hero--move',
-                isHavingALook &&
-                'scale-[200%] right-[33vw] sm:-translate-x-[25vw] top-[40vh] sm:translate-y-[24vh] shaka-wiggle rotate-90 z-31'
+                // hide shaka while "Have a look" or contact is active
+                (isHavingALook || isShakaMoved) && 'opacity-0 pointer-events-none'
               )}
             />
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10 max-w-full overflow-hidden">
             <div
-              className="relative w-full h-[400px] sm:aspect-8/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
+              className="relative w-full h-[400px] sm:aspect-9/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
 
             >
               <Image
                 src="/images/daviddoro.jpg"
                 alt="David Doro"
                 fill
-                className="object-cover rounded-2xl"
+                className=" object-cover rounded-2xl"
               />
             </div>
 
@@ -335,7 +334,7 @@ export default function Page() {
                   <Link href="mailto:hello@dorodavid.com" className="hover:text-orange-500 w-fit">
                     hello@dorodavid.com
                   </Link>
-                  <Link href="tel:+393456366497" className="hover:text-orange-500 w-fit">+39 345 636 6497</Link>
+                  <Link href="https://wa.me/393456366497" className="hover:text-orange-500 w-fit">+39 345 636 6497</Link>
                   {/* <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
                     Instagram
                   </Link> */}
@@ -375,14 +374,21 @@ export default function Page() {
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
-              text="Set design | industrial design | Brand Identity | Web Design | Photography | Design Direction | UX&UI | Strategy |"
+              text="&nbsp; Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
               size={isShakaMoved
                 // img-size:moved mobile : desktop
-                ? isMobile ? 400 : 400
+                ? isMobile ? 350 : 350
                 // img-size:initial mobile : desktop
                 : isMobile ? 540 : 500
               }
             />
+            {isShakaMoved && (
+              <div className="absolute inset-0 flex items-center justify-center text-center">
+                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] uppercase text-white relative z-40 leading-none px-4">
+                  good things take time,<br/> come back soon
+                </h1>
+              </div>
+            )}
           </div>
 
           <div
@@ -398,10 +404,10 @@ export default function Page() {
             )}>
             <div className="w-full flex flex-col gap-1 *:text-background">
               <h1 className="font-display">Contact</h1>
-              <Link className="text-2xl" href="mailto:hello@dorodavid.com">
+              <Link className="text-2xl hover:text-orange-500 w-fit" href="mailto:hello@dorodavid.com">
                 hello@dorodavid.com
               </Link>
-              <Link className="text-2xl" href="tel:+393456366497">
+              <Link className="text-2xl hover:text-orange-500 w-fit" href="https://wa.me/393456366497">
                 +39 345 636 6497
               </Link>
               {/* <Link
@@ -410,7 +416,7 @@ export default function Page() {
                 Instagram
               </Link> */}
               <Link
-                className="text-2xl"
+                className="text-2xl hover:text-orange-500 w-fit"
                 href="https://www.linkedin.com/in/david-doro-design-industriale/">
                 LinkedIn
               </Link>
@@ -518,6 +524,11 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
+            <div className="flex-1 w-full flex items-center justify-center text-center">
+              <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] uppercase text-black relative z-40 leading-none">
+                good things take time,<br/> come back soon
+              </h1>
+            </div>
             <Button
               variant="outline"
               className="mt-12 border-foreground text-foreground z-31 w-full"

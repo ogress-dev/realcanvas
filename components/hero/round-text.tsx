@@ -13,7 +13,7 @@ interface RoundTextProps {
 export function RoundText({
   text,
   className,
-  size = 120,
+  size = 140,
   duration = 10,
   reverse = false,
 }: RoundTextProps) {
@@ -37,7 +37,7 @@ export function RoundText({
             fill="none"
           />
         </defs>
-        <text className="fill-background text-[5px] font-sans">
+        <text className="fill-background text-[6px] font-sans">
           <textPath href="#circlePath" startOffset="0%" textLength="232" lengthAdjust="spacing">
             {repeatedText}
           </textPath>
