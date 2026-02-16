@@ -130,7 +130,7 @@ export default function Page() {
             'overflow-hidden',
             'justify-center sm:justify-start'
           )}>
-          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full ">
+          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full">
             <span className="flex flex-col mt-0 shrink min-w-0">
               <div className="flex gap-1 sm:gap-1 items-start flex-wrap">
                 <h1
@@ -151,20 +151,26 @@ export default function Page() {
                 />
               </div>
               <h1
-                className="sm:text-nowrap break-words leading-none sm:-mt-4 mt-0"
+                className="sm:text-nowrap leading-none sm:-mt-4 mt-0"
                 style={{
                   fontSize: 'clamp(32px, 6vw, 100px)',
                   maxWidth: '100%',
                 }}>
-                Brand{' '}
-                <span
-                  className="font-display font-normal"
-                  style={{
-                    fontSize: 'clamp(32px, 6vw, 100px)',
-                  }}>
-                  &
+                <span className="inline-block whitespace-nowrap"
+                style={{
+                      fontSize: 'clamp(32px, 6vw, 100px)',
+                    }}
+                >
+                  Brand{' '}
+                  <span
+                    className="font-display font-normal"
+                    style={{
+                      fontSize: 'clamp(32px, 6vw, 100px)',
+                    }}>
+                    &
+                  </span>{' '}
+                  Product
                 </span>{' '}
-                Product{' '}
                 <span className="sm:hidden">
                   <br />
                 </span>
@@ -189,7 +195,7 @@ export default function Page() {
                 'shaka-image',
                 'z-21 left-auto sm:h-48 w-auto object-contain shaka-image shaka-hero shrink-0',
                 'transition-all duration-500',
-                'max-h-24 sm:max-h-48 ml-auto mr-10 sm:mx-0 right-10',
+                'max-h-24 sm:max-h-48 ml-auto mr-10 sm:mx-0 right-10 sm:ml-6',
                 isShakaMoved &&
                   'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24',
                 // hide shaka while "Have a look" is active
@@ -253,7 +259,7 @@ export default function Page() {
                     <button
                       onClick={goToPrevChapter}
                       className={cn(
-                        'absolute transition-all duration-300',
+                        'absolute transition-opacity duration-300',
                         'flex-shrink-0',
                         'opacity-0',
                         hoveredSide === 'left' && 'opacity-100',
@@ -293,7 +299,7 @@ export default function Page() {
                     <button
                       onClick={goToNextChapter}
                       className={cn(
-                        'absolute transition-all duration-300',
+                        'absolute transition-opacity duration-300',
                         'flex-shrink-0',
                         'opacity-0',
                         hoveredSide === 'right' && 'opacity-100',
@@ -547,9 +553,9 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <div className="flex-1 w-full flex items-center justify-center text-center">
+            <div className="flex-1 w-full flex items-center justify-center text-start sm:text-center">
               <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
-                Good things take time.
+                Good things <span className="sm:hidden"><br/></span> take time.
                 <br /> Come back soon
               </h1>
             </div>
