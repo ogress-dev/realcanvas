@@ -133,7 +133,7 @@ export default function Page() {
             'justify-center sm:justify-start',
 
           )}>
-          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full max-sm:justify-between">
+          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full ">
             <span className="flex flex-col mt-0 shrink min-w-0">
               <div className="flex gap-1 sm:gap-1 items-start flex-wrap">
                 <h1
@@ -193,8 +193,9 @@ export default function Page() {
                 ' z-21 right-6 top-4/5 sm:static sm:h-48 w-auto object-contain shaka-image shaka-hero flex-shrink-0',
                 'transition-all duration-500',
                 'max-h-[6rem] sm:max-h-[12rem]',
-                // hide shaka while "Have a look" or contact is active
-                (isHavingALook || isShakaMoved) && 'opacity-0 pointer-events-none'
+                isShakaMoved && 'shaka-hero--move',
+                // hide shaka while "Have a look" is active
+                isHavingALook && 'opacity-0 pointer-events-none'
               )}
             />
           </div>
@@ -377,14 +378,14 @@ export default function Page() {
               text="&nbsp; Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
               size={isShakaMoved
                 // img-size:moved mobile : desktop
-                ? isMobile ? 350 : 350
+                ? isMobile ? 420 : 350
                 // img-size:initial mobile : desktop
                 : isMobile ? 540 : 500
               }
             />
             {isShakaMoved && (
               <div className="absolute inset-0 flex items-center justify-center text-center">
-                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 whitespace-nowrap">
+                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 mt-8">
                   Good things take time.<br/> Come back soon
                 </h1>
               </div>

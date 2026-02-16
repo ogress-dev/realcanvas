@@ -84,6 +84,7 @@
 }
 
 @layer base {
+
   /* Force light mode colors */
   :root,
   .dark {
@@ -153,6 +154,7 @@
   }
 
   @media (max-width: 640px) {
+
     /* Tiny extra room to allow address bar hide without a visible gap */
     .hero-mobile-extra {
       min-height: 104dvh;
@@ -172,6 +174,7 @@
     pointer-events: none;
     z-index: 0;
   }
+
   .mobile-carousel {
     position: relative;
     background: url('/images/bg.png') center/cover;
@@ -207,15 +210,19 @@
   h1 {
     @apply text-5xl sm:text-6xl md:text-7xl font-semibold;
   }
+
   h2 {
     @apply text-3xl sm:text-4xl md:text-5xl font-semibold;
   }
+
   h3 {
     @apply text-2xl sm:text-3xl md:text-4xl font-semibold;
   }
+
   h4 {
     @apply text-xl sm:text-2xl md:text-3xl font-semibold;
   }
+
   p,
   span {
     @apply text-base;
@@ -236,8 +243,9 @@
   }
 
   .shaka-hero.shaka-hero--move {
-    transform: translate(-50%, 5vh) scale(2.5) rotate(90deg);
+    transform: translate(50%) scale(2.1) rotate(90deg);
     left: 50%;
+    right: auto;
   }
 
   .round-text {
@@ -245,6 +253,7 @@
     will-change: transform;
     transform-origin: center;
   }
+
   .round-text--move {
     left: 50%;
     transform: translate(-50%, 0);
@@ -255,25 +264,32 @@
   }
 
   @keyframes wiggle {
+
     0%,
     100% {
       transform: rotate(00deg);
     }
+
     15% {
       transform: rotate(15deg);
     }
+
     30% {
       transform: rotate(-12deg);
     }
+
     45% {
       transform: rotate(8deg);
     }
+
     60% {
       transform: rotate(-6deg);
     }
+
     75% {
       transform: rotate(4deg);
     }
+
     90% {
       transform: rotate(-2deg);
     }
