@@ -84,7 +84,6 @@
 }
 
 @layer base {
-
   /* Force light mode colors */
   :root,
   .dark {
@@ -154,7 +153,6 @@
   }
 
   @media (max-width: 640px) {
-
     /* Tiny extra room to allow address bar hide without a visible gap */
     .hero-mobile-extra {
       min-height: 104dvh;
@@ -243,9 +241,7 @@
   }
 
   .shaka-hero.shaka-hero--move {
-    transform: translate(50%) scale(2.1) rotate(90deg);
-    left: 50%;
-    right: auto;
+    transform: scale(2.1) rotate(90deg);
   }
 
   .round-text {
@@ -264,7 +260,6 @@
   }
 
   @keyframes wiggle {
-
     0%,
     100% {
       transform: rotate(00deg);

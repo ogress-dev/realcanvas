@@ -117,9 +117,7 @@ export default function Page() {
 
   return (
     <>
-      <div
-        className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative"
-      >
+      <div className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative">
         <section
           className={cn(
             'h-dvh',
@@ -130,8 +128,7 @@ export default function Page() {
             'p-7',
             'max-w-full',
             'overflow-hidden',
-            'justify-center sm:justify-start',
-
+            'justify-center sm:justify-start'
           )}>
           <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full ">
             <span className="flex flex-col mt-0 shrink min-w-0">
@@ -140,48 +137,47 @@ export default function Page() {
                   className="leading-none break-words"
                   style={{
                     fontSize: 'clamp(2rem, 6vw, 8rem)',
-                    maxWidth: '100%'
-                  }}
-                >
+                    maxWidth: '100%',
+                  }}>
                   David Doro
                 </h1>
-                <LogoIcon size={80} className="hidden sm:flex sm:mt-5 sm:-ml-2 mt-1 flex-shrink-0 -ml-1" />
-                <LogoIcon size={50} className="sm:hidden sm:mt-2 mt-1 flex-shrink-0" />
+                <LogoIcon
+                  size={80}
+                  className="hidden sm:flex sm:mt-5 sm:-ml-2 mt-1 flex-shrink-0 -ml-1"
+                />
+                <LogoIcon
+                  size={50}
+                  className="sm:hidden sm:mt-2 mt-1 flex-shrink-0"
+                />
               </div>
               <h1
                 className="sm:text-nowrap break-words leading-none sm:-mt-4 mt-0"
                 style={{
                   fontSize: 'clamp(32px, 6vw, 100px)',
-                  maxWidth: '100%'
-                }}
-              >
+                  maxWidth: '100%',
+                }}>
                 Brand{' '}
                 <span
                   className="font-display font-normal"
                   style={{
-                    fontSize: 'clamp(32px, 6vw, 100px)'
-                  }}
-                >
+                    fontSize: 'clamp(32px, 6vw, 100px)',
+                  }}>
                   &
                 </span>{' '}
                 Product{' '}
-
                 <span className="sm:hidden">
                   <br />
                 </span>
-
-                <span className="block mt-0 sm:inline "
+                <span
+                  className="block mt-0 sm:inline "
                   style={{
                     fontSize: 'clamp(32px, 6vw, 100px)',
                     maxWidth: '100%',
-                    marginTop: '-10px'
-                  }}
-                >
+                    marginTop: '-10px',
+                  }}>
                   Design
                 </span>
               </h1>
-
-
             </span>
 
             <Image
@@ -190,10 +186,12 @@ export default function Page() {
               width={500}
               height={500}
               className={cn(
-                ' z-21 right-6 top-4/5 sm:static sm:h-48 w-auto object-contain shaka-image shaka-hero flex-shrink-0',
+                'shaka-image',
+                'z-21 left-auto sm:h-48 w-auto object-contain shaka-image shaka-hero shrink-0',
                 'transition-all duration-500',
-                'max-h-[6rem] sm:max-h-[12rem]',
-                isShakaMoved && 'shaka-hero--move',
+                'max-h-24 sm:max-h-48 ml-auto mr-10 sm:mx-0 right-10',
+                isShakaMoved &&
+                  'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24',
                 // hide shaka while "Have a look" is active
                 isHavingALook && 'opacity-0 pointer-events-none'
               )}
@@ -201,10 +199,7 @@ export default function Page() {
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10 max-w-full overflow-hidden">
-            <div
-              className="relative w-full h-[400px] sm:aspect-9/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0"
-
-            >
+            <div className="relative w-full h-[400px] sm:aspect-9/10 sm:w-auto sm:h-auto sm:max-w-1/3 flex-1 flex-shrink-0">
               <Image
                 src="/images/daviddoro.jpg"
                 alt="David Doro"
@@ -233,22 +228,19 @@ export default function Page() {
                       setHoveredSide(x < midpoint ? 'left' : 'right');
                       setCursorPosition({ x, y });
                     }}
-                    onMouseLeave={() => setHoveredSide(null)}
-                  >
+                    onMouseLeave={() => setHoveredSide(null)}>
                     <CarouselContent className="h-full">
                       {Chapters.map((chapter, index) => (
                         <CarouselItem key={index}>
                           <div className="p-1">
                             <h4
                               className="mb-2"
-                              style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
-                            >
+                              style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
                               {chapter.title}
                             </h4>
                             <p
                               className="sm:leading-5 md:leading-5 xl:leading-8"
-                              style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
-                            >
+                              style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                               {chapter.description}
                             </p>
                           </div>
@@ -261,23 +253,29 @@ export default function Page() {
                     <button
                       onClick={goToPrevChapter}
                       className={cn(
-                        "absolute transition-all duration-300",
-                        "flex-shrink-0",
-                        "opacity-0",
-                        hoveredSide === 'left' && "opacity-100",
-                        "disabled:opacity-0 disabled:pointer-events-none",
-                        "cursor-pointer"
+                        'absolute transition-all duration-300',
+                        'flex-shrink-0',
+                        'opacity-0',
+                        hoveredSide === 'left' && 'opacity-100',
+                        'disabled:opacity-0 disabled:pointer-events-none',
+                        'cursor-pointer'
                       )}
                       style={{
-                        left: hoveredSide === 'left' ? `${cursorPosition.x}px` : '1rem',
-                        top: hoveredSide === 'left' ? `${cursorPosition.y}px` : '50%',
-                        transform: hoveredSide === 'left'
-                          ? 'translate(-50%, -50%)'
-                          : 'translate(0, -50%)'
+                        left:
+                          hoveredSide === 'left'
+                            ? `${cursorPosition.x}px`
+                            : '1rem',
+                        top:
+                          hoveredSide === 'left'
+                            ? `${cursorPosition.y}px`
+                            : '50%',
+                        transform:
+                          hoveredSide === 'left'
+                            ? 'translate(-50%, -50%)'
+                            : 'translate(0, -50%)',
                       }}
                       disabled={currentSlide === 0}
-                      aria-label="Previous chapter"
-                    >
+                      aria-label="Previous chapter">
                       <Image
                         src="/images/left.svg"
                         alt="Previous"
@@ -286,7 +284,7 @@ export default function Page() {
                         className="sm:w-14 sm:h-14"
                         style={{
                           width: 'clamp(30px, 4vw, 56px)',
-                          height: 'clamp(30px, 4vw, 56px)'
+                          height: 'clamp(30px, 4vw, 56px)',
                         }}
                       />
                     </button>
@@ -295,24 +293,30 @@ export default function Page() {
                     <button
                       onClick={goToNextChapter}
                       className={cn(
-                        "absolute transition-all duration-300",
-                        "flex-shrink-0",
-                        "opacity-0",
-                        hoveredSide === 'right' && "opacity-100",
-                        "disabled:opacity-0 disabled:pointer-events-none",
-                        "cursor-pointer"
+                        'absolute transition-all duration-300',
+                        'flex-shrink-0',
+                        'opacity-0',
+                        hoveredSide === 'right' && 'opacity-100',
+                        'disabled:opacity-0 disabled:pointer-events-none',
+                        'cursor-pointer'
                       )}
                       style={{
-                        left: hoveredSide === 'right' ? `${cursorPosition.x}px` : 'auto',
+                        left:
+                          hoveredSide === 'right'
+                            ? `${cursorPosition.x}px`
+                            : 'auto',
                         right: hoveredSide === 'right' ? 'auto' : '1rem',
-                        top: hoveredSide === 'right' ? `${cursorPosition.y}px` : '50%',
-                        transform: hoveredSide === 'right'
-                          ? 'translate(-50%, -50%)'
-                          : 'translate(0, -50%)'
+                        top:
+                          hoveredSide === 'right'
+                            ? `${cursorPosition.y}px`
+                            : '50%',
+                        transform:
+                          hoveredSide === 'right'
+                            ? 'translate(-50%, -50%)'
+                            : 'translate(0, -50%)',
                       }}
                       disabled={currentSlide === Chapters.length - 1}
-                      aria-label="Next chapter"
-                    >
+                      aria-label="Next chapter">
                       <Image
                         src="/images/right.svg"
                         alt="Next"
@@ -321,7 +325,7 @@ export default function Page() {
                         className="sm:w-14 sm:h-14"
                         style={{
                           width: 'clamp(30px, 4vw, 56px)',
-                          height: 'clamp(30px, 4vw, 56px)'
+                          height: 'clamp(30px, 4vw, 56px)',
                         }}
                       />
                     </button>
@@ -332,14 +336,22 @@ export default function Page() {
               <div className="contact flex items-end gap-8 justify-between">
                 <div className="w-full flex flex-col gap-1">
                   <h4>Contact</h4>
-                  <Link href="mailto:hello@dorodavid.com" className="hover:text-orange-500 w-fit">
+                  <Link
+                    href="mailto:hello@dorodavid.com"
+                    className="hover:text-orange-500 w-fit">
                     hello@dorodavid.com
                   </Link>
-                  <Link href="https://wa.me/393456366497" className="hover:text-orange-500 w-fit">+39 345 636 6497</Link>
+                  <Link
+                    href="https://wa.me/393456366497"
+                    className="hover:text-orange-500 w-fit">
+                    +39 345 636 6497
+                  </Link>
                   {/* <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
                     Instagram
                   </Link> */}
-                  <Link href="/https://www.linkedin.com/in/david-doro-design-industriale/" className="hover:text-orange-500 w-fit">
+                  <Link
+                    href="/https://www.linkedin.com/in/david-doro-design-industriale/"
+                    className="hover:text-orange-500 w-fit">
                     LinkedIn
                   </Link>
                 </div>
@@ -350,10 +362,12 @@ export default function Page() {
               </div>
             </div>
 
-            <div className={cn(
-              'bottom w-full flex sm:hidden items-center justify-between gap-4 z-42',
-              (isShakaMoved || isHavingALook || isReadingMe) && 'opacity-0 pointer-events-none'
-            )}>
+            <div
+              className={cn(
+                'bottom w-full flex sm:hidden items-center justify-between gap-4 z-42',
+                (isShakaMoved || isHavingALook || isReadingMe) &&
+                  'opacity-0 pointer-events-none'
+              )}>
               <Button onClick={contactClick} variant="secondary">
                 Contact
               </Button>
@@ -376,17 +390,23 @@ export default function Page() {
             )}>
             <RoundText
               text="&nbsp; Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
-              size={isShakaMoved
-                // img-size:moved mobile : desktop
-                ? isMobile ? 420 : 350
-                // img-size:initial mobile : desktop
-                : isMobile ? 540 : 500
+              size={
+                isShakaMoved
+                  ? // img-size:moved mobile : desktop
+                    isMobile
+                    ? 420
+                    : 350
+                  : // img-size:initial mobile : desktop
+                    isMobile
+                    ? 540
+                    : 500
               }
             />
             {isShakaMoved && (
-              <div className="absolute inset-0 flex items-center justify-center text-center">
-                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 mt-8">
-                  Good things take time.<br/> Come back soon
+              <div className="good-things absolute inset-0 flex items-center justify-center text-center">
+                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 mt-16">
+                  Good things take time.
+                  <br /> Come back soon
                 </h1>
               </div>
             )}
@@ -405,10 +425,14 @@ export default function Page() {
             )}>
             <div className="w-full flex flex-col gap-1 *:text-background">
               <h1 className="font-display">Contact</h1>
-              <Link className="text-2xl hover:text-orange-500 w-fit" href="mailto:hello@dorodavid.com">
+              <Link
+                className="text-2xl hover:text-orange-500 w-fit"
+                href="mailto:hello@dorodavid.com">
                 hello@dorodavid.com
               </Link>
-              <Link className="text-2xl hover:text-orange-500 w-fit" href="https://wa.me/393456366497">
+              <Link
+                className="text-2xl hover:text-orange-500 w-fit"
+                href="https://wa.me/393456366497">
                 +39 345 636 6497
               </Link>
               {/* <Link
@@ -461,16 +485,15 @@ export default function Page() {
                   <button
                     onClick={goToPrevChapterMobile}
                     className={cn(
-                      "absolute left-0 top-1/2 -translate-y-1/2",
-                      "flex-shrink-0 transition-all duration-300 pointer-events-auto",
-                      "opacity-0",
-                      "group-[&_~_div:first-child]:hover:opacity-100",
-                      "disabled:opacity-0 disabled:pointer-events-none",
-                      "cursor-pointer"
+                      'absolute left-0 top-1/2 -translate-y-1/2',
+                      'flex-shrink-0 transition-all duration-300 pointer-events-auto',
+                      'opacity-0',
+                      'group-[&_~_div:first-child]:hover:opacity-100',
+                      'disabled:opacity-0 disabled:pointer-events-none',
+                      'cursor-pointer'
                     )}
                     disabled={mobileCurrentSlide === 0}
-                    aria-label="Previous chapter"
-                  >
+                    aria-label="Previous chapter">
                     <Image
                       src="/images/left.svg"
                       alt="Previous"
@@ -485,16 +508,15 @@ export default function Page() {
                   <button
                     onClick={goToNextChapterMobile}
                     className={cn(
-                      "absolute right-0 top-1/2 -translate-y-1/2",
-                      "flex-shrink-0 transition-all duration-300 pointer-events-auto",
-                      "opacity-0",
-                      "group-[&_~_div:last-child]:hover:opacity-100",
-                      "disabled:opacity-0 disabled:pointer-events-none",
-                      "cursor-pointer"
+                      'absolute right-0 top-1/2 -translate-y-1/2',
+                      'flex-shrink-0 transition-all duration-300 pointer-events-auto',
+                      'opacity-0',
+                      'group-[&_~_div:last-child]:hover:opacity-100',
+                      'disabled:opacity-0 disabled:pointer-events-none',
+                      'cursor-pointer'
                     )}
                     disabled={mobileCurrentSlide === Chapters.length - 1}
-                    aria-label="Next chapter"
-                  >
+                    aria-label="Next chapter">
                     <Image
                       src="/images/right.svg"
                       alt="Next"
@@ -527,7 +549,8 @@ export default function Page() {
             )}>
             <div className="flex-1 w-full flex items-center justify-center text-center">
               <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
-                Good things take time.<br/> Come back soon
+                Good things take time.
+                <br /> Come back soon
               </h1>
             </div>
             <Button
