@@ -130,9 +130,9 @@ export default function Page() {
             'overflow-hidden',
             'justify-center sm:justify-start'
           )}>
-          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full">
+          <div className="top w-full relative flex sm:items-center sm:gap-6 max-w-full items-start">
             <span className="flex flex-col mt-0 shrink min-w-0">
-              <div className="flex gap-1 sm:gap-1 items-start flex-wrap">
+              <div className="flex gap-1 sm:gap-1 items-start">
                 <h1
                   className="leading-none break-words"
                   style={{
@@ -143,11 +143,11 @@ export default function Page() {
                 </h1>
                 <LogoIcon
                   size={80}
-                  className="hidden sm:flex sm:mt-5 sm:-ml-2 mt-1 flex-shrink-0 -ml-1"
+                  className="hidden sm:flex sm:mt-5 sm:-ml-2 flex-shrink-0"
                 />
                 <LogoIcon
                   size={50}
-                  className="sm:hidden sm:mt-2 mt-1 flex-shrink-0"
+                  className="sm:hidden mt-2 flex-shrink-0"
                 />
               </div>
               <h1
@@ -156,11 +156,11 @@ export default function Page() {
                   fontSize: 'clamp(32px, 6vw, 100px)',
                   maxWidth: '100%',
                 }}>
-                <span className="inline-block whitespace-nowrap"
-                style={{
-                      fontSize: 'clamp(32px, 6vw, 100px)',
-                    }}
-                >
+                <span
+                  className="block sm:inline whitespace-nowrap"
+                  style={{
+                    fontSize: 'clamp(32px, 6vw, 100px)',
+                  }}>
                   Brand{' '}
                   <span
                     className="font-display font-normal"
@@ -171,11 +171,8 @@ export default function Page() {
                   </span>{' '}
                   Product
                 </span>{' '}
-                <span className="sm:hidden">
-                  <br />
-                </span>
                 <span
-                  className="block mt-0 sm:inline "
+                  className="block sm:inline mt-0"
                   style={{
                     fontSize: 'clamp(32px, 6vw, 100px)',
                     maxWidth: '100%',
@@ -193,9 +190,9 @@ export default function Page() {
               height={500}
               className={cn(
                 'shaka-image',
-                'z-21 left-auto sm:h-48 w-auto object-contain shaka-image shaka-hero shrink-0',
+                'z-21 sm:h-48 w-auto object-contain shaka-hero shrink-0',
                 'transition-all duration-500',
-                'max-h-24 sm:max-h-48 ml-auto mr-10 sm:mx-0 right-10 sm:ml-6',
+                'max-h-24 sm:max-h-48 ml-auto sm:ml-6',
                 isShakaMoved &&
                   'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24',
                 // hide shaka while "Have a look" is active
@@ -408,14 +405,14 @@ export default function Page() {
                     : 500
               }
             />
-            {isShakaMoved && (
+            {/* {isShakaMoved && (
               <div className="good-things absolute inset-0 flex items-center justify-center text-center">
                 <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 mt-16">
                   Good things take time.
                   <br /> Come back soon
                 </h1>
               </div>
-            )}
+            )} */}
           </div>
 
           <div
@@ -553,7 +550,7 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <div className="flex-1 w-full flex items-center justify-center text-start sm:text-center">
+            <div className="flex-1 w-full flex items-center justify-center text-center">
               <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
                 Good things <span className="sm:hidden"><br/></span> take time.
                 <br /> Come back soon
