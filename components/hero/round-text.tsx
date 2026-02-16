@@ -13,7 +13,7 @@ interface RoundTextProps {
 export function RoundText({
   text,
   className,
-  size = 140,
+  size = 120,
   duration = 10,
   reverse = false,
 }: RoundTextProps) {

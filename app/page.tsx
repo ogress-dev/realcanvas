@@ -384,8 +384,8 @@ export default function Page() {
             />
             {isShakaMoved && (
               <div className="absolute inset-0 flex items-center justify-center text-center">
-                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] uppercase text-white relative z-40 leading-none px-4">
-                  good things take time,<br/> come back soon
+                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 whitespace-nowrap">
+                  Good things take time.<br/> Come back soon
                 </h1>
               </div>
             )}
@@ -525,8 +525,8 @@ export default function Page() {
                 : 'opacity-0 pointer-events-none'
             )}>
             <div className="flex-1 w-full flex items-center justify-center text-center">
-              <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] uppercase text-black relative z-40 leading-none">
-                good things take time,<br/> come back soon
+              <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
+                Good things take time.<br/> Come back soon
               </h1>
             </div>
             <Button
