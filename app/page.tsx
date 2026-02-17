@@ -603,6 +603,7 @@ export default function Page() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         required
+                        
                         className="px-4 py-3  rounded-lg text-foreground bg-background focus:outline-none"
                       />
                       <input
