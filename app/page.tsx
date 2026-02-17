@@ -493,7 +493,7 @@ export default function Page() {
 
               <Button
                 variant="outline"
-                className="mt-6"
+                className="mt-6 hover:bg-background hover:text-foreground hover:border-background"
                 onClick={() => setIsShakaMoved(false)}>
                 <ArrowLeft />
                 Back
@@ -575,7 +575,7 @@ export default function Page() {
 
             <Button
               variant="outline"
-              className="mt-6 border-foreground text-foreground z-31"
+              className="mt-6 border-foreground text-foreground z-31 hover:bg-foreground hover:text-background hover:border-background"
               onClick={() => setIsReadingMe(false)}>
               <ArrowLeft />
               Back
@@ -638,7 +638,7 @@ export default function Page() {
             </div>
             <Button
               variant="outline"
-              className="mt-12 border-foreground text-foreground z-31 w-full"
+              className="mt-12 border-foreground text-foreground z-31 w-full hover:bg-foreground hover:text-background hover:border-background"
               onClick={() => setIsHavingALook(false)}>
               <ArrowLeft />
               Back
