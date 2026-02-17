@@ -278,7 +278,7 @@ export default function Page() {
                               {chapter.title}
                             </h4>
                             <p
-                              className="sm:leading-5 md:leading-5 xl:leading-8"
+                              className="sm:leading-5 md:leading-5 xl:leading-7"
                               style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                               {chapter.description}
                             </p>
@@ -380,13 +380,13 @@ export default function Page() {
                   <Link
                     href="mailto:hello@dorodavid.com"
                     
-                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                    className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
                      style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     hello@dorodavid.com
                   </Link>
                   <Link
                     href="https://wa.me/393456366497"
-                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                    className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
                      style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     +39 345 636 6497
                   </Link>
@@ -395,7 +395,7 @@ export default function Page() {
                   </Link> */}
                   <Link
                     href="/https://www.linkedin.com/in/david-doro-design-industriale/"
-                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                    className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
                      style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     LinkedIn
                   </Link>
