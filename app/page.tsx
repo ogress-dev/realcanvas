@@ -194,7 +194,7 @@ export default function Page() {
                 'transition-all duration-500',
                 'max-h-24 sm:max-h-48 ml-auto sm:ml-6',
                 isShakaMoved &&
-                  'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24',
+                  'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
                 // hide shaka while "Have a look" is active
                 isHavingALook && 'opacity-0 pointer-events-none'
               )}
@@ -388,7 +388,7 @@ export default function Page() {
               'absolute z-40 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
               'transition-all duration-500',
               'sm:max-w-none',
-              isShakaMoved && 'round-text--move',
+              isShakaMoved && 'round-text--move sm:opacity-0 sm:pointer-events-none',
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
