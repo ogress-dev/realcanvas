@@ -595,7 +595,7 @@ export default function Page() {
                   </h1>
                   
                   <div className="w-full max-w-md">
-                    <p className="text-lg mb-4 text-foreground">Leave your email and I'll let you know when it's ready</p>
+                    <p className="text-lg mb-4 text-foreground">Curious about the projects? Leave your email.</p>
                     <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
                       <input
                         type="text"
