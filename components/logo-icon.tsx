@@ -7,7 +7,7 @@ interface LogoIconProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 
 }
 
 const LogoIcon = React.forwardRef<HTMLImageElement, LogoIconProps>(
-  ({ size = 35, className, src = "/images/Group2.png", ...props }, ref) => {
+  ({ size = 35, className, src = "/images/yepppp.svg", ...props }, ref) => {
     const aspectRatio = 5 / 19
     const width = size * aspectRatio
 
