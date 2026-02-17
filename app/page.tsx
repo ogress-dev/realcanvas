@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { RoundText } from '@/components/hero/round-text';
 import { useIsMobile } from '@/hooks/useMobile';
+import { button } from 'motion/react-client';
 
 function CarouselDots({
   api,
@@ -60,6 +61,10 @@ export default function Page() {
   const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
     if (!api) return;
@@ -111,7 +116,38 @@ export default function Page() {
 
   function haveLookClick() {
     setIsHavingALook((prev) => !prev);
+    setSubmitSuccess(false);
+    setFullName('');
+    setEmail('');
   }
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fullName, email }),
+      });
+
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setFullName('');
+        setEmail('');
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const isMobile = useIsMobile();
 
@@ -550,11 +586,48 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <div className="flex-1 w-full flex items-center justify-center text-center">
-              <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
-                Good things <span className="sm:hidden"><br/></span> take time.
-                <br /> Come back soon
-              </h1>
+            <div className="flex-1 w-full flex flex-col items-center justify-center text-center gap-8 z-800">
+              {!submitSuccess ? (
+                <>
+                  <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
+                    Good things <span className="sm:hidden"><br/></span> take time.
+                    <br /> Come back soon
+                  </h1>
+                  
+                  <div className="w-full max-w-md">
+                    <p className="text-lg mb-4 text-foreground">Leave your email and I'll let you know when it's ready</p>
+                    <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
+                      <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                        className="px-4 py-3  rounded-lg text-foreground bg-background focus:outline-none"
+                      />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="px-4 py-3  rounded-lg text-foreground bg-background focus:outline-none"
+                      />
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}>
+                        {isSubmitting ? 'Submitting...' : 'Notify Me'} 
+                      </Button>
+                    </form>
+                  </div>
+                </>
+              ) : (
+                <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
+                  Thank you!
+                  <br />
+                  You will get updates when it's ready
+                </h1>
+              )}
             </div>
             <Button
               variant="outline"
