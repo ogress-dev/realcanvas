@@ -374,15 +374,20 @@ export default function Page() {
 
               <div className="contact flex items-end gap-8 justify-between">
                 <div className="w-full flex flex-col gap-1">
-                  <h4>Contact</h4>
+                  <h4 
+                  style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
+                  >Contact</h4>
                   <Link
                     href="mailto:hello@dorodavid.com"
-                    className="hover:text-orange-500 w-fit">
+                    
+                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     hello@dorodavid.com
                   </Link>
                   <Link
                     href="https://wa.me/393456366497"
-                    className="hover:text-orange-500 w-fit">
+                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     +39 345 636 6497
                   </Link>
                   {/* <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
@@ -390,7 +395,8 @@ export default function Page() {
                   </Link> */}
                   <Link
                     href="/https://www.linkedin.com/in/david-doro-design-industriale/"
-                    className="hover:text-orange-500 w-fit">
+                    className="sm:leading-5 md:leading-5 xl:leading-8 hover:text-orange-500 w-fit"
+                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     LinkedIn
                   </Link>
                 </div>
