@@ -271,7 +271,7 @@ export default function Page() {
                     <CarouselContent className="h-full">
                       {Chapters.map((chapter, index) => (
                         <CarouselItem key={index}>
-                          <div className="p-1">
+                          <div className="">
                             <h4
                               className="mb-2"
                               style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
