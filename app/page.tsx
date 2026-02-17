@@ -615,8 +615,9 @@ export default function Page() {
                       />
                       <Button
                         type="submit"
+                        variant="orange"
                         disabled={isSubmitting}>
-                        {isSubmitting ? 'Submitting...' : 'Notify Me'} 
+                        {isSubmitting ? 'Submitting...' : 'Keep me posted'} 
                       </Button>
                     </form>
                   </div>
