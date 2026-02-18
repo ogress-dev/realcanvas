@@ -434,7 +434,7 @@ export default function Page() {
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
-              text="&nbsp; Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
+              text="&nbsp;Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
               size={
                 isShakaMoved
                   ? // img-size:moved mobile : desktop
