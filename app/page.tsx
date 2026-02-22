@@ -176,15 +176,21 @@ export default function Page() {
                     maxWidth: '100%',
                   }}>
                   David Doro
+                  
                 </h1>
-                <LogoIcon
+                {/* <LogoIcon
                   size={80}
                   className="hidden sm:flex sm:mt-5 sm:-ml-2 flex-shrink-0"
                 />
                 <LogoIcon
                   size={50}
                   className="sm:hidden mt-2 flex-shrink-0"
-                />
+                /> */}
+
+
+                <sup className="xl:mt-5 hidden sm:flex"><LogoIcon size={80}/></sup>
+                <sup className="xl:mt-5 sm:hidden"><LogoIcon size={50}/></sup>
+
               </div>
               <h1
                 className="sm:text-nowrap leading-none sm:-mt-4 mt-0"
