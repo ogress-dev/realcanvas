@@ -162,7 +162,9 @@ export default function Page() {
           className={cn(
             "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500",
             // Hide on mobile unless reading
-            isMobile && !isReadingMe && "opacity-0 pointer-events-none"
+            isMobile && !isReadingMe && "opacity-0 pointer-events-none",
+            // Hide when "Have a look" is active
+            isHavingALook && "opacity-0 pointer-events-none"
           )}
           style={{
             width: isMobile ? '80px' : '100px',
