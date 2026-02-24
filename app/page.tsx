@@ -65,6 +65,7 @@ export default function Page() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [agreedToPolicy, setAgreedToPolicy] = useState(false);
 
   useEffect(() => {
     if (!api) return;
@@ -119,6 +120,7 @@ export default function Page() {
     setSubmitSuccess(false);
     setFullName('');
     setEmail('');
+    setAgreedToPolicy(false);
   }
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -262,7 +264,7 @@ export default function Page() {
 
             <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0">
               <div className="chapters w-full flex-1 min-h-0 overflow-hidden">
-                <Carousel setApi={setApi} className="w-full h-full">
+                {/* <Carousel setApi={setApi} className="w-full h-full">
                   <div
                     className="relative h-full"
                     onMouseMove={(e) => {
@@ -292,10 +294,24 @@ export default function Page() {
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    <CarouselDots api={api} count={Chapters.length} />
+                    <CarouselDots api={api} count={Chapters.length} /> */}
+
+                    {/* Single Chapter Display */}
+                    <div className="">
+                      <h4
+                        className="mb-2"
+                        style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
+                        {Chapters[0].title}
+                      </h4>
+                      <p
+                        className="sm:leading-5 md:leading-5 xl:leading-7"
+                        style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
+                        {Chapters[0].description}
+                      </p>
+                    </div>
 
                     {/* Left arrow */}
-                    <button
+                    {/* <button
                       onClick={goToPrevChapter}
                       className={cn(
                         'absolute transition-opacity duration-300',
@@ -332,10 +348,10 @@ export default function Page() {
                           height: 'clamp(30px, 4vw, 56px)',
                         }}
                       />
-                    </button>
+                    </button> */}
 
                     {/* Right arrow */}
-                    <button
+                    {/* <button
                       onClick={goToNextChapter}
                       className={cn(
                         'absolute transition-opacity duration-300',
@@ -375,7 +391,7 @@ export default function Page() {
                       />
                     </button>
                   </div>
-                </Carousel>
+                </Carousel> */}
               </div>
 
               <div className="contact flex items-end gap-8 justify-between">
@@ -517,7 +533,7 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <Carousel setApi={setMobileApi} className="w-full z-31">
+            {/* <Carousel setApi={setMobileApi} className="w-full z-31">
               <div className="relative">
                 <CarouselContent>
                   {Chapters.map((chapter, index) => (
@@ -529,10 +545,16 @@ export default function Page() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselDots api={mobileApi} count={Chapters.length} />
+                <CarouselDots api={mobileApi} count={Chapters.length} /> */}
+
+                {/* Single Chapter Display */}
+                <div className="p-1 w-full z-31">
+                  <h4 className="mb-2">{Chapters[0].title}</h4>
+                  <p className="">{Chapters[0].description}</p>
+                </div>
 
                 {/* Left hover zone */}
-                <div className="absolute left-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
+                {/* <div className="absolute left-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
                   <button
                     onClick={goToPrevChapterMobile}
                     className={cn(
@@ -552,10 +574,10 @@ export default function Page() {
                       height={40}
                     />
                   </button>
-                </div>
+                </div> */}
 
                 {/* Right hover zone */}
-                <div className="absolute right-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
+                {/* <div className="absolute right-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
                   <button
                     onClick={goToNextChapterMobile}
                     className={cn(
@@ -577,7 +599,7 @@ export default function Page() {
                   </button>
                 </div>
               </div>
-            </Carousel>
+            </Carousel> */}
 
             <Button
               variant="outline"
@@ -625,10 +647,22 @@ export default function Page() {
                         required
                         className="px-4 py-3  rounded-lg text-foreground bg-background focus:outline-none"
                       />
+                      <label className="flex items-start gap-2 text-left text-sm text-foreground cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={agreedToPolicy}
+                          onChange={(e) => setAgreedToPolicy(e.target.checked)}
+                          required
+                          className="mt-1 w-4 h-4 flex-shrink-0 cursor-pointer"
+                        />
+                        <span>
+                          By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.
+                        </span>
+                      </label>
                       <Button
                         type="submit"
                         variant="orange"
-                        disabled={isSubmitting}>
+                        disabled={isSubmitting || !agreedToPolicy}>
                         {isSubmitting ? 'Submitting...' : 'Keep me posted'} 
                       </Button>
                     </form>
