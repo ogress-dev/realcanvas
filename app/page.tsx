@@ -61,6 +61,7 @@ export default function Page() {
   const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [language, setLanguage] = useState<'IT' | 'EN'>('IT');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -156,6 +157,39 @@ export default function Page() {
   return (
     <>
       <div className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative">
+        {/* Language Toggle Button */}
+        <div
+          className={cn(
+            "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500",
+            // Hide on mobile unless reading
+            isMobile && !isReadingMe && "opacity-0 pointer-events-none"
+          )}
+          style={{
+            width: isMobile ? '80px' : '100px',
+            height: isMobile ? '30px' : '40px',
+            borderRadius: '12px',
+          }}
+        >
+          <button
+            onClick={() => setLanguage('IT')}
+            className={cn(
+              'flex-1 h-full transition-all font-display',
+              language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+            )}
+          >
+            IT
+          </button>
+          <button
+            onClick={() => setLanguage('EN')}
+            className={cn(
+              'flex-1 h-full transition-all font-display',
+              language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+            )}
+          >
+            EN
+          </button>
+        </div>
+
         <section
           className={cn(
             'h-dvh',
@@ -262,7 +296,7 @@ export default function Page() {
               Read me
             </Button>
 
-            <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0">
+            <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0 ">
               <div className="chapters w-full flex-1 min-h-0 overflow-hidden">
                 {/* <Carousel setApi={setApi} className="w-full h-full">
                   <div
@@ -301,12 +335,12 @@ export default function Page() {
                       <h4
                         className="mb-2"
                         style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
-                        {Chapters[0].title}
+                        {language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}
                       </h4>
                       <p
                         className="sm:leading-5 md:leading-5 xl:leading-7"
-                        style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
-                        {Chapters[0].description}
+                        style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+                        dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}>
                       </p>
                     </div>
 
@@ -548,9 +582,9 @@ export default function Page() {
                 <CarouselDots api={mobileApi} count={Chapters.length} /> */}
 
                 {/* Single Chapter Display */}
-                <div className="p-1 w-full z-31">
-                  <h4 className="mb-2">{Chapters[0].title}</h4>
-                  <p className="">{Chapters[0].description}</p>
+                <div className="p-1 w-full z-31 mt-8">
+                  <h4 className="mb-2">{language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}</h4>
+                  <p className="" dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}></p>
                 </div>
 
                 {/* Left hover zone */}
