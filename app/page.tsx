@@ -163,16 +163,16 @@ export default function Page() {
   return (
     <>
       <div className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative">
-        {/* Language Toggle Button */}
+        {/* Language Toggle Button - Mobile only */}
         <div
           className={cn(
-            "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10",
+            "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden",
             // Hide on mobile unless reading or having a look
             isMobile && !isReadingMe && !isHavingALook && "opacity-0 pointer-events-none"
           )}
           style={{
-            width: isMobile ? '80px' : '100px',
-            height: isMobile ? '30px' : '40px',
+            width: '80px',
+            height: '30px',
             borderRadius: '12px',
           }}
         >
@@ -230,7 +230,9 @@ export default function Page() {
                 /> */}
 
 
-                <sup className="xl:mt-5 hidden sm:flex"><LogoIcon size={80}/></sup>
+                <sup className="xl:mt-5 hidden sm:flex">
+                  <LogoIcon size={80}/>
+                </sup>
                 <sup className="xl:mt-5 sm:hidden"><LogoIcon size={50}/></sup>
 
               </div>
@@ -267,22 +269,53 @@ export default function Page() {
               </h1>
             </span>
 
-            <Image
-              src="/images/ann.svg"
-              alt="David Doro"
-              width={500}
-              height={500}
-              className={cn(
-                'shaka-image',
-                'z-21 sm:h-48 w-auto object-contain shaka-hero shrink-0',
-                'transition-all duration-500',
-                'max-h-24 sm:max-h-48 ml-auto sm:ml-6',
-                isShakaMoved &&
-                  'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
-                // hide shaka while "Have a look" is active
-                isHavingALook && 'opacity-0 pointer-events-none'
-              )}
-            />
+            <div className="flex items-start gap-2 ml-auto sm:ml-6 shrink-0">
+              <Image
+                src="/images/ann.svg"
+                alt="David Doro"
+                width={500}
+                height={500}
+                className={cn(
+                  'shaka-image',
+                  'z-21 sm:h-48 w-auto object-contain shaka-hero',
+                  'transition-all duration-500',
+                  'max-h-24 sm:max-h-48',
+                  isShakaMoved &&
+                    'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
+                  // hide shaka while "Have a look" is active
+                  isHavingALook && 'opacity-0 pointer-events-none'
+                )}
+              />
+
+              {/* Language Toggle - Desktop (positioned to the right of shaka) */}
+              <div
+                className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10"
+                style={{
+                  width: '100px',
+                  height: '40px',
+                  borderRadius: '12px',
+                }}
+              >
+                <button
+                  onClick={() => setLanguage('IT')}
+                  className={cn(
+                    'flex-1 h-full transition-all font-display',
+                    language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+                  )}
+                >
+                  IT
+                </button>
+                <button
+                  onClick={() => setLanguage('EN')}
+                  className={cn(
+                    'flex-1 h-full transition-all font-display',
+                    language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+                  )}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="mid w-full flex-1 min-h-0 flex flex-col sm:flex-row gap-4 sm:gap-10 max-w-full overflow-hidden">
