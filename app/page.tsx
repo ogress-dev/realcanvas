@@ -1,4 +1,5 @@
 'use client';
+'use client';
 import { LogoIcon } from '@/components/logo-icon';
 import { Button } from '@/components/ui/button';
 import {
@@ -67,6 +68,11 @@ export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [agreedToPolicy, setAgreedToPolicy] = useState(false);
+
+  // Debug: Log language changes
+  useEffect(() => {
+    console.log('Current language:', language);
+  }, [language]);
 
   useEffect(() => {
     if (!api) return;
