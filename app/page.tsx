@@ -160,11 +160,9 @@ export default function Page() {
         {/* Language Toggle Button */}
         <div
           className={cn(
-            "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500",
-            // Hide on mobile unless reading
-            isMobile && !isReadingMe && "opacity-0 pointer-events-none",
-            // Hide when "Have a look" is active
-            isHavingALook && "opacity-0 pointer-events-none"
+            "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10",
+            // Hide on mobile unless reading or having a look
+            isMobile && !isReadingMe && !isHavingALook && "opacity-0 pointer-events-none"
           )}
           style={{
             width: isMobile ? '80px' : '100px',
@@ -434,7 +432,7 @@ export default function Page() {
                 <div className="w-full flex flex-col gap-1">
                   <h4 
                   style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
-                  >Contact</h4>
+                  >{language === 'IT' ? 'Contatti' : 'Contact'}</h4>
                   <Link
                     href="mailto:hello@dorodavid.com"
                     
@@ -460,7 +458,7 @@ export default function Page() {
                 </div>
 
                 <Button onClick={haveLookClick}>
-                  Have a look <ArrowUpRight className="size-8" />
+                  {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-8" />
                 </Button>
               </div>
             </div>
@@ -472,11 +470,11 @@ export default function Page() {
                   'opacity-0 pointer-events-none'
               )}>
               <Button onClick={contactClick} variant="secondary">
-                Contact
+                {language === 'IT' ? 'Contatti' : 'Contact'}
               </Button>
 
               <Button onClick={haveLookClick}>
-                Have a look <ArrowUpRight className="size-5" />
+                {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-5" />
               </Button>
             </div>
           </div>
@@ -492,7 +490,7 @@ export default function Page() {
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
-              text="&nbsp;Set design | industrial design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
+              text="&nbsp;Set Design | Industrial Design | Brand Identity | Web Design | Design Direction | UX&UI | Strategy | "
               size={
                 isShakaMoved
                   ? // img-size:moved mobile : desktop
@@ -527,7 +525,7 @@ export default function Page() {
                 : 'opacity-0 pointer-events-none'
             )}>
             <div className="w-full flex flex-col gap-1 *:text-background">
-              <h1 className="font-display">Contact</h1>
+              <h1 className="font-display">{language === 'IT' ? 'Contatti' : 'Contact'}</h1>
               <Link
                 className="text-2xl hover:text-orange-500 w-fit"
                 href="mailto:hello@dorodavid.com">
@@ -554,7 +552,7 @@ export default function Page() {
                 className="mt-6 hover:bg-background hover:text-foreground "
                 onClick={() => setIsShakaMoved(false)}>
                 <ArrowLeft />
-                Back
+                {language === 'IT' ? 'Indietro' : 'Back'}
               </Button>
             </div>
           </div>
@@ -642,7 +640,7 @@ export default function Page() {
               className="mt-6 border-foreground text-foreground z-31 hover:bg-foreground hover:text-background "
               onClick={() => setIsReadingMe(false)}>
               <ArrowLeft />
-              Back
+              {language === 'IT' ? 'Indietro' : 'Back'}
             </Button>
           </div>
 
@@ -660,16 +658,31 @@ export default function Page() {
               {!submitSuccess ? (
                 <>
                   <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
-                    Good things <span className="sm:hidden"><br/></span> take time.
-                    <br /> Come back soon
+                    {language === 'IT' ? (
+                      <>
+                        Il benfatto <span className="sm:hidden"><br/></span> richiede tempo.
+                        <br /> Resta nei paraggi.
+                      </>
+                    ) : (
+                      <>
+                        Good things <span className="sm:hidden"><br/></span> take time.
+                        <br /> Come back soon
+                      </>
+                    )}
                   </h1>
                   
                   <div className="w-full max-w-md">
-                    <p className="text-lg mb-4 text-foreground">Curious about the projects?<span className='sm:hidden'><br/></span> Leave your email.</p>
+                    <p className="text-lg mb-4 text-foreground">
+                      {language === 'IT' ? (
+                        <>Curioso di vedere <span className='sm:hidden'><br/></span>i progetti? Lascia la tua email.</>
+                      ) : (
+                        <>Curious about the projects?<span className='sm:hidden'><br/></span> Leave your email.</>
+                      )}
+                    </p>
                     <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
                       <input
                         type="text"
-                        placeholder="Full Name"
+                        placeholder={language === 'IT' ? 'Nome Completo' : 'Full Name'}
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         required
@@ -677,7 +690,7 @@ export default function Page() {
                       />
                       <input
                         type="email"
-                        placeholder="Email"
+                        placeholder={language === 'IT' ? 'Email' : 'Email'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -692,23 +705,36 @@ export default function Page() {
                           className="mt-1 w-4 h-4 flex-shrink-0 cursor-pointer"
                         />
                         <span>
-                          By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.
+                          {language === 'IT' 
+                            ? 'Cliccando su "Tienimi aggiornato", accetto l\'Informativa sulla Privacy e acconsento a ricevere aggiornamenti.'
+                            : 'By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.'
+                          }
                         </span>
                       </label>
                       <Button
                         type="submit"
                         variant="orange"
                         disabled={isSubmitting || !agreedToPolicy}>
-                        {isSubmitting ? 'Submitting...' : 'Keep me posted'} 
+                        {isSubmitting ? (language === 'IT' ? 'Invio...' : 'Submitting...') : (language === 'IT' ? 'Tienimi aggiornato' : 'Keep me posted')} 
                       </Button>
                     </form>
                   </div>
                 </>
               ) : (
                 <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
-                  Thank you!
-                  <br />
-                  You will get updates when it's ready
+                  {language === 'IT' ? (
+                    <>
+                      Grazie!
+                      <br />
+                      Riceverai aggiornamenti <span className='sm:hidden'><br/></span> quando sarà pronto
+                    </>
+                  ) : (
+                    <>
+                      Thank you!
+                      <br />
+                      You will get updates <span className='sm:hidden'><br/></span> when it's ready
+                    </>
+                  )}
                 </h1>
               )}
             </div>
@@ -717,7 +743,7 @@ export default function Page() {
               className="mt-12 border-foreground text-foreground z-31 w-full hover:bg-foreground hover:text-background "
               onClick={() => setIsHavingALook(false)}>
               <ArrowLeft />
-              Back
+              {language === 'IT' ? 'Indietro' : 'Back'}
             </Button>
           </div>
         </section>
