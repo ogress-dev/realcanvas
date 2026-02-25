@@ -286,35 +286,35 @@ export default function Page() {
                   isHavingALook && 'opacity-0 pointer-events-none'
                 )}
               />
+            </div>
 
-              {/* Language Toggle - Desktop (positioned to the right of shaka) */}
-              <div
-                className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10"
-                style={{
-                  width: '100px',
-                  height: '40px',
-                  borderRadius: '12px',
-                }}
+            {/* Language Toggle - Desktop (positioned at top right of .top div) */}
+            <div
+              className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10 absolute top-0 right-0"
+              style={{
+                width: '100px',
+                height: '40px',
+                borderRadius: '12px',
+              }}
+            >
+              <button
+                onClick={() => setLanguage('IT')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+                )}
               >
-                <button
-                  onClick={() => setLanguage('IT')}
-                  className={cn(
-                    'flex-1 h-full transition-all font-display',
-                    language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                  )}
-                >
-                  IT
-                </button>
-                <button
-                  onClick={() => setLanguage('EN')}
-                  className={cn(
-                    'flex-1 h-full transition-all font-display',
-                    language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                  )}
-                >
-                  EN
-                </button>
-              </div>
+                IT
+              </button>
+              <button
+                onClick={() => setLanguage('EN')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
+                )}
+              >
+                EN
+              </button>
             </div>
           </div>
 
@@ -496,7 +496,7 @@ export default function Page() {
                   </Link>
                 </div>
 
-                <Button onClick={haveLookClick}>
+                <Button onClick={haveLookClick} style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}>
                   {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-8" />
                 </Button>
               </div>
@@ -512,7 +512,7 @@ export default function Page() {
                 {language === 'IT' ? 'Contatti' : 'Contact'}
               </Button>
 
-              <Button onClick={haveLookClick}>
+              <Button onClick={haveLookClick} style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}>
                 {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-5" />
               </Button>
             </div>
