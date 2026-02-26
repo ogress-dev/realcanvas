@@ -62,7 +62,7 @@ export default function Page() {
   const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [language, setLanguage] = useState<'IT' | 'EN'>('IT');
+  const [language, setLanguage] = useState<'IT' | 'EN'>('EN');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -496,8 +496,8 @@ export default function Page() {
                   </Link>
                 </div>
 
-                <Button onClick={haveLookClick} style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}>
-                  {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-8" />
+                <Button onClick={haveLookClick}>
+                  {language === 'IT' ? "Guarda oltre" : 'Look over'} <ArrowUpRight className="size-8" />
                 </Button>
               </div>
             </div>
@@ -512,8 +512,8 @@ export default function Page() {
                 {language === 'IT' ? 'Contatti' : 'Contact'}
               </Button>
 
-              <Button onClick={haveLookClick} style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}>
-                {language === 'IT' ? "Dai un'occhiata" : 'Have a look'} <ArrowUpRight className="size-5" />
+              <Button onClick={haveLookClick}>
+                {language === 'IT' ? "Guarda oltre" : 'Look over'} <ArrowUpRight className="size-5" />
               </Button>
             </div>
           </div>
