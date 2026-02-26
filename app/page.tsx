@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import { LogoIcon } from '@/components/logo-icon';
 import { Button } from '@/components/ui/button';
 import {
@@ -68,11 +67,6 @@ export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [agreedToPolicy, setAgreedToPolicy] = useState(false);
-
-  // Debug: Log language changes
-  useEffect(() => {
-    console.log('Current language:', language);
-  }, [language]);
 
   useEffect(() => {
     if (!api) return;
@@ -201,7 +195,6 @@ export default function Page() {
             'h-dvh',
             'min-h-5xl',
             'flex flex-col gap-6 sm:gap-0',
-            // 'bg-linear-to-b from-transparent to-foreground/20',
             'relative',
             'p-7',
             'max-w-full',
@@ -218,22 +211,11 @@ export default function Page() {
                     maxWidth: '100%',
                   }}>
                   David Doro
-                  
                 </h1>
-                {/* <LogoIcon
-                  size={80}
-                  className="hidden sm:flex sm:mt-5 sm:-ml-2 flex-shrink-0"
-                />
-                <LogoIcon
-                  size={50}
-                  className="sm:hidden mt-2 flex-shrink-0"
-                /> */}
-
-
                 <sup className="xl:mt-5 hidden sm:flex">
                   <LogoIcon size={80}/>
                 </sup>
-                <sup className="xl:mt-5 sm:hidden"><LogoIcon size={50}/></sup>
+                <sup className="mt-1 sm:hidden"><LogoIcon size={50}/></sup>
 
               </div>
               <h1
@@ -282,7 +264,6 @@ export default function Page() {
                   'max-h-24 sm:max-h-48',
                   isShakaMoved &&
                     'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
-                  // hide shaka while "Have a look" is active
                   isHavingALook && 'opacity-0 pointer-events-none'
                 )}
               />
@@ -337,39 +318,6 @@ export default function Page() {
 
             <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0 ">
               <div className="chapters w-full flex-1 min-h-0 overflow-hidden">
-                {/* <Carousel setApi={setApi} className="w-full h-full">
-                  <div
-                    className="relative h-full"
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - rect.left;
-                      const y = e.clientY - rect.top;
-                      const midpoint = rect.width / 2;
-                      setHoveredSide(x < midpoint ? 'left' : 'right');
-                      setCursorPosition({ x, y });
-                    }}
-                    onMouseLeave={() => setHoveredSide(null)}>
-                    <CarouselContent className="h-full">
-                      {Chapters.map((chapter, index) => (
-                        <CarouselItem key={index}>
-                          <div className="">
-                            <h4
-                              className="mb-2"
-                              style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
-                              {chapter.title}
-                            </h4>
-                            <p
-                              className="sm:leading-5 md:leading-5 xl:leading-7"
-                              style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
-                              {chapter.description}
-                            </p>
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselDots api={api} count={Chapters.length} /> */}
-
-                    {/* Single Chapter Display */}
                     <div className="">
                       <h4
                         className="mb-2"
@@ -382,89 +330,6 @@ export default function Page() {
                         dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}>
                       </p>
                     </div>
-
-                    {/* Left arrow */}
-                    {/* <button
-                      onClick={goToPrevChapter}
-                      className={cn(
-                        'absolute transition-opacity duration-300',
-                        'flex-shrink-0',
-                        'opacity-0',
-                        hoveredSide === 'left' && 'opacity-100',
-                        'disabled:opacity-0 disabled:pointer-events-none',
-                        'cursor-pointer'
-                      )}
-                      style={{
-                        left:
-                          hoveredSide === 'left'
-                            ? `${cursorPosition.x}px`
-                            : '1rem',
-                        top:
-                          hoveredSide === 'left'
-                            ? `${cursorPosition.y}px`
-                            : '50%',
-                        transform:
-                          hoveredSide === 'left'
-                            ? 'translate(-50%, -50%)'
-                            : 'translate(0, -50%)',
-                      }}
-                      disabled={currentSlide === 0}
-                      aria-label="Previous chapter">
-                      <Image
-                        src="/images/left.svg"
-                        alt="Previous"
-                        width={40}
-                        height={40}
-                        className="sm:w-14 sm:h-14"
-                        style={{
-                          width: 'clamp(30px, 4vw, 56px)',
-                          height: 'clamp(30px, 4vw, 56px)',
-                        }}
-                      />
-                    </button> */}
-
-                    {/* Right arrow */}
-                    {/* <button
-                      onClick={goToNextChapter}
-                      className={cn(
-                        'absolute transition-opacity duration-300',
-                        'flex-shrink-0',
-                        'opacity-0',
-                        hoveredSide === 'right' && 'opacity-100',
-                        'disabled:opacity-0 disabled:pointer-events-none',
-                        'cursor-pointer'
-                      )}
-                      style={{
-                        left:
-                          hoveredSide === 'right'
-                            ? `${cursorPosition.x}px`
-                            : 'auto',
-                        right: hoveredSide === 'right' ? 'auto' : '1rem',
-                        top:
-                          hoveredSide === 'right'
-                            ? `${cursorPosition.y}px`
-                            : '50%',
-                        transform:
-                          hoveredSide === 'right'
-                            ? 'translate(-50%, -50%)'
-                            : 'translate(0, -50%)',
-                      }}
-                      disabled={currentSlide === Chapters.length - 1}
-                      aria-label="Next chapter">
-                      <Image
-                        src="/images/right.svg"
-                        alt="Next"
-                        width={40}
-                        height={40}
-                        className="sm:w-14 sm:h-14"
-                        style={{
-                          width: 'clamp(30px, 4vw, 56px)',
-                          height: 'clamp(30px, 4vw, 56px)',
-                        }}
-                      />
-                    </button>
-                  </div>
-                </Carousel> */}
               </div>
 
               <div className="contact flex items-end gap-8 justify-between">
@@ -485,9 +350,6 @@ export default function Page() {
                      style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     +39 345 636 6497
                   </Link>
-                  {/* <Link href="https://www.instagram.com/davesworld__?igsh=ajNwaW5scnQxbHVy" className="hover:text-orange-500 w-fit">
-                    Instagram
-                  </Link> */}
                   <Link
                     href="/https://www.linkedin.com/in/david-doro-design-industriale/"
                     className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
@@ -542,14 +404,6 @@ export default function Page() {
                     : 500
               }
             />
-            {/* {isShakaMoved && (
-              <div className="good-things absolute inset-0 flex items-center justify-center text-center">
-                <h1 className="text-base sm:text-[52px] font-sans tracking-[0.08em] text-white relative z-40 leading-none px-4 mt-16">
-                  Good things take time.
-                  <br /> Come back soon
-                </h1>
-              </div>
-            )} */}
           </div>
 
           <div
@@ -575,11 +429,6 @@ export default function Page() {
                 href="https://wa.me/393456366497">
                 +39 345 636 6497
               </Link>
-              {/* <Link
-                className="text-2xl"
-                href="https://instagram.com/daviddoro.design">
-                Instagram
-              </Link> */}
               <Link
                 className="text-2xl hover:text-orange-500 w-fit"
                 href="https://www.linkedin.com/in/david-doro-design-industriale/">
@@ -606,73 +455,10 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            {/* <Carousel setApi={setMobileApi} className="w-full z-31">
-              <div className="relative">
-                <CarouselContent>
-                  {Chapters.map((chapter, index) => (
-                    <CarouselItem key={index}>
-                      <div className="p-1">
-                        <h4 className="mb-2">{chapter.title}</h4>
-                        <p className="">{chapter.description}</p>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselDots api={mobileApi} count={Chapters.length} /> */}
-
-                {/* Single Chapter Display */}
                 <div className="p-1 w-full z-31 mt-8">
                   <h4 className="mb-2">{language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}</h4>
                   <p className="" dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}></p>
                 </div>
-
-                {/* Left hover zone */}
-                {/* <div className="absolute left-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
-                  <button
-                    onClick={goToPrevChapterMobile}
-                    className={cn(
-                      'absolute left-0 top-1/2 -translate-y-1/2',
-                      'flex-shrink-0 transition-all duration-300 pointer-events-auto',
-                      'opacity-0',
-                      'group-[&_~_div:first-child]:hover:opacity-100',
-                      'disabled:opacity-0 disabled:pointer-events-none',
-                      'cursor-pointer'
-                    )}
-                    disabled={mobileCurrentSlide === 0}
-                    aria-label="Previous chapter">
-                    <Image
-                      src="/images/left.svg"
-                      alt="Previous"
-                      width={40}
-                      height={40}
-                    />
-                  </button>
-                </div> */}
-
-                {/* Right hover zone */}
-                {/* <div className="absolute right-0 top-0 w-1/4 h-full group z-10 pointer-events-none">
-                  <button
-                    onClick={goToNextChapterMobile}
-                    className={cn(
-                      'absolute right-0 top-1/2 -translate-y-1/2',
-                      'flex-shrink-0 transition-all duration-300 pointer-events-auto',
-                      'opacity-0',
-                      'group-[&_~_div:last-child]:hover:opacity-100',
-                      'disabled:opacity-0 disabled:pointer-events-none',
-                      'cursor-pointer'
-                    )}
-                    disabled={mobileCurrentSlide === Chapters.length - 1}
-                    aria-label="Next chapter">
-                    <Image
-                      src="/images/right.svg"
-                      alt="Next"
-                      width={40}
-                      height={40}
-                    />
-                  </button>
-                </div>
-              </div>
-            </Carousel> */}
 
             <Button
               variant="outline"
