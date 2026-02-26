@@ -332,14 +332,13 @@ export default function Page() {
                     </div>
               </div>
 
-              <div className="contact flex items-end gap-8 justify-between">
+              <div className="contact flex items-end gap-8 justify-between relative z-50">
                 <div className="w-full flex flex-col gap-1">
                   <h4 
                   style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
                   >{language === 'IT' ? 'Contatti' : 'Contact'}</h4>
                   <Link
                     href="mailto:hello@dorodavid.com"
-                    
                     className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
                      style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     hello@dorodavid.com
