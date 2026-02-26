@@ -370,7 +370,7 @@ export default function Page() {
                 </div>
 
                 <Button onClick={haveLookClick}>
-                  {language === 'IT' ? 'Guarda oltre' : 'Look over'}{' '}
+                  {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
                   <ArrowUpRight className="size-8" />
                 </Button>
               </div>
@@ -387,7 +387,7 @@ export default function Page() {
               </Button>
 
               <Button onClick={haveLookClick}>
-                {language === 'IT' ? 'Guarda oltre' : 'Look over'}{' '}
+                {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
                 <ArrowUpRight className="size-5" />
               </Button>
             </div>
