@@ -215,7 +215,7 @@ export default function Page() {
                 <sup className="xl:mt-5 hidden sm:flex">
                   <LogoIcon size={80}/>
                 </sup>
-                <sup className="mt-1 sm:hidden"><LogoIcon size={50}/></sup>
+                <sup className="mt-[8px]  sm:hidden"><LogoIcon size={40}/></sup>
 
               </div>
               <h1
