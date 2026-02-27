@@ -157,9 +157,6 @@ export default function Page() {
   return (
     <>
       <div className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative">
-<<<<<<< HEAD
-
-=======
         {/* Language Toggle Button - Mobile only */}
         <div
           className={cn(
@@ -196,7 +193,6 @@ export default function Page() {
             EN
           </button>
         </div>
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
 
         <section
           className={cn(
@@ -260,7 +256,7 @@ export default function Page() {
               </h1>
             </span>
 
-            <div className="flex flex-col items-end gap-2 ml-auto sm:ml-6 shrink-0">
+            <div className="flex items-start gap-2 ml-auto sm:ml-6 shrink-0">
               <Image
                 src="/images/ann.svg"
                 alt="David Doro"
@@ -268,7 +264,7 @@ export default function Page() {
                 height={500}
                 className={cn(
                   'shaka-image',
-                  'z-21 h-20  md:h-40 w-auto object-contain shaka-hero',
+                  'z-21 sm:h-48 w-auto object-contain shaka-hero',
                   'transition-all duration-500',
                   'max-h-24 sm:max-h-48',
                   isShakaMoved &&
@@ -276,58 +272,16 @@ export default function Page() {
                   isHavingALook && 'opacity-0 pointer-events-none'
                 )}
               />
-              
-              {/* Language Toggle Button - Mobile only (below shaka) */}
-              <div
-                className={cn(
-                  "relative z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden",
-                  (isShakaMoved || isHavingALook) && "opacity-0 pointer-events-none"
-                )}
-                style={{
-                  width: 'clamp(70px, 20vw, 90px)',
-                  height: 'clamp(28px, 8vw, 35px)',
-                  borderRadius: 'clamp(10px, 3vw, 14px)',
-                  fontSize: 'clamp(12px, 3.5vw, 16px)'
-                }}
-              >
-                <button
-                  onClick={() => setLanguage('IT')}
-                  className={cn(
-                    'flex-1 h-full transition-all font-display',
-                    language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                  )}
-                >
-                  IT
-                </button>
-                <button
-                  onClick={() => setLanguage('EN')}
-                  className={cn(
-                    'flex-1 h-full transition-all font-display',
-                    language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                  )}
-                >
-                  EN
-                </button>
-              </div>
             </div>
 
             {/* Language Toggle - Desktop (positioned at top right of .top div) */}
             <div
               className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10 absolute top-0 right-0"
               style={{
-<<<<<<< HEAD
-                width: 'clamp(90px, 8vw, 110px)',
-                height: 'clamp(36px, 3vw, 45px)',
-                borderRadius: 'clamp(10px, 1vw, 14px)',
-                fontSize: 'clamp(14px, 1.2vw, 16px)'
-              }}
-            >
-=======
                 width: '100px',
                 height: '40px',
                 borderRadius: '12px',
               }}>
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
               <button
                 onClick={() => setLanguage('IT')}
                 className={cn(
@@ -390,11 +344,7 @@ export default function Page() {
                 </div>
               </div>
 
-<<<<<<< HEAD
-              <div className="contact flex items-end gap-8 justify-between relative ">
-=======
               <div className="contact flex items-end gap-8 justify-between relative z-20">
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                 <div className="w-full flex flex-col gap-1">
                   <h4 style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
                     {language === 'IT' ? 'Contatti' : 'Contact'}
@@ -420,19 +370,15 @@ export default function Page() {
                 </div>
 
                 <Button onClick={haveLookClick}>
-<<<<<<< HEAD
-                  {language === 'IT' ? "Dai un occhio" : 'have a look'} <ArrowUpRight className="size-8" />
-=======
                   {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
                   <ArrowUpRight className="size-8" />
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                 </Button>
               </div>
             </div>
 
             <div
               className={cn(
-                'bottom w-full flex sm:hidden items-center justify-between gap-2 z-42',
+                'bottom w-full flex sm:hidden items-center justify-between gap-4 z-42',
                 (isShakaMoved || isHavingALook || isReadingMe) &&
                   'opacity-0 pointer-events-none'
               )}>
@@ -441,12 +387,8 @@ export default function Page() {
               </Button>
 
               <Button onClick={haveLookClick}>
-<<<<<<< HEAD
-                {language === 'IT' ? "Dai un occhio" : 'have a look'} <ArrowUpRight className="size-5" />
-=======
                 {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
                 <ArrowUpRight className="size-5" />
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
               </Button>
             </div>
           </div>
@@ -663,21 +605,13 @@ export default function Page() {
                     <>
                       Grazie mille
                       <br />
-<<<<<<< HEAD
-                      Ti terrò aggiornato <span className='sm:hidden'><br/></span> quando sarà pronto
-=======
                       Ti terrò aggiornato
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                     </>
                   ) : (
                     <>
                       Thank you
                       <br />
-<<<<<<< HEAD
-                      I’ll keep you posted <span className='sm:hidden'><br/></span> when it's ready
-=======
                       I&apos;ll keep you posted.
->>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                     </>
                   )}
                 </h1>
