@@ -157,7 +157,46 @@ export default function Page() {
   return (
     <>
       <div className="hero hero-mobile-extra w-dvw h-dvh overflow-hidden mx-auto relative">
+<<<<<<< HEAD
 
+=======
+        {/* Language Toggle Button - Mobile only */}
+        <div
+          className={cn(
+            'absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden',
+            // Hide on mobile unless reading or having a look
+            isMobile &&
+              !isReadingMe &&
+              !isHavingALook &&
+              'opacity-0 pointer-events-none'
+          )}
+          style={{
+            width: '80px',
+            height: '30px',
+            borderRadius: '12px',
+          }}>
+          <button
+            onClick={() => setLanguage('IT')}
+            className={cn(
+              'flex-1 h-full transition-all font-display',
+              language === 'IT'
+                ? 'text-foreground'
+                : 'text-foreground/40 hover:text-foreground/60'
+            )}>
+            IT
+          </button>
+          <button
+            onClick={() => setLanguage('EN')}
+            className={cn(
+              'flex-1 h-full transition-all font-display',
+              language === 'EN'
+                ? 'text-foreground'
+                : 'text-foreground/40 hover:text-foreground/60'
+            )}>
+            EN
+          </button>
+        </div>
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
 
         <section
           className={cn(
@@ -182,10 +221,11 @@ export default function Page() {
                   David Doro
                 </h1>
                 <sup className="xl:mt-5 hidden sm:flex">
-                  <LogoIcon size={80}/>
+                  <LogoIcon size={80} />
                 </sup>
-                <sup className="mt-[8px]  sm:hidden"><LogoIcon size={40}/></sup>
-
+                <sup className="mt-[8px]  sm:hidden">
+                  <LogoIcon size={40} />
+                </sup>
               </div>
               <h1
                 className="sm:text-nowrap leading-none sm:-mt-4 mt-0"
@@ -275,28 +315,37 @@ export default function Page() {
             <div
               className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10 absolute top-0 right-0"
               style={{
+<<<<<<< HEAD
                 width: 'clamp(90px, 8vw, 110px)',
                 height: 'clamp(36px, 3vw, 45px)',
                 borderRadius: 'clamp(10px, 1vw, 14px)',
                 fontSize: 'clamp(14px, 1.2vw, 16px)'
               }}
             >
+=======
+                width: '100px',
+                height: '40px',
+                borderRadius: '12px',
+              }}>
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
               <button
                 onClick={() => setLanguage('IT')}
                 className={cn(
                   'flex-1 h-full transition-all font-display',
-                  language === 'IT' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                )}
-              >
+                  language === 'IT'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
                 IT
               </button>
               <button
                 onClick={() => setLanguage('EN')}
                 className={cn(
                   'flex-1 h-full transition-all font-display',
-                  language === 'EN' ? 'text-foreground' : 'text-foreground/40 hover:text-foreground/60'
-                )}
-              >
+                  language === 'EN'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
                 EN
               </button>
             </div>
@@ -321,47 +370,62 @@ export default function Page() {
 
             <div className="chapters-and-contact hidden w-full sm:flex sm:flex-1 flex-col justify-between gap-6 min-h-0 overflow-hidden min-w-0 ">
               <div className="chapters w-full flex-1 min-h-0 overflow-hidden">
-                    <div className="">
-                      <h4
-                        className="mb-2"
-                        style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
-                        {language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}
-                      </h4>
-                      <p
-                        className="sm:leading-5 md:leading-5 xl:leading-7"
-                        style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
-                        dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}>
-                      </p>
-                    </div>
+                <div className="">
+                  <h4
+                    className="mb-2"
+                    style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
+                    {language === 'IT'
+                      ? Chapters[0].title
+                      : Chapters[0].titleEN}
+                  </h4>
+                  <p
+                    className="sm:leading-5 md:leading-5 xl:leading-7"
+                    style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        language === 'IT'
+                          ? Chapters[0].description
+                          : Chapters[0].descriptionEN,
+                    }}></p>
+                </div>
               </div>
 
+<<<<<<< HEAD
               <div className="contact flex items-end gap-8 justify-between relative ">
+=======
+              <div className="contact flex items-end gap-8 justify-between relative z-20">
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                 <div className="w-full flex flex-col gap-1">
-                  <h4 
-                  style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}
-                  >{language === 'IT' ? 'Contatti' : 'Contact'}</h4>
+                  <h4 style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>
+                    {language === 'IT' ? 'Contatti' : 'Contact'}
+                  </h4>
                   <Link
                     href="mailto:hello@dorodavid.com"
                     className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
-                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
+                    style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     hello@dorodavid.com
                   </Link>
                   <Link
                     href="https://wa.me/393456366497"
                     className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
-                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
+                    style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     +39 345 636 6497
                   </Link>
                   <Link
                     href="/https://www.linkedin.com/in/david-doro-design-industriale/"
                     className="sm:leading-5 md:leading-5 xl:leading-7 hover:text-orange-500 w-fit"
-                     style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
+                    style={{ fontSize: 'clamp(14px, 1.5vw, 18px)' }}>
                     LinkedIn
                   </Link>
                 </div>
 
                 <Button onClick={haveLookClick}>
+<<<<<<< HEAD
                   {language === 'IT' ? "Dai un occhio" : 'have a look'} <ArrowUpRight className="size-8" />
+=======
+                  {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
+                  <ArrowUpRight className="size-8" />
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                 </Button>
               </div>
             </div>
@@ -377,7 +441,12 @@ export default function Page() {
               </Button>
 
               <Button onClick={haveLookClick}>
+<<<<<<< HEAD
                 {language === 'IT' ? "Dai un occhio" : 'have a look'} <ArrowUpRight className="size-5" />
+=======
+                {language === 'IT' ? 'Dai un occhio' : 'Have a Look'}{' '}
+                <ArrowUpRight className="size-5" />
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
               </Button>
             </div>
           </div>
@@ -389,7 +458,8 @@ export default function Page() {
               'absolute z-40 top-3/5 sm:top-auto sm:-bottom-56 -left-2 sm:left-auto sm:-right-32 pointer-events-none',
               'transition-all duration-500',
               'sm:max-w-none',
-              isShakaMoved && 'round-text--move sm:opacity-0 sm:pointer-events-none',
+              isShakaMoved &&
+                'round-text--move sm:opacity-0 sm:pointer-events-none',
               (isHavingALook || isReadingMe) && 'opacity-0'
             )}>
             <RoundText
@@ -420,7 +490,9 @@ export default function Page() {
                 : 'opacity-0 pointer-events-none'
             )}>
             <div className="w-full flex flex-col gap-1 *:text-background">
-              <h1 className="font-display">{language === 'IT' ? 'Contatti' : 'Contact'}</h1>
+              <h1 className="font-display">
+                {language === 'IT' ? 'Contatti' : 'Contact'}
+              </h1>
               <Link
                 className="text-2xl hover:text-orange-500 w-fit"
                 href="mailto:hello@dorodavid.com">
@@ -457,10 +529,19 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-                <div className="p-1 w-full z-31 mt-8">
-                  <h4 className="mb-2">{language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}</h4>
-                  <p className="" dangerouslySetInnerHTML={{ __html: language === 'IT' ? Chapters[0].description : Chapters[0].descriptionEN }}></p>
-                </div>
+            <div className="p-1 w-full z-31 mt-8">
+              <h4 className="mb-2">
+                {language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}
+              </h4>
+              <p
+                className=""
+                dangerouslySetInnerHTML={{
+                  __html:
+                    language === 'IT'
+                      ? Chapters[0].description
+                      : Chapters[0].descriptionEN,
+                }}></p>
+            </div>
 
             <Button
               variant="outline"
@@ -481,35 +562,59 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
-            <div className="flex-1 w-full flex flex-col items-center justify-center text-center gap-8 z-800">
+            <div className="flex-1 w-full flex flex-col items-center justify-center text-center gap-8 z-50">
               {!submitSuccess ? (
                 <>
                   <h1 className="text-base text-[25px] sm:text-[52px] font-sans tracking-[0.08em] text-black relative z-40 leading-none">
                     {language === 'IT' ? (
                       <>
-                        Il benfatto <span className="sm:hidden"><br/></span> richiede tempo.
+                        Il benfatto{' '}
+                        <span className="sm:hidden">
+                          <br />
+                        </span>{' '}
+                        richiede tempo.
                         <br /> Resta nei paraggi.
                       </>
                     ) : (
                       <>
-                        Good things <span className="sm:hidden"><br/></span> take time.
+                        Good things{' '}
+                        <span className="sm:hidden">
+                          <br />
+                        </span>{' '}
+                        take time.
                         <br /> Come back soon
                       </>
                     )}
                   </h1>
-                  
+
                   <div className="w-full max-w-md">
                     <p className="text-lg mb-4 text-foreground">
                       {language === 'IT' ? (
-                        <>Curioso di vedere <span className='sm:hidden'><br/></span>i progetti? Lascia la tua email.</>
+                        <>
+                          Curioso di vedere{' '}
+                          <span className="sm:hidden">
+                            <br />
+                          </span>
+                          i progetti? Lascia la tua email.
+                        </>
                       ) : (
-                        <>Curious about the projects?<span className='sm:hidden'><br/></span> Leave your email.</>
+                        <>
+                          Curious about the projects?
+                          <span className="sm:hidden">
+                            <br />
+                          </span>{' '}
+                          Leave your email.
+                        </>
                       )}
                     </p>
-                    <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
+                    <form
+                      onSubmit={handleSubscribe}
+                      className="flex flex-col gap-3">
                       <input
                         type="text"
-                        placeholder={language === 'IT' ? 'Nome Completo' : 'Full Name'}
+                        placeholder={
+                          language === 'IT' ? 'Nome Completo' : 'Full Name'
+                        }
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         required
@@ -532,17 +637,22 @@ export default function Page() {
                           className="mt-1 w-4 h-4 flex-shrink-0 cursor-pointer"
                         />
                         <span>
-                          {language === 'IT' 
+                          {language === 'IT'
                             ? 'Cliccando su "Tienimi aggiornato", accetto l\'Informativa sulla Privacy e acconsento a ricevere aggiornamenti.'
-                            : 'By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.'
-                          }
+                            : 'By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.'}
                         </span>
                       </label>
                       <Button
                         type="submit"
                         variant="orange"
                         disabled={isSubmitting || !agreedToPolicy}>
-                        {isSubmitting ? (language === 'IT' ? 'Invio...' : 'Submitting...') : (language === 'IT' ? 'Tienimi aggiornato' : 'Keep me posted')} 
+                        {isSubmitting
+                          ? language === 'IT'
+                            ? 'Invio...'
+                            : 'Submitting...'
+                          : language === 'IT'
+                            ? 'Tienimi aggiornato'
+                            : 'Keep me posted'}
                       </Button>
                     </form>
                   </div>
@@ -553,13 +663,21 @@ export default function Page() {
                     <>
                       Grazie mille
                       <br />
+<<<<<<< HEAD
                       Ti terrò aggiornato <span className='sm:hidden'><br/></span> quando sarà pronto
+=======
+                      Ti terrò aggiornato
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                     </>
                   ) : (
                     <>
                       Thank you
                       <br />
+<<<<<<< HEAD
                       I’ll keep you posted <span className='sm:hidden'><br/></span> when it's ready
+=======
+                      I&apos;ll keep you posted.
+>>>>>>> 9c0fc5575492b0d68ebdc2e8a154920ef8887d87
                     </>
                   )}
                 </h1>
