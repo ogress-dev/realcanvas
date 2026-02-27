@@ -242,7 +242,7 @@ export default function Page() {
               <div
                 className={cn(
                   "relative -translate-y-[5px] z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden",
-                  (isShakaMoved || isHavingALook) && "opacity-0 pointer-events-none"
+                  (isShakaMoved || isHavingALook || isReadingMe) && "opacity-0 pointer-events-none"
                 )}
                 style={{
                   width: 'clamp(70px, 20vw, 90px)',
@@ -472,6 +472,41 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
+            {/* Language Toggle Button - Mobile Read Me (top right) */}
+            <div
+              className={cn(
+                "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10",
+                !isReadingMe && "opacity-0 pointer-events-none"
+              )}
+              style={{
+                width: 'clamp(70px, 20vw, 90px)',
+                height: 'clamp(28px, 8vw, 35px)',
+                borderRadius: 'clamp(10px, 3vw, 14px)',
+                fontSize: 'clamp(12px, 3.5vw, 16px)'
+              }}
+            >
+              <button
+                onClick={() => setLanguage('IT')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'IT'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
+                IT
+              </button>
+              <button
+                onClick={() => setLanguage('EN')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'EN'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
+                EN
+              </button>
+            </div>
+            
             <div className="p-1 w-full z-31 mt-8">
               <h4 className="mb-2">
                 {language === 'IT' ? Chapters[0].title : Chapters[0].titleEN}
@@ -505,6 +540,41 @@ export default function Page() {
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
             )}>
+            {/* Language Toggle Button - Mobile Have a Look (top right) */}
+            <div
+              className={cn(
+                "absolute top-7 right-7 z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden",
+                !isHavingALook && "opacity-0 pointer-events-none"
+              )}
+              style={{
+                width: 'clamp(70px, 20vw, 90px)',
+                height: 'clamp(28px, 8vw, 35px)',
+                borderRadius: 'clamp(10px, 3vw, 14px)',
+                fontSize: 'clamp(12px, 3.5vw, 16px)'
+              }}
+            >
+              <button
+                onClick={() => setLanguage('IT')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'IT'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
+                IT
+              </button>
+              <button
+                onClick={() => setLanguage('EN')}
+                className={cn(
+                  'flex-1 h-full transition-all font-display',
+                  language === 'EN'
+                    ? 'text-foreground'
+                    : 'text-foreground/40 hover:text-foreground/60'
+                )}>
+                EN
+              </button>
+            </div>
+            
             <div className="flex-1 w-full flex flex-col items-center justify-center text-center gap-8 z-50">
               {!submitSuccess ? (
                 <>
