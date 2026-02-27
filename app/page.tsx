@@ -650,9 +650,15 @@ export default function Page() {
                           className="mt-1 w-4 h-4 flex-shrink-0 cursor-pointer"
                         />
                         <span>
-                          {language === 'IT'
-                            ? 'Cliccando su "Tienimi aggiornato", accetto l\'Informativa sulla Privacy e acconsento a ricevere aggiornamenti.'
-                            : 'By clicking "Keep me posted", I agree to the Privacy Policy and to receive updates.'}
+                          {language === 'IT' ? (
+                            <>
+                              Cliccando su "Tienimi aggiornato", accetto l'<a href="/privacy-policy" className="underline hover:text-orange-500 transition-colors">Informativa sulla Privacy</a> e acconsento a ricevere aggiornamenti.
+                            </>
+                          ) : (
+                            <>
+                              By clicking "Keep me posted", I agree to the <a href="/privacy-policy" className="underline hover:text-orange-500 transition-colors">Privacy Policy</a> and to receive updates.
+                            </>
+                          )}
                         </span>
                       </label>
                       <Button

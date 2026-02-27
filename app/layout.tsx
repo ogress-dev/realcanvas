@@ -29,7 +29,8 @@ export const metadata: Metadata = {
     "Web Design",
     "Design Direction",
     "UX&UI",
-    "Strategy"
+    "Strategy",
+    "Product Design"
     ],
 
     authors: [{ name: "David Doro" }],
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
     siteName: 'David Doro',
     images: [
       {
-        url: 'https://dorodavid.com/og-image.jpg',
+        url: 'https://dorodavid.com/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'David Doro',
     description: 'Brand and Product Design',
-    images: ['https://dorodavid.com/og-image.jpg'],
+    images: ['https://dorodavid.com/og-image.png'],
   },
   alternates: {
     canonical: 'https://dorodavid.com',
@@ -83,8 +84,70 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const schemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "David Doro",
+    "jobTitle": "Brand and Product Designer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "David Doro",
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Treviso",
+          "addressRegion": "Veneto",
+          "addressCountry": "IT"
+        }
+      }
+    },
+    "url": "https://dorodavid.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/david-doro-design-industriale/",
+      // "https://twitter.com/daviddoro"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "David Doro",
+    "url": "https://dorodavid.com",
+    "description": "Brand and Product Design",
+    "author": {
+      "@type": "Person",
+      "name": "David Doro"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "David Doro Studio",
+    "url": "https://dorodavid.com",
+    "logo": "https://dorodavid.com/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Treviso",
+      "addressRegion": "Veneto",
+      "addressCountry": "IT"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "hello@dorodavid.com",
+      "contactType": "customer service"
+    }
+  }
+];
+
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
