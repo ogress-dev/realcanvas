@@ -221,24 +221,7 @@ export default function Page() {
             </span>
 
             <div className="flex flex-col items-end gap-2 ml-auto sm:ml-6 shrink-0">
-              <Image
-                src="/images/ann.svg"
-                alt="David Doro"
-                width={500}
-                height={500}
-                className={cn(
-                  'shaka-image',
-                  'z-21 sm:h-48 w-auto object-contain shaka-hero',
-                  'transition-all duration-500',
-                  'max-h-20 sm:max-h-48',
-                  '-translate-y-[5px]',
-                  isShakaMoved &&
-                    'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
-                  isHavingALook && 'opacity-0 pointer-events-none'
-                )}
-              />
-              
-              {/* Language Toggle Button - Mobile only (below shaka) */}
+              {/* Language Toggle Button - Mobile only (on top of shaka) */}
               <div
                 className={cn(
                   "relative -translate-y-[5px] z-[60] bg-background text-foreground flex items-center justify-center font-medium shadow-2xl overflow-hidden transition-opacity duration-500 border border-foreground/10 sm:hidden",
@@ -272,16 +255,33 @@ export default function Page() {
                   EN
                 </button>
               </div>
+              
+              <Image
+                src="/images/ann.svg"
+                alt="David Doro"
+                width={500}
+                height={500}
+                className={cn(
+                  'shaka-image',
+                  'z-21 sm:h-48 w-auto object-contain shaka-hero',
+                  'transition-all duration-500',
+                  'max-h-20 sm:max-h-48',
+                  '-translate-y-[5px]',
+                  isShakaMoved &&
+                    'shaka-hero--move absolute left-1/2 right-auto -translate-x-1/2 top-24 sm:opacity-0 sm:pointer-events-none',
+                  isHavingALook && 'opacity-0 pointer-events-none'
+                )}
+              />
             </div>
 
             {/* Language Toggle - Desktop (positioned at top right of .top div) */}
             <div
               className="hidden sm:flex bg-background text-foreground items-center justify-center font-medium shadow-2xl overflow-hidden border border-foreground/10 absolute top-0 right-0"
               style={{
-                width: 'clamp(90px, 8vw, 110px)',
-                height: 'clamp(36px, 3vw, 45px)',
-                borderRadius: 'clamp(10px, 1vw, 14px)',
-                fontSize: 'clamp(14px, 1.2vw, 16px)'
+                width: '80px',
+                height: '32px',
+                borderRadius: '10px',
+                fontSize: '14px'
               }}>
               <button
                 onClick={() => setLanguage('IT')}

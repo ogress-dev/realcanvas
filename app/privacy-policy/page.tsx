@@ -6,7 +6,7 @@ export default function PrivacyPolicyPage() {
         {/* Privacy Policy Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Privacy Policy</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Privacy Policy</h1>
           </div>
           <div>
             <p className="text-sm sm:text-base leading-relaxed">
@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
         {/* Interpretation and Definitions Section */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Interpretation and Definitions</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Interpretation and Definitions</h2>
           </div>
           <div className="space-y-6">
             <div>
@@ -64,7 +64,7 @@ export default function PrivacyPolicyPage() {
         {/* Collecting and Using Your Personal Data Section */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Collecting and Using Your Personal Data</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Collecting and Using Your Personal Data</h2>
           </div>
           <div className="space-y-6">
             <div>
@@ -236,7 +236,7 @@ export default function PrivacyPolicyPage() {
         {/* Children's Privacy */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Children's Privacy</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Children's Privacy</h2>
           </div>
           <div>
             <p className="text-sm sm:text-base leading-relaxed mb-4">
@@ -251,7 +251,7 @@ export default function PrivacyPolicyPage() {
         {/* Links to Other Websites */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Links to Other Websites</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Links to Other Websites</h2>
           </div>
           <div>
             <p className="text-sm sm:text-base leading-relaxed mb-4">
@@ -266,7 +266,7 @@ export default function PrivacyPolicyPage() {
         {/* Changes to this Privacy Policy */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Changes to this Privacy Policy</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Changes to this Privacy Policy</h2>
           </div>
           <div>
             <p className="text-sm sm:text-base leading-relaxed mb-4">
@@ -284,7 +284,7 @@ export default function PrivacyPolicyPage() {
         {/* Contact Us */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-display italic font-normal mb-4 lg:mb-0">Contact Us</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-3xl font-display italic font-normal mb-4 lg:mb-0">Contact Us</h2>
           </div>
           <div>
             <p className="text-sm sm:text-base leading-relaxed mb-3">
