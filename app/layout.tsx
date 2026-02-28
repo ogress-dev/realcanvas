@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    locale: 'en_US',
+    locale: 'it_IT',
     type: 'website',
   },
   twitter: {
@@ -141,7 +141,7 @@ export default function RootLayout({
 ];
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="it" className={inter.variable}>
       <head>
         <script
           type="application/ld+json"
