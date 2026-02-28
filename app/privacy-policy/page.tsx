@@ -14,8 +14,6 @@ export default function PrivacyPolicyPage() {
             </p>
           </div>
         </div>
-
-
         {/* Interpretation and Definitions Section */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4 sm:gap-8 lg:gap-16 mb-8 sm:mb-12 lg:mb-16 pb-8 sm:pb-12 lg:pb-16 border-b border-foreground/10">
           <div>
