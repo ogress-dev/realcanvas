@@ -82,7 +82,6 @@ export default function Page() {
     if (!mobileApi) return;
 
     setMobileCurrentSlide(mobileApi.selectedScrollSnap());
-
     mobileApi.on('select', () => {
       setMobileCurrentSlide(mobileApi.selectedScrollSnap());
     });
