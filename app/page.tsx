@@ -61,7 +61,7 @@ export default function Page() {
   const [mobileCurrentSlide, setMobileCurrentSlide] = useState(0);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [language, setLanguage] = useState<'IT' | 'EN'>('IT');
+  const [language, setLanguage] = useState<'IT' | 'EN'>('EN');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

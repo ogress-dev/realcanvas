@@ -1,3 +1,14 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Privacy Policy for David Doro - Brand and Product Design. Learn how we collect, use and protect your personal information.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function PrivacyPolicyPage() {
   return (
     <div className="fixed inset-0 overflow-y-auto bg-background text-foreground">
