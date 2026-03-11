@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://dorodavid.com
+
+# Sitemaps
+Sitemap: https://dorodavid.com/sitemap.xml
