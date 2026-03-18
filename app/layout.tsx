@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
+import { ClerkProvider } from '@clerk/nextjs';
+import AdminScrollFix from '@/components/AdminScrollFix';
+import { ConvexClientProvider } from '@/components/ConvexClientProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -142,18 +145,24 @@ export default function RootLayout({
 ];
 
   return (
-    <html lang="en" className={inter.variable}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <Analytics/>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={inter.variable}>
+        <head>
+          <meta name="google-site-verification" content="aBz2wQ2krNhgNFyVfa6Cdmwmm-4mx1wYDeZ2Fd01Hoo" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+          />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <ConvexClientProvider>
+            <AdminScrollFix />
+            {children}
+            <Analytics/>
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
