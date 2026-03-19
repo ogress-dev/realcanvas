@@ -428,18 +428,18 @@
              >
                <span className="text-white text-4xl font-bold absolute top-4 left-4">33</span>
              </div>
-             <div
-              className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
-              style={{
-                left: '320px',
-                top: '320px',
-                width: '320px',
-                height: '320px',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">5</span>
-            </div>
+              <div
+               className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0 bg-blue-100"
+               style={{
+                 left: '320px',
+                 top: '320px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">5</span>
+             </div>
             <div
               className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
               style={{
