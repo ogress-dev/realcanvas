@@ -328,13 +328,13 @@
                 const top = row * 320;
                 const cellNumber = index + 1;
                 
-                // ApCollective (cell 5) gets blue-100 background
-                const hasBlueBackground = left === 320 && top === 320;
-                
-                return (
-                  <div
-                    key={index}
-                    className={`absolute flex items-center justify-center ${hasBlueBackground ? 'bg-blue-100' : ''}`}
+                 // ApCollective (cell 5) gets blue-200 background
+                 const hasBlueBackground = left === 320 && top === 320;
+                 
+                 return (
+                   <div
+                     key={index}
+                     className={`absolute flex items-center justify-center ${hasBlueBackground ? 'bg-blue-200' : ''}`}
                     style={{
                       left: `${left}px`,
                       top: `${top}px`,
