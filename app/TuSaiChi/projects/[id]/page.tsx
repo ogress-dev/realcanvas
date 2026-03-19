@@ -7,24 +7,24 @@ import { api } from '@/convex/_generated/api';
 import { UserButton } from '@clerk/nextjs';
 import { ArrowLeft, Plus, Trash2, Save, Upload, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const PROJECT_MAPPING: Record<number, { name: string; title: string; folder: string; description: string; cell: { cellNumber: number; left: number; top: number; width: number; height: number; rotation: number; zIndex: number; isActive: boolean } }> = {
-  1: { name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { cellNumber: 1, left: 800, top: 640, width: 288, height: 160, rotation: 15, zIndex: 50, isActive: true } },
-  2: { name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { cellNumber: 2, left: 1120, top: 640, width: 96, height: 96, rotation: 45, zIndex: 50, isActive: true } },
-  3: { name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { cellNumber: 3, left: 960, top: 320, width: 270, height: 270, rotation: 15, zIndex: 50, isActive: true } },
-  4: { name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { cellNumber: 4, left: 640, top: 320, width: 170, height: 170, rotation: 30, zIndex: 50, isActive: true } },
-  5: { name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { cellNumber: 5, left: 320, top: 320, width: 120, height: 170, rotation: -30, zIndex: 50, isActive: true } },
-  6: { name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { cellNumber: 6, left: 0, top: 320, width: 270, height: 270, rotation: -15, zIndex: 50, isActive: true } },
-  7: { name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { cellNumber: 7, left: -160, top: 640, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-  8: { name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { cellNumber: 8, left: 0, top: 960, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-  9: { name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { cellNumber: 9, left: 320, top: 960, width: 160, height: 208, rotation: -15, zIndex: 50, isActive: true } },
-  10: { name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { cellNumber: 10, left: 640, top: 960, width: 178, height: 96, rotation: 15, zIndex: 50, isActive: true } },
-  11: { name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { cellNumber: 11, left: 960, top: 960, width: 160, height: 160, rotation: 30, zIndex: 50, isActive: true } },
+const PROJECT_MAPPING: Record<number, { name: string; title: string; folder: string; description: string; cell: { projectName: string; left: number; top: number; width: number; height: number; rotation: number; zIndex: number; isActive: boolean } }> = {
+   1: { name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { projectName: "Project 1", left: 656, top: 720, width: 288, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+   2: { name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { projectName: "Project 2", left: 1072, top: 752, width: 96, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+   3: { name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { projectName: "Project 3", left: 985, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+   4: { name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { projectName: "Project 4", left: 715, top: 395, width: 170, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+   5: { name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { projectName: "Project 5", left: 420, top: 395, width: 120, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+   6: { name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { projectName: "Project 6", left: 25, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+   7: { name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { projectName: "Project 7", left: -240, top: 720, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+   8: { name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { projectName: "Project 8", left: 80, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+   9: { name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { projectName: "Project 9", left: 400, top: 1016, width: 160, height: 208, rotation: 0, zIndex: 50, isActive: true } },
+   10: { name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { projectName: "Project 10", left: 711, top: 1072, width: 178, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+   11: { name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { projectName: "Project 11", left: 1040, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
 };
 
-const DEFAULT_CELL = PROJECT_MAPPING[1]?.cell || { cellNumber: 0, left: 0, top: 0, width: 100, height: 100, rotation: 0, zIndex: 50, isActive: true };
+const DEFAULT_CELL = PROJECT_MAPPING[1]?.cell || { projectName: "Project 1", left: 0, top: 0, width: 100, height: 100, rotation: 0, zIndex: 50, isActive: true };
 
 interface CellProperties {
-  cellNumber: number;
+  projectName: string;
   left: number;
   top: number;
   width: number;
@@ -47,7 +47,7 @@ const DEFAULT_PROJECT = {
   title: '',
   description: '',
   folder: '',
-  cell: { cellNumber: 0, left: 0, top: 0, width: 100, height: 100, rotation: 0, zIndex: 50, isActive: true },
+  cell: { projectName: "New Project", left: 0, top: 0, width: 100, height: 100, rotation: 0, zIndex: 50, isActive: true },
   images: [] as ProjectImage[]
 };
 
@@ -312,12 +312,13 @@ export default function AdminProjectDetail() {
       });
       console.log('Info result:', infoResult);
       
-      console.log('Saving cell:', { projectId, ...cell });
-      const cellResult = await saveProjectCell({
-        projectId,
-        ...cell,
-      });
-      console.log('Cell result:', cellResult);
+      console.log('Saving cell:', { projectId, projectName: cell.projectName, isActive: cell.isActive });
+       const cellResult = await saveProjectCell({
+         projectId,
+         projectName: cell.projectName,
+         isActive: cell.isActive,
+       });
+       console.log('Cell result:', cellResult);
       
       if (allImages.length > 0) {
         console.log('Saving existing images:', { projectId, images: allImages });
@@ -512,57 +513,67 @@ export default function AdminProjectDetail() {
                 className="touch-pan-y"
               >
                 {currentSection === 0 && (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-500 block mb-1">Width (px)</label>
-                        <input
-                          type="number"
-                          value={cell.width}
-                          onChange={(e) => handleCellChange('width', parseInt(e.target.value) || 0)}
-                          className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-500 block mb-1">Height (px)</label>
-                        <input
-                          type="number"
-                          value={cell.height}
-                          onChange={(e) => handleCellChange('height', parseInt(e.target.value) || 0)}
-                          className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-sm text-gray-500 block mb-1">Rotation (°)</label>
-                      <input
-                        type="number"
-                        value={cell.rotation}
-                        onChange={(e) => handleCellChange('rotation', parseInt(e.target.value) || 0)}
-                        className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-[#1E1E1D] rounded-lg border border-gray-700">
-                      <div>
-                        <label className="text-sm text-gray-500 block">Active</label>
-                        <p className="text-xs text-gray-600">Project is clickable on site</p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => handleCellChange('isActive', !cell.isActive)}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                          cell.isActive ? 'bg-green-600' : 'bg-red-600'
-                        }`}
-                      >
-                        <span
-                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                            cell.isActive ? 'translate-x-6' : 'translate-x-1'
-                          }`}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                )}
+                   <div className="space-y-4">
+                     <div className="bg-[#1E1E1D] rounded-lg border border-gray-700 p-4">
+                       <h4 className="text-sm text-gray-500 mb-3">Cell Assignment</h4>
+                       <div className="space-y-2">
+                         <div className="flex items-center justify-between">
+                           <span className="text-sm text-gray-400">Cell Name:</span>
+                           <span className="text-sm text-white font-medium">{cell.projectName}</span>
+                         </div>
+                         <div className="flex items-center justify-between">
+                           <span className="text-sm text-gray-400">Position:</span>
+                           <span className="text-sm text-white font-medium">({cell.left}, {cell.top})</span>
+                         </div>
+                         <div className="flex items-center justify-between">
+                           <span className="text-sm text-gray-400">Image Size:</span>
+                           <span className="text-sm text-white font-medium">{cell.width} × {cell.height}px</span>
+                         </div>
+                       </div>
+                       <p className="text-xs text-gray-600 mt-3 border-t border-gray-700 pt-3">
+                         Cell properties are locked. Edit image dimensions in the form fields below if needed.
+                       </p>
+                     </div>
+                     
+                     <div className="space-y-2">
+                       <label className="text-sm text-gray-500 block">Image Width (px)</label>
+                       <input
+                         type="number"
+                         value={cell.width}
+                         onChange={(e) => handleCellChange('width', parseInt(e.target.value) || 0)}
+                         className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
+                       />
+                     </div>
+                     <div className="space-y-2">
+                       <label className="text-sm text-gray-500 block">Image Height (px)</label>
+                       <input
+                         type="number"
+                         value={cell.height}
+                         onChange={(e) => handleCellChange('height', parseInt(e.target.value) || 0)}
+                         className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
+                       />
+                     </div>
+                     <div className="flex items-center justify-between p-4 bg-[#1E1E1D] rounded-lg border border-gray-700">
+                       <div>
+                         <label className="text-sm text-gray-500 block">Active</label>
+                         <p className="text-xs text-gray-600">Project is clickable on site</p>
+                       </div>
+                       <button
+                         type="button"
+                         onClick={() => handleCellChange('isActive', !cell.isActive)}
+                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                           cell.isActive ? 'bg-green-600' : 'bg-red-600'
+                         }`}
+                       >
+                         <span
+                           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                             cell.isActive ? 'translate-x-6' : 'translate-x-1'
+                           }`}
+                         />
+                       </button>
+                     </div>
+                   </div>
+                 )}
 
                 {currentSection === 1 && (
                   <div className="space-y-4">

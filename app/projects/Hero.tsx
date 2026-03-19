@@ -320,124 +320,115 @@
             }}
             className="relative"
           >
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '-320px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#172554',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">20</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '0px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#2563eb',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">19</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '320px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#3b82f6',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">18</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '640px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#60a5fa',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">17</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '960px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#60a5fa',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">16</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1280px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#bfdbfe',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">15</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1600px',
-                top: '0px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#93c5fd',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">34</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '-320px',
-                top: '320px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#14532d',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">21</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1280px',
-                top: '320px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#14532d',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">14</span>
-            </div>
-            <div
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '-320px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">20</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '0px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">19</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '320px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">18</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '640px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">17</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '960px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">16</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1280px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">15</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1600px',
+                 top: '0px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">34</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '-320px',
+                 top: '320px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">21</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1600px',
+                 top: '320px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">33</span>
+             </div>
+             <div
               className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
               style={{
                 left: '320px',
@@ -474,311 +465,288 @@
               <span className="text-black text-4xl font-bold absolute top-4 left-4">3</span>
             </div>
             <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1280px',
-                top: '320px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#14532d',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">14</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1600px',
-                top: '320px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#166534',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">33</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: isMobile ? '0px' : '-480px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fee2e2',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">22</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: isMobile ? '0px' : '-160px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fee2e2',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">7</span>
-            </div>
-            <div
-              className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
-              style={{
-                left: isMobile ? '640px' : '800px',
-                top: isMobile ? '740px' : '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#f87171',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">1</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: isMobile ? '960px' : '1120px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#f87171',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">2</span>
-            </div>
-            <div
-              className="absolute md:hidden"
-              style={{
-                left: '1280px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fca5a5'
-              }}
-            />
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1440px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#f87171',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">13</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1760px',
-                top: '640px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#f87171',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">32</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '-320px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#713f12',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">23</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '0px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fef3c7',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">8</span>
-            </div>
-            <div
-              className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
-              style={{
-                left: '320px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fef3c7',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">9</span>
-            </div>
-            <div
-              className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
-              style={{
-                left: '640px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#fef3c7',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">10</span>
-            </div>
-            <div
-              className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
-              style={{
-                left: '960px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">11</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1280px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#a16207',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">12</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1600px',
-                top: '960px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '',
-                zIndex: 1
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">31</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '-320px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#581c87',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">24</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '0px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#6b21a8',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">25</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '320px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#7e22ce',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">26</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '640px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#9333ea',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">27</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '960px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#a855f7',
-                zIndex: 100
-              }}
-            >
-              <span className="text-white text-4xl font-bold absolute top-4 left-4">28</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1280px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#c084fc',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">29</span>
-            </div>
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: '1600px',
-                top: '1280px',
-                width: '320px',
-                height: '320px',
-                backgroundColor: '#d8b4fe',
-                zIndex: 100
-              }}
-            >
-              <span className="text-black text-4xl font-bold absolute top-4 left-4">30</span>
-            </div>
-            <div
-              className="absolute flex items-start md:items-center justify-start md:justify-center pl-6 md:pl-0 pt-6 md:pt-0"
-              style={{
-                left: isMobile ? '640px' : '160px',
-                top: '640px',
-                width: '320px',
-                height: isMobile ? '100px' : '320px',
-                backgroundColor: '#fca5a5',
-                zIndex: 100
-              }}
-            >
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1280px',
+                 top: '320px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">14</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1280px',
+                 top: '320px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">14</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: isMobile ? '0px' : '-480px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">22</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: isMobile ? '0px' : '-160px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">7</span>
+             </div>
+             <div
+               className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
+               style={{
+                 left: isMobile ? '640px' : '800px',
+                 top: isMobile ? '740px' : '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">1</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: isMobile ? '960px' : '1120px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">2</span>
+             </div>
+             <div
+               className="absolute md:hidden"
+               style={{
+                 left: '1280px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px'
+               }}
+             />
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1440px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">13</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1760px',
+                 top: '640px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">32</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '-320px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">23</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '0px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">8</span>
+             </div>
+             <div
+               className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
+               style={{
+                 left: '320px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">9</span>
+             </div>
+             <div
+               className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
+               style={{
+                 left: '640px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">10</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '960px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">11</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1280px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">12</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1600px',
+                 top: '960px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 1
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">31</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '-320px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">24</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '0px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">25</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '320px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">26</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '640px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">27</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '960px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-white text-4xl font-bold absolute top-4 left-4">28</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1280px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">29</span>
+             </div>
+             <div
+               className="absolute flex items-center justify-center"
+               style={{
+                 left: '1600px',
+                 top: '1280px',
+                 width: '320px',
+                 height: '320px',
+                 zIndex: 100
+               }}
+             >
+               <span className="text-black text-4xl font-bold absolute top-4 left-4">30</span>
+             </div>
+             <div
+               className="absolute flex items-start md:items-center justify-start md:justify-center pl-6 md:pl-0 pt-6 md:pt-0"
+               style={{
+                 left: isMobile ? '640px' : '160px',
+                 top: '640px',
+                 width: '320px',
+                 height: isMobile ? '100px' : '320px',
+                 zIndex: 100
+               }}
+             >
               <motion.div
                 drag={false}
                 whileHover={{
@@ -807,17 +775,16 @@
                 </div>
               </motion.div>
             </div>
-            <div
-              className="absolute flex items-start md:items-center justify-end md:justify-start pr-6 md:pr-0 md:pl-6 md:pt-0"
-              style={{
-                left: isMobile ? '320px' : '480px',
-                top: '640px',
-                width: '320px',
-                height: isMobile ? '420px' : '320px',
-                backgroundColor: '#fecaca',
-                zIndex: 100
-              }}
-            >
+             <div
+               className="absolute flex items-start md:items-center justify-end md:justify-start pr-6 md:pr-0 md:pl-6 md:pt-0"
+               style={{
+                 left: isMobile ? '320px' : '480px',
+                 top: '640px',
+                 width: '320px',
+                 height: isMobile ? '420px' : '320px',
+                 zIndex: 100
+               }}
+             >
               <p className="text-black text-[21px] md:text-[18px] leading-relaxed font-bold w-[147px] md:w-auto">
                 Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
               </p>

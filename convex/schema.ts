@@ -45,7 +45,7 @@ export default defineSchema({
   }),
   projectCells: defineTable({
     projectId: v.number(),
-    cellNumber: v.number(),
+    projectName: v.string(),
     left: v.number(),
     top: v.number(),
     width: v.number(),

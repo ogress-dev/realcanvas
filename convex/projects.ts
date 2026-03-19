@@ -24,17 +24,17 @@ export const clearAndReseed = mutation({
     }
     
     const projectsToSeed = [
-      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 800, top: 640, width: 288, height: 160, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1120, top: 640, width: 96, height: 96, rotation: 45, zIndex: 50, isActive: true } },
-      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 960, top: 320, width: 270, height: 270, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 640, top: 320, width: 170, height: 170, rotation: 30, zIndex: 50, isActive: true } },
-      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 320, top: 320, width: 120, height: 170, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 0, top: 320, width: 270, height: 270, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -160, top: 640, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 0, top: 960, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 320, top: 960, width: 160, height: 208, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 640, top: 960, width: 178, height: 96, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 960, top: 960, width: 160, height: 160, rotation: 30, zIndex: 50, isActive: true } },
+      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 656, top: 720, width: 288, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1072, top: 752, width: 96, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 985, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 715, top: 395, width: 170, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 420, top: 395, width: 120, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 25, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -240, top: 720, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 80, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 400, top: 1016, width: 160, height: 208, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 711, top: 1072, width: 178, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 1040, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
     ];
     
     for (const p of projectsToSeed) {
@@ -238,17 +238,17 @@ export const seedProjects = mutation({
     const existingProjects = await ctx.db.query("projects").collect();
     
     const projectsToSeed = [
-      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 800, top: 640, width: 288, height: 160, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1120, top: 640, width: 96, height: 96, rotation: 45, zIndex: 50, isActive: true } },
-      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 960, top: 320, width: 270, height: 270, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 640, top: 320, width: 170, height: 170, rotation: 30, zIndex: 50, isActive: true } },
-      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 320, top: 320, width: 120, height: 170, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 0, top: 320, width: 270, height: 270, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -160, top: 640, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 0, top: 960, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 320, top: 960, width: 160, height: 208, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 640, top: 960, width: 178, height: 96, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 960, top: 960, width: 160, height: 160, rotation: 30, zIndex: 50, isActive: true } },
+      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 656, top: 720, width: 288, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1072, top: 752, width: 96, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 985, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 715, top: 395, width: 170, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 420, top: 395, width: 120, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 25, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -240, top: 720, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 80, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 400, top: 1016, width: 160, height: 208, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 711, top: 1072, width: 178, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 1040, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
     ];
     
     for (const p of projectsToSeed) {
@@ -309,7 +309,7 @@ export const getProjectById = query({
     const allCells = await ctx.db.query("projectCells").collect();
     const dbCell = allCells.find((c) => c.projectId === args.projectId);
     const cell = dbCell ? {
-      cellNumber: args.projectId,
+      projectName: dbCell.projectName,
       left: dbCell.left,
       top: dbCell.top,
       width: dbCell.width,
@@ -318,10 +318,10 @@ export const getProjectById = query({
       zIndex: dbCell.zIndex,
       isActive: dbCell.isActive,
     } : project.cell ? {
-      cellNumber: args.projectId,
+      projectName: `Project ${args.projectId}`,
       ...project.cell,
     } : {
-      cellNumber: args.projectId,
+      projectName: `Project ${args.projectId}`,
       left: 0,
       top: 0,
       width: 200,
@@ -416,16 +416,16 @@ export const listProjects = query({
         const numId = project.id;
         const images = allImages.filter((img) => img.projectId === numId);
         const dbCell = allCells.find((c) => c.projectId === numId);
-        const cell = dbCell ? {
-          cellNumber: dbCell.cellNumber,
-          left: dbCell.left,
-          top: dbCell.top,
-          width: dbCell.width,
-          height: dbCell.height,
-          rotation: dbCell.rotation,
-          zIndex: dbCell.zIndex,
-          isActive: dbCell.isActive,
-        } : project.cell;
+         const cell = dbCell ? {
+           projectName: dbCell.projectName,
+           left: dbCell.left,
+           top: dbCell.top,
+           width: dbCell.width,
+           height: dbCell.height,
+           rotation: dbCell.rotation,
+           zIndex: dbCell.zIndex,
+           isActive: dbCell.isActive,
+         } : project.cell;
         const dbProject = dbProjects.find((p) => p.name === project.folder);
         
         let coverImageUrl: string | null = null;
@@ -488,19 +488,19 @@ export const seedAll = mutation({
       return { message: "Already seeded", count: existing.length };
     }
 
-    const projectsToSeed = [
-      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 800, top: 640, width: 288, height: 160, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1120, top: 640, width: 96, height: 96, rotation: 45, zIndex: 50, isActive: true } },
-      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 960, top: 320, width: 270, height: 270, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 640, top: 320, width: 170, height: 170, rotation: 30, zIndex: 50, isActive: true } },
-      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 320, top: 320, width: 120, height: 170, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 0, top: 320, width: 270, height: 270, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -160, top: 640, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 0, top: 960, width: 160, height: 160, rotation: -30, zIndex: 50, isActive: true } },
-      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 320, top: 960, width: 160, height: 208, rotation: -15, zIndex: 50, isActive: true } },
-      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 640, top: 960, width: 178, height: 96, rotation: 15, zIndex: 50, isActive: true } },
-      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 960, top: 960, width: 160, height: 160, rotation: 30, zIndex: 50, isActive: true } },
-    ];
+     const projectsToSeed = [
+       { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 656, top: 720, width: 288, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1072, top: 752, width: 96, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 985, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 715, top: 395, width: 170, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 420, top: 395, width: 120, height: 170, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 25, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -240, top: 720, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 80, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 400, top: 1016, width: 160, height: 208, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 711, top: 1072, width: 178, height: 96, rotation: 0, zIndex: 50, isActive: true } },
+       { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 1040, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+     ];
     
     for (const p of projectsToSeed) {
       await ctx.db.insert("projectConfig", {
@@ -632,52 +632,50 @@ export const saveProjectInfo = mutation({
 });
 
 export const saveProjectCell = mutation({
-  args: {
-    projectId: v.number(),
-    cellNumber: v.number(),
-    left: v.number(),
-    top: v.number(),
-    width: v.number(),
-    height: v.number(),
-    rotation: v.number(),
-    zIndex: v.number(),
-    isActive: v.boolean(),
-  },
-  handler: async (ctx, args) => {
-    console.log('saveProjectCell called with:', args);
-    const existing = await ctx.db.query("projectCells")
-      .filter((q) => q.eq(q.field("projectId"), args.projectId))
-      .first();
-    
-    if (existing) {
-      console.log('Updating existing cell:', existing._id);
-      await ctx.db.patch(existing._id, {
-        cellNumber: args.cellNumber,
-        left: args.left,
-        top: args.top,
-        width: args.width,
-        height: args.height,
-        rotation: args.rotation,
-        zIndex: args.zIndex,
-        isActive: args.isActive,
-      });
-    } else {
-      console.log('Inserting new cell');
-      await ctx.db.insert("projectCells", {
-        projectId: args.projectId,
-        cellNumber: args.cellNumber,
-        left: args.left,
-        top: args.top,
-        width: args.width,
-        height: args.height,
-        rotation: args.rotation,
-        zIndex: args.zIndex,
-        isActive: args.isActive,
-      });
-    }
-    
-    return { success: true };
-  },
+   args: {
+     projectId: v.number(),
+     projectName: v.string(),
+     isActive: v.boolean(),
+   },
+   handler: async (ctx, args) => {
+     console.log('saveProjectCell called with:', args);
+     const allConfig = await ctx.db.query("projectConfig").collect();
+     const project = allConfig.find((c) => c.projectId === args.projectId);
+     
+     if (!project) {
+       return { success: false, error: "Project not found" };
+     }
+     
+     const existing = await ctx.db.query("projectCells")
+       .filter((q) => q.eq(q.field("projectId"), args.projectId))
+       .first();
+     
+     // Lock cell properties - only allow updating projectName and isActive
+     // Position, size, rotation are immutable
+     if (existing) {
+       console.log('Updating existing cell:', existing._id);
+       await ctx.db.patch(existing._id, {
+         projectName: args.projectName,
+         isActive: args.isActive,
+       });
+     } else {
+       console.log('Inserting new cell with locked properties');
+       await ctx.db.insert("projectCells", {
+         projectId: args.projectId,
+         projectName: args.projectName,
+         // Use cell properties from projectConfig as source of truth
+         left: project.cell.left,
+         top: project.cell.top,
+         width: project.cell.width,
+         height: project.cell.height,
+         rotation: project.cell.rotation,
+         zIndex: project.cell.zIndex,
+         isActive: args.isActive,
+       });
+     }
+     
+     return { success: true };
+   },
 });
 
 export const addProjectImage = mutation({
