@@ -150,45 +150,67 @@ export const uploadCoverImage = mutation({
 });
 
 export const createProject = mutation({
-  args: {
-    name: v.string(),
-    title: v.string(),
-    folder: v.string(),
-    description: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const allConfig = await ctx.db.query("projectConfig").collect();
-    const staticIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-    const dynamicIds = allConfig.map(c => c.projectId);
-    const usedIds = [...staticIds, ...dynamicIds];
-    const maxId = Math.max(...usedIds, 0);
-    const newId = maxId + 1;
-    
-    await ctx.db.insert("projectConfig", {
-      projectId: newId,
-      name: args.name,
-      title: args.title,
-      folder: args.folder,
-      description: args.description,
-      cell: {
-        left: 0,
-        top: 0,
-        width: 200,
-        height: 200,
-        rotation: 0,
-        zIndex: 50,
-        isActive: true,
-      },
-    });
-    
-    await ctx.db.insert("projects", {
-      name: args.folder,
-      title: args.title,
-      description: args.description,
-    });
-    
-    return { success: true, projectId: newId };
-  },
+   args: {
+     name: v.string(),
+     title: v.string(),
+     folder: v.string(),
+     description: v.string(),
+   },
+   handler: async (ctx, args) => {
+     const allConfig = await ctx.db.query("projectConfig").collect();
+     const staticIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+     const dynamicIds = allConfig.map(c => c.projectId);
+     const usedIds = [...staticIds, ...dynamicIds];
+     const maxId = Math.max(...usedIds, 0);
+     const newId = maxId + 1;
+     
+     // Grid is 8 columns × 6 rows = 48 cells
+     // Each cell is 320×320px, starting at (-320, 0)
+     // Find first available cell
+     const gridCells: Array<{ col: number; row: number; left: number; top: number }> = [];
+     for (let row = 0; row < 6; row++) {
+       for (let col = 0; col < 8; col++) {
+         const left = -320 + col * 320;
+         const top = row * 320;
+         gridCells.push({ col, row, left, top });
+       }
+     }
+     
+     // Get all used cells from existing projects
+     const usedCells = allConfig.map(c => ({ left: c.cell.left, top: c.cell.top }));
+     
+     // Find first available cell (by row, then by column)
+     const availableCell = gridCells.find(cell =>
+       !usedCells.some(used => used.left === cell.left && used.top === cell.top)
+     );
+     
+     const cellPosition = availableCell || { left: 1280, top: 320, col: 5, row: 1 }; // Default fallback
+     
+     await ctx.db.insert("projectConfig", {
+       projectId: newId,
+       name: args.name,
+       title: args.title,
+       folder: args.folder,
+       description: args.description,
+       cell: {
+         left: cellPosition.left,
+         top: cellPosition.top,
+         width: 200,
+         height: 200,
+         rotation: 0,
+         zIndex: 50,
+         isActive: true,
+       },
+     });
+     
+     await ctx.db.insert("projects", {
+       name: args.folder,
+       title: args.title,
+       description: args.description,
+     });
+     
+     return { success: true, projectId: newId };
+   },
 });
 
 export const deleteProject = mutation({
