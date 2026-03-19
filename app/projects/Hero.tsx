@@ -322,19 +322,61 @@
           >
               {/* Dynamic grid generation: 8 columns × 6 rows = 48 cells, each 320x320px */}
               {Array.from({ length: 48 }).map((_, index) => {
+                // Generate anticlockwise spiral numbering starting from 19 at top-left
+                const generateSpiralNumber = (idx: number) => {
+                  const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
+                  let num = 19;
+                  let top = 0, bottom = 5, left = 0, right = 7;
+                  
+                  while (top <= bottom && left <= right) {
+                    // Go right along top
+                    for (let col = left; col <= right; col++) {
+                      const row = top;
+                      grid[row][col] = num++;
+                    }
+                    top++;
+                    
+                    // Go down along right
+                    for (let row = top; row <= bottom; row++) {
+                      grid[row][right] = num++;
+                    }
+                    right--;
+                    
+                    // Go left along bottom (if there's a row left)
+                    if (top <= bottom) {
+                      for (let col = right; col >= left; col--) {
+                        grid[bottom][col] = num++;
+                      }
+                      bottom--;
+                    }
+                    
+                    // Go up along left (if there's a column left)
+                    if (left <= right) {
+                      for (let row = bottom; row >= top; row--) {
+                        grid[row][left] = num++;
+                      }
+                      left++;
+                    }
+                  }
+                  
+                  const row = Math.floor(idx / 8);
+                  const col = idx % 8;
+                  return grid[row][col];
+                };
+                
                 const col = index % 8;
                 const row = Math.floor(index / 8);
                 const left = -320 + col * 320;
                 const top = row * 320;
-                const cellNumber = index + 1;
+                const cellNumber = generateSpiralNumber(index);
                 
-                 // ApCollective (cell 5) gets blue-200 background
-                 const hasBlueBackground = left === 320 && top === 320;
-                 
-                 return (
-                   <div
-                     key={index}
-                     className={`absolute flex items-center justify-center ${hasBlueBackground ? 'bg-blue-200' : ''}`}
+                // ApCollective (cell 5) gets blue-200 background
+                const hasBlueBackground = left === 320 && top === 320;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`absolute flex items-center justify-center ${hasBlueBackground ? 'bg-blue-200' : ''}`}
                     style={{
                       left: `${left}px`,
                       top: `${top}px`,
