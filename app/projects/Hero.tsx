@@ -322,53 +322,59 @@
           >
               {/* Dynamic grid generation: 8 columns × 6 rows = 48 cells, each 320x320px */}
               {Array.from({ length: 48 }).map((_, index) => {
-                // Generate anticlockwise spiral numbering starting from 19 at top-left
-                const generateSpiralNumber = (idx: number) => {
+                // Generate center-outward anticlockwise spiral numbering starting from 19 at center
+                const generateCenterSpiralNumber = (idx: number) => {
                   const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
-                  let num = 19;
-                  let top = 0, bottom = 5, left = 0, right = 7;
                   
-                  while (top <= bottom && left <= right) {
-                    // Go right along top
-                    for (let col = left; col <= right; col++) {
-                      const row = top;
+                  let num = 19;
+                  let col = 3, row = 2; // Starting near center
+                  
+                  const directions = [
+                    { dx: 0, dy: -1 }, // up
+                    { dx: -1, dy: 0 }, // left
+                    { dx: 0, dy: 1 },  // down
+                    { dx: 1, dy: 0 }   // right
+                  ];
+                  
+                  let dirIndex = 0;
+                  let stepsInDirection = 1;
+                  let stepsInCurrentDirection = 0;
+                  let directionChanges = 0;
+                  
+                  grid[row][col] = num++;
+                  
+                  while (num <= 66) {
+                    const dir = directions[dirIndex];
+                    col += dir.dx;
+                    row += dir.dy;
+                    
+                    if (col >= 0 && col < 8 && row >= 0 && row < 6) {
                       grid[row][col] = num++;
                     }
-                    top++;
                     
-                    // Go down along right
-                    for (let row = top; row <= bottom; row++) {
-                      grid[row][right] = num++;
-                    }
-                    right--;
+                    stepsInCurrentDirection++;
                     
-                    // Go left along bottom (if there's a row left)
-                    if (top <= bottom) {
-                      for (let col = right; col >= left; col--) {
-                        grid[bottom][col] = num++;
+                    if (stepsInCurrentDirection === stepsInDirection) {
+                      stepsInCurrentDirection = 0;
+                      dirIndex = (dirIndex + 1) % 4;
+                      directionChanges++;
+                      
+                      if (directionChanges % 2 === 0) {
+                        stepsInDirection++;
                       }
-                      bottom--;
-                    }
-                    
-                    // Go up along left (if there's a column left)
-                    if (left <= right) {
-                      for (let row = bottom; row >= top; row--) {
-                        grid[row][left] = num++;
-                      }
-                      left++;
                     }
                   }
                   
-                  const row = Math.floor(idx / 8);
-                  const col = idx % 8;
-                  return grid[row][col];
+                  const row_idx = Math.floor(idx / 8);
+                  const col_idx = idx % 8;
+                  return grid[row_idx][col_idx];
                 };
                 
                 const col = index % 8;
                 const row = Math.floor(index / 8);
                 const left = -320 + col * 320;
                 const top = row * 320;
-                const cellNumber = generateSpiralNumber(index);
+                const cellNumber = generateCenterSpiralNumber(index);
                 
                 // ApCollective (cell 5) gets blue-200 background
                 const hasBlueBackground = left === 320 && top === 320;
