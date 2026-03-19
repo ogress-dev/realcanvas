@@ -164,6 +164,62 @@
       x.set(centerOffset);
     }, []);
 
+    // Helper function to get grid position for a spiral number
+    const getGridPositionForNumber = (targetNum: number) => {
+      const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
+      
+      let num = 1;
+      let col = 4, row = 2;
+      
+      const directions = [
+        { dx: 1, dy: 0 },
+        { dx: 0, dy: -1 },
+        { dx: -1, dy: 0 },
+        { dx: 0, dy: 1 }
+      ];
+      
+      let dirIndex = 0;
+      let stepsToTake = 1;
+      let directionChangeCount = 0;
+      
+      grid[row][col] = num++;
+      
+      while (num <= 48) {
+        const dir = directions[dirIndex];
+        
+        for (let step = 0; step < stepsToTake; step++) {
+          col += dir.dx;
+          row += dir.dy;
+          
+          if (col >= 0 && col < 8 && row >= 0 && row < 6 && grid[row][col] === 0) {
+            grid[row][col] = num++;
+            if (num > 48) break;
+          }
+        }
+        
+        dirIndex = (dirIndex + 1) % 4;
+        directionChangeCount++;
+        
+        if (directionChangeCount % 2 === 0) {
+          stepsToTake++;
+        }
+      }
+      
+      // Find position of targetNum
+      for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < 8; c++) {
+          if (grid[r][c] === targetNum) {
+            return {
+              gridLeft: -320 + c * 320,
+              gridTop: r * 320
+            };
+          }
+        }
+      }
+      
+      return { gridLeft: 0, gridTop: 0 };
+    };
+
     const [isExpandingAbout, setIsExpandingAbout] = useState(false);
     const [aboutButtonRect, setAboutButtonRect] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
     const lastTap = useRef(0);
@@ -322,46 +378,47 @@
           >
               {/* Dynamic grid generation: 8 columns × 6 rows = 48 cells, each 320x320px */}
               {Array.from({ length: 48 }).map((_, index) => {
-                // Generate center-outward anticlockwise spiral numbering starting from 19 at center
+                // Generate center-outward anticlockwise spiral numbering starting from center of canvas
                 const generateCenterSpiralNumber = (idx: number) => {
                   const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
                   
-                  let num = 19;
-                  let col = 3, row = 2; // Starting near center
+                  let num = 1;
+                  let col = 2, row = 2; // Starting two columns left of center (position 18)
                   
+                  // Directions for anticlockwise: right, up, left, down
                   const directions = [
-                    { dx: 0, dy: -1 }, // up
-                    { dx: -1, dy: 0 }, // left
-                    { dx: 0, dy: 1 },  // down
-                    { dx: 1, dy: 0 }   // right
+                    { dx: 1, dy: 0 },   // right
+                    { dx: 0, dy: -1 },  // up
+                    { dx: -1, dy: 0 },  // left
+                    { dx: 0, dy: 1 }    // down
                   ];
                   
                   let dirIndex = 0;
-                  let stepsInDirection = 1;
                   let stepsInCurrentDirection = 0;
-                  let directionChanges = 0;
+                  let stepsToTake = 1;
+                  let directionChangeCount = 0;
                   
                   grid[row][col] = num++;
                   
-                  while (num <= 66) {
+                  while (num <= 48) {
                     const dir = directions[dirIndex];
-                    col += dir.dx;
-                    row += dir.dy;
                     
-                    if (col >= 0 && col < 8 && row >= 0 && row < 6) {
-                      grid[row][col] = num++;
+                    for (let step = 0; step < stepsToTake; step++) {
+                      col += dir.dx;
+                      row += dir.dy;
+                      
+                      if (col >= 0 && col < 8 && row >= 0 && row < 6) {
+                        grid[row][col] = num++;
+                        if (num > 48) break;
+                      }
                     }
                     
-                    stepsInCurrentDirection++;
+                    dirIndex = (dirIndex + 1) % 4;
+                    directionChangeCount++;
                     
-                    if (stepsInCurrentDirection === stepsInDirection) {
-                      stepsInCurrentDirection = 0;
-                      dirIndex = (dirIndex + 1) % 4;
-                      directionChanges++;
-                      
-                      if (directionChanges % 2 === 0) {
-                        stepsInDirection++;
-                      }
+                    // Increase steps every two direction changes
+                    if (directionChangeCount % 2 === 0) {
+                      stepsToTake++;
                     }
                   }
                   
@@ -448,12 +505,34 @@
               </p>
             </div>
 
-            {convexProjects && convexProjects.map((project: any) => {
-              const cell = project.cell || { left: 0, top: 0, width: 200, height: 200, rotation: 0, zIndex: 50 };
+            {convexProjects && convexProjects.map((project: any, index: number) => {
               const title = project.title || 'Untitled';
               const description = project.description || '';
               const coverImage = project.coverImage || fallbackImages[project.id] || '/images/checked.png';
               const isActive = project.cell?.isActive !== false;
+              
+              // Position project in grid cell based on its index (0-based)
+              const gridNumber = index + 1; // Convert 0-based index to 1-based grid number
+              const { gridLeft, gridTop } = getGridPositionForNumber(gridNumber);
+              
+              // Get project dimensions from database, defaulting to 200x200 if not set
+              const projectWidth = project.cell?.width || 200;
+              const projectHeight = project.cell?.height || 200;
+              const projectRotation = project.cell?.rotation || 0;
+              
+              // Center the project within its 320×320 grid cell
+              const cellSize = 320;
+              const offsetX = (cellSize - projectWidth) / 2;
+              const offsetY = (cellSize - projectHeight) / 2;
+              
+              const cell = {
+                left: gridLeft + offsetX,
+                top: gridTop + offsetY,
+                width: projectWidth,
+                height: projectHeight,
+                rotation: projectRotation,
+                zIndex: 50
+              };
 
               return (
                 <div
