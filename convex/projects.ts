@@ -166,13 +166,13 @@ export const createProject = mutation({
     const maxId = Math.max(...usedIds, 0);
     const newId = maxId + 1;
 
-    // Grid is 8 columns × 6 rows = 48 cells
-    // Each cell is 320×320px, starting at (-320, 0)
+    // Grid is 8 columns × 7 rows = 56 cells
+    // Each cell is 320×320px, starting at (160, 0)
     // Find first available cell
     const gridCells: Array<{ col: number; row: number; left: number; top: number }> = [];
-    for (let row = 0; row < 6; row++) {
+    for (let row = 0; row < 7; row++) {
       for (let col = 0; col < 8; col++) {
-        const left = -320 + col * 320;
+        const left = col * 320 + 160;
         const top = row * 320;
         gridCells.push({ col, row, left, top });
       }

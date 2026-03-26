@@ -1,6 +1,6 @@
 'use client';
 
-  import { useState, useRef, useEffect } from 'react';
+  import { useState, useRef, useEffect, useLayoutEffect } from 'react';
   import { motion, useMotionValue, animate } from 'framer-motion';
   import { Move } from 'lucide-react';
   import { useRouter } from 'next/navigation';
@@ -28,6 +28,7 @@
   const Hero = () => {
     const router = useRouter();
     const containerRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLDivElement>(null);
     const aboutButtonRef = useRef<HTMLButtonElement>(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -46,8 +47,8 @@
         setDragConstraints({
           left: -Math.max(1000, Math.abs(2560 - window.innerWidth) * 3.5),
           right: Math.max(1000, Math.abs(2560 - window.innerWidth) * 3.5),
-          top: -Math.max(300, Math.abs(1920 - window.innerHeight) * 0.8),
-          bottom: Math.max(300, Math.abs(1920 - window.innerHeight) * 0.8)
+          top: -Math.max(300, Math.abs(2240 - window.innerHeight) * 0.8),
+          bottom: Math.max(300, Math.abs(2240 - window.innerHeight) * 0.8)
         });
       };
 
@@ -56,40 +57,30 @@
       return () => window.removeEventListener('resize', updateDragConstraints);
     }, []);
 
-    useEffect(() => {
-      const centerProjectOne = () => {
+    useLayoutEffect(() => {
+      const recenter = () => {
         const canvasWidth = 2560;
-        const canvasHeight = 1920;
-        const projectOne = convexProjects?.find((p: any) => p.id === 1);
-        const projectWidth = projectOne?.cell?.width || 200;
-        const projectHeight = projectOne?.cell?.height || 200;
-        const { gridLeft, gridTop } = getGridPositionForNumber(1);
+        const canvasHeight = 2240;
+        const centerX = (window.innerWidth - canvasWidth) / 2;
+        const centerY = (window.innerHeight - canvasHeight) / 2;
 
-        const projectLeft = gridLeft + (320 - projectWidth) / 2;
-        const projectTop = gridTop + (320 - projectHeight) / 2;
-
-        const projectCenterX = projectLeft + projectWidth / 2;
-        const projectCenterY = projectTop + projectHeight / 2;
-
-        // The canvas starts centered (x=0,y=0), so we offset from canvas center.
-        const centeredX = (canvasWidth / 2) - projectCenterX;
-        const centeredY = (canvasHeight / 2) - projectCenterY;
-
-        x.set(centeredX);
-        y.set(centeredY);
+        centeredCanvasPositionRef.current = { x: centerX, y: centerY };
+        x.set(centerX);
+        y.set(centerY);
       };
 
-      centerProjectOne();
-      window.addEventListener('resize', centerProjectOne);
-      return () => window.removeEventListener('resize', centerProjectOne);
-    }, [convexProjects, x, y]);
+      recenter();
+      window.addEventListener('resize', recenter);
+      return () => window.removeEventListener('resize', recenter);
+    }, [x, y]);
 
     // Helper function to get grid position for a spiral number
     const getGridPositionForNumber = (targetNum: number) => {
-      const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
+      const grid: number[][] = Array(7).fill(null).map(() => Array(8).fill(0));
+      const GRID_X_OFFSET = 160; // 8 columns => shift half-cell so spiral content centers
       
       let num = 1;
-      let col = 3, row = 2; // Start at true center (col 3, row 2)
+      let col = 3, row = 3; // Start at true center for 8x7
       
       const directions = [
         { dx: 1, dy: 0 },
@@ -104,16 +95,16 @@
       
       grid[row][col] = num++;
       
-      while (num <= 48) {
+      while (num <= 56) {
         const dir = directions[dirIndex];
         
         for (let step = 0; step < stepsToTake; step++) {
           col += dir.dx;
           row += dir.dy;
           
-          if (col >= 0 && col < 8 && row >= 0 && row < 6 && grid[row][col] === 0) {
+          if (col >= 0 && col < 8 && row >= 0 && row < 7 && grid[row][col] === 0) {
             grid[row][col] = num++;
-            if (num > 48) break;
+            if (num > 56) break;
           }
         }
         
@@ -126,11 +117,11 @@
       }
       
       // Find position of targetNum
-      for (let r = 0; r < 6; r++) {
+      for (let r = 0; r < 7; r++) {
         for (let c = 0; c < 8; c++) {
           if (grid[r][c] === targetNum) {
             return {
-              gridLeft: -320 + c * 320,
+              gridLeft: c * 320 + GRID_X_OFFSET,
               gridTop: r * 320
             };
           }
@@ -144,6 +135,7 @@
     const [aboutButtonRect, setAboutButtonRect] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
     const [inactiveNotice, setInactiveNotice] = useState<string | null>(null);
     const lastTap = useRef(0);
+    const centeredCanvasPositionRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
     const handleAboutClick = () => {
       if (aboutButtonRef.current) {
@@ -164,11 +156,13 @@
     };
 
     const handleResetView = () => {
-      animate(x, 0, {
+      const { x: centeredX, y: centeredY } = centeredCanvasPositionRef.current;
+
+      animate(x, centeredX, {
         duration: 0.5,
         ease: "easeInOut"
       });
-      animate(y, 0, {
+      animate(y, centeredY, {
         duration: 0.5,
         ease: "easeInOut"
       });
@@ -179,7 +173,7 @@
       if (!container) return;
 
       const canvasWidth = 2560;
-      const canvasHeight = 1920;
+      const canvasHeight = 2240;
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
 
@@ -279,7 +273,7 @@
 
         <motion.div
           ref={containerRef}
-          className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center"
+          className="w-full h-full cursor-grab active:cursor-grabbing"
           onTouchStart={handleTouchStart}
           onDoubleClick={handleResetView}
         >
@@ -288,19 +282,20 @@
             dragConstraints={dragConstraints}
             dragElastic={0.05}
             dragTransition={{ bounceStiffness: 300, bounceDamping: 20, power: 0.2 }}
+            ref={canvasRef}
             style={{
               width: '2560px',
-              height: '1920px',
+              height: '2240px',
               x,
               y
             }}
             className="relative"
           >
-              {/* Dynamic grid generation: 8 columns × 6 rows = 48 cells, each 320x320px */}
-              {Array.from({ length: 48 }).map((_, index) => {
+              {/* Dynamic grid generation: 8 columns × 7 rows = 56 cells, each 320x320px */}
+              {Array.from({ length: 56 }).map((_, index) => {
                 const col = index % 8;
                 const row = Math.floor(index / 8);
-                const left = -320 + col * 320;
+                const left = col * 320 + 160; // match getGridPositionForNumber
                 const top = row * 320;
                 
                 return (
@@ -364,7 +359,7 @@
                 >
                   {isTextProject ? (
                     <div
-                      className="w-full h-full flex items-center justify-center p-2 text-center text-black text-sm leading-relaxed"
+                      className="w-full h-full flex items-center justify-center p-2 text-center text-black text-[22px] lg:text-[18px] font-bold leading-relaxed"
                       style={{
                         transform: `rotate(${cell.rotation || 0}deg)`,
                       }}
@@ -379,7 +374,7 @@
                       zIndex: 30,
                       rotate: cell.rotation || 0
                     }}
-                    onTap={() => {
+                    onClick={() => {
                       if (!isActive) {
                         setInactiveNotice('Upcoming project hold on');
                         setTimeout(() => setInactiveNotice(null), 1800);
