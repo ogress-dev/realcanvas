@@ -301,7 +301,7 @@
                 return (
                   <div
                     key={index}
-                    className="absolute flex items-center justify-center border border-blue-200"
+                    className="absolute flex items-center justify-center border border-white"
                     style={{
                       left: `${left}px`,
                       top: `${top}px`,
