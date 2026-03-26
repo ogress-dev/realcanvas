@@ -1,12 +1,17 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+// import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isProtectedRoute = createRouteMatcher(['/TuSaiChi(.*)']);
+// const isProtectedRoute = createRouteMatcher(['/TuSaiChi(.*)']);
 
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) {
-    auth.protect();
-  }
-});
+// export default clerkMiddleware((auth, req) => {
+//   if (isProtectedRoute(req)) {
+//     auth.protect();
+//   }
+// });
+
+// Simple middleware placeholder
+export default function middleware() {
+  // No auth middleware
+}
 
 export const config = {
   matcher: [
