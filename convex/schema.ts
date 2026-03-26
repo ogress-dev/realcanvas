@@ -6,6 +6,8 @@ export default defineSchema({
     name: v.string(),
     title: v.string(),
     description: v.optional(v.string()),
+    projectType: v.optional(v.union(v.literal("normal"), v.literal("text"))),
+    textContent: v.optional(v.string()),
     category: v.optional(v.string()),
     year: v.optional(v.string()),
     client: v.optional(v.string()),

@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useQuery } from 'convex/react';
+import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 
 const ProjectDetail = () => {
@@ -15,6 +15,7 @@ const ProjectDetail = () => {
 
   const productId = parseInt(id, 10) || 1;
   const convexProject = useQuery(api.projects.getProjectById, { projectId: productId });
+  const saveProjectTextContent = useMutation(api.projects.saveProjectTextContent);
 
   const getFallbackImages = (id: number): string[] => {
     const allFallbacks: Record<number, string[]> = {
@@ -101,6 +102,8 @@ const ProjectDetail = () => {
   const dataLabel = convexProject?.dataLabel || "Sustainable Materials";
 
   const [editableTitle, setEditableTitle] = useState(projectTitle);
+  const [editableTextContent, setEditableTextContent] = useState('');
+  const [isSavingText, setIsSavingText] = useState(false);
   const [projectImages, setProjectImages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -114,6 +117,10 @@ const ProjectDetail = () => {
   useEffect(() => {
     setEditableTitle(projectTitle);
   }, [projectTitle]);
+
+  useEffect(() => {
+    setEditableTextContent(convexProject?.textContent || '');
+  }, [convexProject?.textContent]);
 
   const scrollState = useRef({
     target: 0,
@@ -179,6 +186,60 @@ const ProjectDetail = () => {
     "https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/c3482573111cc00bed9df726134b3ffe.jpg",
     "https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/d31e634b326074fc1749aa30d51e5285.jpg"
   ];
+
+  const handleSaveText = async () => {
+    setIsSavingText(true);
+    try {
+      await saveProjectTextContent({
+        projectId: productId,
+        textContent: editableTextContent,
+      });
+    } finally {
+      setIsSavingText(false);
+    }
+  };
+
+  if (convexProject === undefined) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center text-[#1E1E1D]">
+        Loading...
+      </div>
+    );
+  }
+
+  if (convexProject?.projectType === 'text') {
+    return (
+      <div className="min-h-screen bg-white text-[#1E1E1D] px-6 md:px-12 py-8">
+        <div className="max-w-4xl mx-auto">
+          <button
+            onClick={() => router.push('/projects')}
+            className="mb-6 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+
+          <h1 className="text-3xl md:text-4xl font-light mb-6">{convexProject.title || `Text ${productId}`}</h1>
+          <textarea
+            value={editableTextContent}
+            onChange={(e) => setEditableTextContent(e.target.value)}
+            rows={12}
+            className="w-full rounded-xl border border-gray-300 p-4 text-lg leading-relaxed focus:outline-none focus:ring-2 focus:ring-black/20"
+            placeholder="Enter text content"
+          />
+          <div className="mt-4">
+            <button
+              onClick={handleSaveText}
+              disabled={isSavingText}
+              className="px-5 py-2.5 rounded-lg bg-black text-white hover:bg-gray-800 disabled:opacity-50"
+            >
+              {isSavingText ? 'Saving...' : 'Save Text'}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

@@ -64,6 +64,7 @@ export default function AdminProjectDetail() {
   const saveProjectInfo = useMutation(api.projects.saveProjectInfo);
   const saveProjectCell = useMutation(api.projects.saveProjectCell);
   const updateProjectImages = useMutation(api.projects.updateProjectImages);
+  const saveProjectTextContent = useMutation(api.projects.saveProjectTextContent);
   
   const [cell, setCell] = useState<CellProperties>(DEFAULT_CELL);
   const [projectInfo, setProjectInfo] = useState({
@@ -91,7 +92,9 @@ export default function AdminProjectDetail() {
   const [isSaving, setIsSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSavingText, setIsSavingText] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [textContent, setTextContent] = useState('');
   const [currentSection, setCurrentSection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -130,6 +133,7 @@ export default function AdminProjectDetail() {
         isCover: img.isCover || false,
       })));
       setCoverImage(convexProject?.coverImage || null);
+      setTextContent(convexProject?.textContent || '');
       setIsLoading(false);
     }
   }, [convexProject, projectId, refreshKey]);
@@ -179,6 +183,71 @@ export default function AdminProjectDetail() {
     return (
       <div className="min-h-screen bg-[#1E1E1D] text-white flex items-center justify-center">
         <div>Project not found</div>
+      </div>
+    );
+  }
+
+  const isTextProject = convexProject?.projectType === 'text';
+
+  const handleSaveTextProject = async () => {
+    setIsSavingText(true);
+    try {
+      await saveProjectTextContent({
+        projectId,
+        textContent,
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 1000);
+    } catch (error) {
+      console.error('Error saving text project:', error);
+      alert('Error saving text project');
+    } finally {
+      setIsSavingText(false);
+    }
+  };
+
+  if (isTextProject) {
+    return (
+      <div className="min-h-screen bg-[#1E1E1D] text-white">
+        <div className="border-b border-gray-800">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => router.push('/TuSaiChi')}
+                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <h1 className="text-2xl md:text-3xl font-light tracking-tight">
+                Text Project
+              </h1>
+            </div>
+            <div className="flex items-center gap-3">
+              {saved && (
+                <span className="text-green-500 text-sm">Saved to Convex!</span>
+              )}
+              <button
+                onClick={handleSaveTextProject}
+                disabled={isSavingText}
+                className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                {isSavingText ? 'Saving...' : 'Save Text'}
+              </button>
+              <UserButton />
+            </div>
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-6 md:px-12 py-8">
+          <label className="text-sm text-gray-400 block mb-2">Text Content</label>
+          <textarea
+            value={textContent}
+            onChange={(e) => setTextContent(e.target.value)}
+            rows={12}
+            className="w-full bg-[#2A2A2A] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gray-600 resize-none"
+            placeholder="Enter text to display in the canvas"
+          />
+        </div>
       </div>
     );
   }
@@ -312,11 +381,14 @@ export default function AdminProjectDetail() {
       });
       console.log('Info result:', infoResult);
       
-      console.log('Saving cell:', { projectId, projectName: cell.projectName, isActive: cell.isActive });
+      console.log('Saving cell:', { projectId, projectName: cell.projectName, isActive: cell.isActive, width: cell.width, height: cell.height, rotation: cell.rotation });
        const cellResult = await saveProjectCell({
          projectId,
          projectName: cell.projectName,
          isActive: cell.isActive,
+         width: cell.width,
+         height: cell.height,
+         rotation: cell.rotation,
        });
        console.log('Cell result:', cellResult);
       
@@ -552,6 +624,25 @@ export default function AdminProjectDetail() {
                          onChange={(e) => handleCellChange('height', parseInt(e.target.value) || 0)}
                          className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
                        />
+                     </div>
+                     <div className="space-y-2">
+                       <label className="text-sm text-gray-500 block">Rotation (degrees)</label>
+                       <div className="flex items-center gap-3">
+                         <input
+                           type="number"
+                           value={cell.rotation}
+                           onChange={(e) => handleCellChange('rotation', parseInt(e.target.value) || 0)}
+                           className="flex-1 bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
+                         />
+                         <input
+                           type="range"
+                           min="-180"
+                           max="180"
+                           value={cell.rotation}
+                           onChange={(e) => handleCellChange('rotation', parseInt(e.target.value))}
+                           className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                         />
+                       </div>
                      </div>
                      <div className="flex items-center justify-between p-4 bg-[#1E1E1D] rounded-lg border border-gray-700">
                        <div>

@@ -4,19 +4,23 @@ import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useRouter } from 'next/navigation';
-import { Plus, X } from 'lucide-react';
+import { Plus, X, Trash2 } from 'lucide-react';
 
 export default function AdminProjects() {
   const router = useRouter();
   const projects = useQuery(api.projects.listProjects);
   const createProject = useMutation(api.projects.createProject);
+  const deleteProject = useMutation(api.projects.deleteProject);
   const [showModal, setShowModal] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [deletingProjectId, setDeletingProjectId] = useState<number | null>(null);
   const [newProject, setNewProject] = useState({
     name: '',
     title: '',
     folder: '',
     description: '',
+    projectType: 'normal' as 'normal' | 'text',
+    textContent: '',
   });
 
   if (projects === undefined) {
@@ -28,18 +32,24 @@ export default function AdminProjects() {
   }
 
   const handleCreateProject = async () => {
-    if (!newProject.title || !newProject.folder) {
+    if (newProject.projectType === 'normal' && (!newProject.title || !newProject.folder)) {
       alert('Please fill in title and folder');
+      return;
+    }
+    if (newProject.projectType === 'text' && !newProject.textContent.trim()) {
+      alert('Please enter text content for text projects');
       return;
     }
     
     setIsCreating(true);
     try {
       const result = await createProject({
-        name: newProject.name || newProject.title,
-        title: newProject.title,
-        folder: newProject.folder,
-        description: newProject.description,
+        name: newProject.projectType === 'normal' ? (newProject.name || newProject.title) : undefined,
+        title: newProject.projectType === 'normal' ? newProject.title : undefined,
+        folder: newProject.projectType === 'normal' ? newProject.folder : undefined,
+        description: newProject.projectType === 'normal' ? newProject.description : undefined,
+        projectType: newProject.projectType,
+        textContent: newProject.projectType === 'text' ? newProject.textContent : undefined,
       });
       console.log('Created project:', result);
       setShowModal(false);
@@ -48,6 +58,8 @@ export default function AdminProjects() {
         title: '',
         folder: '',
         description: '',
+        projectType: 'normal',
+        textContent: '',
       });
       router.refresh();
     } catch (error) {
@@ -55,6 +67,22 @@ export default function AdminProjects() {
       alert('Error creating project');
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const handleDeleteProject = async (projectId: number, title: string) => {
+    const confirmed = window.confirm(`Delete "${title}"? This cannot be undone.`);
+    if (!confirmed) return;
+
+    setDeletingProjectId(projectId);
+    try {
+      await deleteProject({ projectId });
+      router.refresh();
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      alert('Error deleting project');
+    } finally {
+      setDeletingProjectId(null);
     }
   };
 
@@ -85,37 +113,80 @@ export default function AdminProjects() {
 
             <div className="space-y-4">
               <div>
-                <label className="text-sm text-gray-500 block mb-1">Title *</label>
-                <input
-                  type="text"
-                  value={newProject.title}
-                  onChange={(e) => setNewProject(prev => ({ ...prev, title: e.target.value }))}
-                  placeholder="Project Title"
-                  className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
-                />
+                <label className="text-sm text-gray-500 block mb-2">Project Type</label>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setNewProject(prev => ({ ...prev, projectType: 'normal' }))}
+                    className={`flex-1 px-3 py-2 rounded-lg border transition-colors ${
+                      newProject.projectType === 'normal'
+                        ? 'bg-white text-black border-white'
+                        : 'bg-[#1E1E1D] text-white border-gray-700'
+                    }`}
+                  >
+                    Normal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setNewProject(prev => ({ ...prev, projectType: 'text' }))}
+                    className={`flex-1 px-3 py-2 rounded-lg border transition-colors ${
+                      newProject.projectType === 'text'
+                        ? 'bg-white text-black border-white'
+                        : 'bg-[#1E1E1D] text-white border-gray-700'
+                    }`}
+                  >
+                    Text
+                  </button>
+                </div>
               </div>
 
-              <div>
-                <label className="text-sm text-gray-500 block mb-1">Folder *</label>
-                <input
-                  type="text"
-                  value={newProject.folder}
-                  onChange={(e) => setNewProject(prev => ({ ...prev, folder: e.target.value }))}
-                  placeholder="project-name"
-                  className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
-                />
-              </div>
+              {newProject.projectType === 'normal' ? (
+                <>
+                  <div>
+                    <label className="text-sm text-gray-500 block mb-1">Title *</label>
+                    <input
+                      type="text"
+                      value={newProject.title}
+                      onChange={(e) => setNewProject(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="Project Title"
+                      className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
+                    />
+                  </div>
 
-              <div>
-                <label className="text-sm text-gray-500 block mb-1">Description</label>
-                <textarea
-                  value={newProject.description}
-                  onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
-                  placeholder="Project description"
-                  rows={2}
-                  className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600 resize-none"
-                />
-              </div>
+                  <div>
+                    <label className="text-sm text-gray-500 block mb-1">Folder *</label>
+                    <input
+                      type="text"
+                      value={newProject.folder}
+                      onChange={(e) => setNewProject(prev => ({ ...prev, folder: e.target.value }))}
+                      placeholder="project-name"
+                      className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-sm text-gray-500 block mb-1">Description</label>
+                    <textarea
+                      value={newProject.description}
+                      onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="Project description"
+                      rows={2}
+                      className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600 resize-none"
+                    />
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Text Content *</label>
+                  <textarea
+                    value={newProject.textContent}
+                    onChange={(e) => setNewProject(prev => ({ ...prev, textContent: e.target.value }))}
+                    placeholder="Enter the text that should appear on the canvas"
+                    rows={4}
+                    className="w-full bg-[#1E1E1D] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-gray-600 resize-none"
+                  />
+                </div>
+              )}
 
               <p className="text-xs text-gray-500">
                 Cell properties (size, rotation, position) can be edited after creating the project.
@@ -153,7 +224,11 @@ export default function AdminProjects() {
             }`}
           >
             <div className="aspect-square relative bg-gray-900 overflow-hidden">
-              {project.images && project.images.length > 0 ? (
+              {project.projectType === 'text' ? (
+                <div className="w-full h-full flex items-center justify-center p-4 text-center text-white text-sm leading-relaxed">
+                  {project.textContent || 'Text project'}
+                </div>
+              ) : project.images && project.images.length > 0 ? (
                 <img
                   src={project.images[0]?.imageUrl}
                   alt={project.title}
@@ -196,9 +271,24 @@ export default function AdminProjects() {
               </div>
 
               <div className="pt-2 border-t border-gray-800">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">Images</span>
-                  <span className="text-white">{project.images?.length || 0}</span>
+                <div className="flex items-center justify-between text-xs gap-2">
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-gray-500">Images</span>
+                    <span className="text-white">{project.images?.length || 0}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteProject(project.id, project.title || `Project ${project.id}`);
+                    }}
+                    disabled={deletingProjectId === project.id}
+                    className="inline-flex items-center gap-1 rounded-md px-2 py-1 bg-red-700/80 hover:bg-red-700 text-white transition-colors disabled:opacity-50"
+                    title="Delete project"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    {deletingProjectId === project.id ? 'Deleting...' : 'Delete'}
+                  </button>
                 </div>
               </div>
             </div>

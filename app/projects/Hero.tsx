@@ -8,20 +8,6 @@
   import { useQuery } from 'convex/react';
   import { api } from '@/convex/_generated/api';
 
-  const fallbackImages: Record<number, string> = {
-    1: '/images/grillwise.jpg',
-    2: '/images/checked.png',
-    3: '/images/albed.jpg',
-    4: '/images/abaco.jpg',
-    5: '/images/apcollective.png',
-    6: '/images/muso.jpg',
-    7: '/images/checked.png',
-    8: '/images/checked.png',
-    9: '/images/checked.png',
-    10: '/images/fablab.jpg',
-    11: '/images/checked.png',
-  };
-
   const HexagonInfoIcon = ({ className }: { className?: string }) => (
     <svg
       viewBox="0 0 24 24"
@@ -38,64 +24,6 @@
     </svg>
   );
 
-  interface ProjectCellProps {
-    project: any;
-    router: any;
-    isActive: boolean;
-  }
-
-  const ProjectCell = ({ project, router, isActive }: ProjectCellProps) => {
-    const cell = project.cell || { left: 0, top: 0, width: 200, height: 200, rotation: 0 };
-    const title = project.title || 'Untitled';
-    const description = project.description || '';
-    const coverImage = project.coverImage || fallbackImages[project.id] || '/images/checked.png';
-
-    const cellStyle = {
-      rotate: cell.rotation || 0,
-      width: `${cell.width}px`,
-      height: `${cell.height}px`,
-    };
-
-    const handleClick = () => {
-      if (!isActive) return;
-      router.push(`/projects/${project.id}`);
-    };
-
-    return (
-      <motion.div
-        drag={false}
-        whileHover={{
-          scale: 1.05,
-          zIndex: 50,
-          rotate: cell.rotation || 0
-        }}
-        onTap={handleClick}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        style={cellStyle}
-        className={`cursor-pointer group ${!isActive ? 'cursor-not-allowed opacity-50' : ''}`}
-      >
-        <div
-          className="relative rounded-[16px] overflow-hidden shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
-          style={{ width: '100%', height: '100%' }}
-        >
-          <img src={coverImage} alt={title} className="w-full h-full object-cover" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
-          >
-            <span className="text-xs font-medium tracking-wide">View Product</span>
-          </motion.div>
-        </div>
-        <div className="mt-3 pointer-events-none hidden sm:block">
-          <h3 className="text-[14px] font-bold text-black">{title}</h3>
-          <p className="text-[12px] text-black text-left mt-1">{description}</p>
-        </div>
-      </motion.div>
-    );
-  };
 
   const Hero = () => {
     const router = useRouter();
@@ -106,52 +34,21 @@
 
     const convexProjects = useQuery(api.projects.listProjects);
 
-    const activeProjectIds = convexProjects?.filter((p: any) => p.cell?.isActive !== false).map((p: any) => p.id) || [];
-
-    const getCellStyle = (id: number) => {
-      const project = convexProjects?.find((p: any) => p.id === id);
-      const cell = project?.cell;
-      if (!cell) return { left: '0px', top: '0px', width: '200px', height: '200px', rotate: 0 };
-      return {
-        left: `${cell.left}px`,
-        top: `${cell.top}px`,
-        width: `${cell.width}px`,
-        height: `${cell.height}px`,
-        rotate: cell.rotation || 0,
-      };
-    };
-
-    const getProjectImage = (id: number) => {
-      const project = convexProjects?.find((p: any) => p.id === id);
-      if (project?.coverImage) return project.coverImage;
-      return fallbackImages[id] || '/images/checked.png';
-    };
-
-    const getProjectInfo = (id: number) => {
-      const project = convexProjects?.find((p: any) => p.id === id);
-      return {
-        title: project?.title || '',
-        description: project?.description || '',
-      };
-    };
-
     const [dragConstraints, setDragConstraints] = useState({
       left: -3500,
       right: 3500,
       top: -1280,
       bottom: 1280
     });
-    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
       const updateDragConstraints = () => {
         setDragConstraints({
-          left: -Math.max(1000, Math.abs(1920 - window.innerWidth) * 3.5),
-          right: Math.max(1000, Math.abs(1920 - window.innerWidth) * 3.5),
-          top: -Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8),
-          bottom: Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8)
+          left: -Math.max(1000, Math.abs(2560 - window.innerWidth) * 3.5),
+          right: Math.max(1000, Math.abs(2560 - window.innerWidth) * 3.5),
+          top: -Math.max(300, Math.abs(1920 - window.innerHeight) * 0.8),
+          bottom: Math.max(300, Math.abs(1920 - window.innerHeight) * 0.8)
         });
-        setIsMobile(window.innerWidth < 768);
       };
 
       updateDragConstraints();
@@ -160,16 +57,39 @@
     }, []);
 
     useEffect(() => {
-      const centerOffset = (window.innerWidth / 2) - 800;
-      x.set(centerOffset);
-    }, []);
+      const centerProjectOne = () => {
+        const canvasWidth = 2560;
+        const canvasHeight = 1920;
+        const projectOne = convexProjects?.find((p: any) => p.id === 1);
+        const projectWidth = projectOne?.cell?.width || 200;
+        const projectHeight = projectOne?.cell?.height || 200;
+        const { gridLeft, gridTop } = getGridPositionForNumber(1);
+
+        const projectLeft = gridLeft + (320 - projectWidth) / 2;
+        const projectTop = gridTop + (320 - projectHeight) / 2;
+
+        const projectCenterX = projectLeft + projectWidth / 2;
+        const projectCenterY = projectTop + projectHeight / 2;
+
+        // The canvas starts centered (x=0,y=0), so we offset from canvas center.
+        const centeredX = (canvasWidth / 2) - projectCenterX;
+        const centeredY = (canvasHeight / 2) - projectCenterY;
+
+        x.set(centeredX);
+        y.set(centeredY);
+      };
+
+      centerProjectOne();
+      window.addEventListener('resize', centerProjectOne);
+      return () => window.removeEventListener('resize', centerProjectOne);
+    }, [convexProjects, x, y]);
 
     // Helper function to get grid position for a spiral number
     const getGridPositionForNumber = (targetNum: number) => {
       const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
       
       let num = 1;
-      let col = 4, row = 2;
+      let col = 3, row = 2; // Start at true center (col 3, row 2)
       
       const directions = [
         { dx: 1, dy: 0 },
@@ -222,6 +142,7 @@
 
     const [isExpandingAbout, setIsExpandingAbout] = useState(false);
     const [aboutButtonRect, setAboutButtonRect] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
+    const [inactiveNotice, setInactiveNotice] = useState<string | null>(null);
     const lastTap = useRef(0);
 
     const handleAboutClick = () => {
@@ -257,8 +178,8 @@
       const container = containerRef.current;
       if (!container) return;
 
-      const canvasWidth = 2240;
-      const canvasHeight = 1603;
+      const canvasWidth = 2560;
+      const canvasHeight = 1920;
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
 
@@ -315,6 +236,11 @@
         exit={isExpandingAbout ? { opacity: 1 } : { opacity: 0, scale: 0.95, transition: { duration: 0.4 } }}
         className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF]"
       >
+        {inactiveNotice && (
+          <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[120] bg-[#1E1E1D] text-white px-4 py-2 rounded-full shadow-lg text-sm pointer-events-none">
+            {inactiveNotice}
+          </div>
+        )}
         {isExpandingAbout && aboutButtonRect && (
           <motion.div
             initial={{
@@ -363,156 +289,46 @@
             dragElastic={0.05}
             dragTransition={{ bounceStiffness: 300, bounceDamping: 20, power: 0.2 }}
             style={{
-              width: '2240px',
-              height: '1603px',
+              width: '2560px',
+              height: '1920px',
               x,
-              y,
-              backgroundImage: `
-                linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '320px 320px',
-              backgroundPosition: '320px 0px'
+              y
             }}
             className="relative"
           >
               {/* Dynamic grid generation: 8 columns × 6 rows = 48 cells, each 320x320px */}
               {Array.from({ length: 48 }).map((_, index) => {
-                // Generate center-outward anticlockwise spiral numbering starting from center of canvas
-                const generateCenterSpiralNumber = (idx: number) => {
-                  const grid: number[][] = Array(6).fill(null).map(() => Array(8).fill(0));
-                  
-                  let num = 1;
-                  let col = 2, row = 2; // Starting two columns left of center (position 18)
-                  
-                  // Directions for anticlockwise: right, up, left, down
-                  const directions = [
-                    { dx: 1, dy: 0 },   // right
-                    { dx: 0, dy: -1 },  // up
-                    { dx: -1, dy: 0 },  // left
-                    { dx: 0, dy: 1 }    // down
-                  ];
-                  
-                  let dirIndex = 0;
-                  let stepsInCurrentDirection = 0;
-                  let stepsToTake = 1;
-                  let directionChangeCount = 0;
-                  
-                  grid[row][col] = num++;
-                  
-                  while (num <= 48) {
-                    const dir = directions[dirIndex];
-                    
-                    for (let step = 0; step < stepsToTake; step++) {
-                      col += dir.dx;
-                      row += dir.dy;
-                      
-                      if (col >= 0 && col < 8 && row >= 0 && row < 6) {
-                        grid[row][col] = num++;
-                        if (num > 48) break;
-                      }
-                    }
-                    
-                    dirIndex = (dirIndex + 1) % 4;
-                    directionChangeCount++;
-                    
-                    // Increase steps every two direction changes
-                    if (directionChangeCount % 2 === 0) {
-                      stepsToTake++;
-                    }
-                  }
-                  
-                  const row_idx = Math.floor(idx / 8);
-                  const col_idx = idx % 8;
-                  return grid[row_idx][col_idx];
-                };
-                
                 const col = index % 8;
                 const row = Math.floor(index / 8);
                 const left = -320 + col * 320;
                 const top = row * 320;
-                const cellNumber = generateCenterSpiralNumber(index);
-                
-                // ApCollective (cell 5) gets blue-200 background
-                const hasBlueBackground = left === 320 && top === 320;
                 
                 return (
                   <div
                     key={index}
-                    className={`absolute flex items-center justify-center ${hasBlueBackground ? 'bg-blue-200' : ''}`}
+                    className="absolute flex items-center justify-center border border-blue-200"
                     style={{
                       left: `${left}px`,
                       top: `${top}px`,
                       width: '320px',
                       height: '320px',
-                      zIndex: 100
+                      zIndex: 10,
+                      pointerEvents: 'none'
                     }}
                   >
-                    <span className="text-black text-4xl font-bold absolute top-4 left-4">{cellNumber}</span>
                   </div>
                 );
               })}
-             <div
-               className="absolute flex items-start md:items-center justify-start md:justify-center pl-6 md:pl-0 pt-6 md:pt-0"
-               style={{
-                 left: isMobile ? '640px' : '160px',
-                 top: '640px',
-                 width: '320px',
-                 height: isMobile ? '100px' : '320px',
-                 zIndex: 100
-               }}
-             >
-              <motion.div
-                drag={false}
-                whileHover={{
-                  scale: 1.05,
-                  zIndex: 50,
-                  rotate: -15
-                }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                style={{
-                  rotate: -15,
-                  width: isMobile ? '96px' : '140px',
-                  height: isMobile ? '96px' : '140px'
-                }}
-                className="group"
-              >
-                <div
-                  className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 flex items-center justify-center"
-                  style={{
-                    width: '100%',
-                    height: '100%'
-                  }}
-                >
-                  <img src="/home.jpg" alt="Home" className="w-full h-full object-cover" />
-                </div>
-              </motion.div>
-            </div>
-             <div
-               className="absolute flex items-start md:items-center justify-end md:justify-start pr-6 md:pr-0 md:pl-6 md:pt-0"
-               style={{
-                 left: isMobile ? '320px' : '480px',
-                 top: '640px',
-                 width: '320px',
-                 height: isMobile ? '420px' : '320px',
-                 zIndex: 100
-               }}
-             >
-              <p className="text-black text-[21px] md:text-[18px] leading-relaxed font-bold w-[147px] md:w-auto">
-                Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
-              </p>
-            </div>
-
-            {convexProjects && convexProjects.map((project: any, index: number) => {
+            {convexProjects && convexProjects.map((project: any) => {
               const title = project.title || 'Untitled';
               const description = project.description || '';
-              const coverImage = project.coverImage || fallbackImages[project.id] || '/images/checked.png';
+              const coverImage = project.coverImage || '/images/checked.png';
+              const isTextProject = project.projectType === 'text';
+              const textContent = project.textContent || '';
               const isActive = project.cell?.isActive !== false;
               
-              // Position project in grid cell based on its index (0-based)
-              const gridNumber = index + 1; // Convert 0-based index to 1-based grid number
+              // Position project in grid cell based on its project ID
+              const gridNumber = project.id; // Use project ID as grid number
               const { gridLeft, gridTop } = getGridPositionForNumber(gridNumber);
               
               // Get project dimensions from database, defaulting to 200x200 if not set
@@ -531,7 +347,7 @@
                 width: projectWidth,
                 height: projectHeight,
                 rotation: projectRotation,
-                zIndex: 50
+                zIndex: 20
               };
 
               return (
@@ -543,18 +359,32 @@
                     top: `${cell.top}px`,
                     width: `${cell.width}px`,
                     height: `${cell.height}px`,
-                    zIndex: cell.zIndex || 50
+                    zIndex: cell.zIndex || 20
                   }}
                 >
+                  {isTextProject ? (
+                    <div
+                      className="w-full h-full flex items-center justify-center p-2 text-center text-black text-sm leading-relaxed"
+                      style={{
+                        transform: `rotate(${cell.rotation || 0}deg)`,
+                      }}
+                    >
+                      {textContent}
+                    </div>
+                  ) : (
                   <motion.div
                     drag={false}
                     whileHover={{
                       scale: 1.05,
-                      zIndex: 50,
+                      zIndex: 30,
                       rotate: cell.rotation || 0
                     }}
                     onTap={() => {
-                      if (!isActive) return;
+                      if (!isActive) {
+                        setInactiveNotice('Upcoming project hold on');
+                        setTimeout(() => setInactiveNotice(null), 1800);
+                        return;
+                      }
                       router.push(`/projects/${project.id}`);
                     }}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -572,19 +402,24 @@
                       style={{ width: '100%', height: '100%' }}
                     >
                       <img src={coverImage} alt={title} className="w-full h-full object-cover" />
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
-                      >
-                        <span className="text-xs font-medium tracking-wide">View Product</span>
-                      </motion.div>
+                      {!isTextProject && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                          className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                        >
+                          <span className="text-xs font-medium tracking-wide">View Product</span>
+                        </motion.div>
+                      )}
                     </div>
-                    <div className="mt-3 pointer-events-none hidden sm:block">
-                      <h3 className="text-[14px] font-bold text-black">{title}</h3>
-                      <p className="text-[12px] text-black text-left mt-1">{description}</p>
-                    </div>
+                    {!isTextProject && (
+                      <div className="mt-3 pointer-events-none hidden sm:block">
+                        <h3 className="text-[14px] font-bold text-black">{title}</h3>
+                        <p className="text-[12px] text-black text-left mt-1">{description}</p>
+                      </div>
+                    )}
                   </motion.div>
+                  )}
                 </div>
               );
             })}

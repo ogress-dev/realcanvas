@@ -24,12 +24,12 @@ export const clearAndReseed = mutation({
     }
 
     const projectsToSeed = [
-      { projectId: 1, name: "lorem", title: "lorem", folder: "lorem", description: "some decription here and there", },
+      { projectId: 1, name: "lorem_project", title: "lorem", folder: "lorem_project", description: "some decription here and there", },
       { projectId: 2, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", },
       { projectId: 3, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", },
       { projectId: 4, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", },
       { projectId: 5, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", },
-      { projectId: 6, name: "home", title: "home", folder: "home", description: "just home", },
+      { projectId: 6, name: "home_project", title: "home", folder: "home_project", description: "just home", },
       { projectId: 7, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", },
       { projectId: 8, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", },
       { projectId: 9, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", },
@@ -46,7 +46,7 @@ export const clearAndReseed = mutation({
         title: p.title,
         folder: p.folder,
         description: p.description,
-        cell: p.cell,
+        cell: { left: 0, top: 0, width: 200, height: 200, rotation: 0, zIndex: 50, isActive: true },
       });
       await ctx.db.insert("projects", {
         name: p.folder,
@@ -153,16 +153,16 @@ export const uploadCoverImage = mutation({
 
 export const createProject = mutation({
   args: {
-    name: v.string(),
-    title: v.string(),
-    folder: v.string(),
-    description: v.string(),
+    name: v.optional(v.string()),
+    title: v.optional(v.string()),
+    folder: v.optional(v.string()),
+    description: v.optional(v.string()),
+    projectType: v.optional(v.union(v.literal("normal"), v.literal("text"))),
+    textContent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const allConfig = await ctx.db.query("projectConfig").collect();
-    const staticIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-    const dynamicIds = allConfig.map(c => c.projectId);
-    const usedIds = [...staticIds, ...dynamicIds];
+    const usedIds = allConfig.map(c => c.projectId);
     const maxId = Math.max(...usedIds, 0);
     const newId = maxId + 1;
 
@@ -187,13 +187,34 @@ export const createProject = mutation({
     );
 
     const cellPosition = availableCell || { left: 1280, top: 320, col: 5, row: 1 }; // Default fallback
+    const projectType = args.projectType || "normal";
+    const rawTextContent = (args.textContent || "").trim();
+    const normalizedText = rawTextContent.replace(/\s+/g, " ");
+
+    const autoTitle = normalizedText ? normalizedText.slice(0, 40) : `Text ${newId}`;
+    const baseTitle = (args.title || "").trim();
+    const resolvedTitle = projectType === "text" ? autoTitle : baseTitle;
+    const resolvedFolder = projectType === "text"
+      ? `text-project-${newId}`
+      : (args.folder || "").trim();
+    const resolvedName = (args.name || "").trim() || resolvedTitle;
+    const resolvedDescription = projectType === "text"
+      ? "Text project"
+      : (args.description || "");
+
+    if (projectType === "normal" && (!resolvedTitle || !resolvedFolder)) {
+      throw new Error("Title and folder are required for normal projects");
+    }
+    if (projectType === "text" && !rawTextContent) {
+      throw new Error("Text content is required for text projects");
+    }
 
     await ctx.db.insert("projectConfig", {
       projectId: newId,
-      name: args.name,
-      title: args.title,
-      folder: args.folder,
-      description: args.description,
+      name: resolvedName,
+      title: resolvedTitle,
+      folder: resolvedFolder,
+      description: resolvedDescription,
       cell: {
         left: cellPosition.left,
         top: cellPosition.top,
@@ -206,9 +227,11 @@ export const createProject = mutation({
     });
 
     await ctx.db.insert("projects", {
-      name: args.folder,
-      title: args.title,
-      description: args.description,
+      name: resolvedFolder,
+      title: resolvedTitle,
+      description: resolvedDescription,
+      projectType,
+      textContent: projectType === "text" ? rawTextContent : undefined,
     });
 
     return { success: true, projectId: newId };
@@ -252,6 +275,25 @@ export const deleteProject = mutation({
       await ctx.db.delete(cell._id);
     }
 
+    // Keep project IDs contiguous after a deletion.
+    const configsToShift = (await ctx.db.query("projectConfig").collect())
+      .filter((c) => c.projectId > args.projectId);
+    for (const cfg of configsToShift) {
+      await ctx.db.patch(cfg._id, { projectId: cfg.projectId - 1 });
+    }
+
+    const cellsToShift = (await ctx.db.query("projectCells").collect())
+      .filter((c) => c.projectId > args.projectId);
+    for (const c of cellsToShift) {
+      await ctx.db.patch(c._id, { projectId: c.projectId - 1 });
+    }
+
+    const imagesToShift = (await ctx.db.query("projectImages").collect())
+      .filter((img) => img.projectId > args.projectId);
+    for (const img of imagesToShift) {
+      await ctx.db.patch(img._id, { projectId: img.projectId - 1 });
+    }
+
     return { success: true };
   },
 });
@@ -262,17 +304,19 @@ export const seedProjects = mutation({
     const existingProjects = await ctx.db.query("projects").collect();
 
     const projectsToSeed = [
-      { projectId: 1, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", cell: { left: 656, top: 720, width: 288, height: 160, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 2, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", cell: { left: 1072, top: 752, width: 96, height: 96, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 3, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", cell: { left: 985, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 4, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", cell: { left: 715, top: 395, width: 170, height: 170, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 5, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", cell: { left: 420, top: 395, width: 120, height: 170, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 6, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", cell: { left: 25, top: 345, width: 270, height: 270, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 7, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", cell: { left: -240, top: 720, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 8, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", cell: { left: 80, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 9, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", cell: { left: 400, top: 1016, width: 160, height: 208, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 10, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", cell: { left: 711, top: 1072, width: 178, height: 96, rotation: 0, zIndex: 50, isActive: true } },
-      { projectId: 11, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", cell: { left: 1040, top: 1040, width: 160, height: 160, rotation: 0, zIndex: 50, isActive: true } },
+      { projectId: 1, name: "lorem", title: "lorem", folder: "lorem", description: "some decription here and there", },
+      { projectId: 2, name: "Grillwise", title: "Grillwise", folder: "Grillwise", description: "Brand & Web Design", },
+      { projectId: 3, name: "Project-2", title: "Project 2", folder: "Project-2", description: "Project 2", },
+      { projectId: 4, name: "Albed-Price-list", title: "Albed Price list", folder: "Albed-Price-list", description: "Strategy & Editorial Design", },
+      { projectId: 5, name: "Abaco", title: "Abaco", folder: "Abaco", description: "Product Design", },
+      { projectId: 6, name: "home", title: "home", folder: "home", description: "just home", },
+      { projectId: 7, name: "ApCollective", title: "ApCollective", folder: "ApCollective", description: "Portfolio", },
+      { projectId: 8, name: "Muso", title: "Muso", folder: "Muso", description: "Brand, Strategy, Web & Product Design", },
+      { projectId: 9, name: "Empathy-Design", title: "Empathy Design", folder: "Empathy-Design", description: "Logo & Set Design", },
+      { projectId: 10, name: "Syform", title: "Syform", folder: "Syform", description: "Set & Graphic Design", },
+      { projectId: 11, name: "Upcoming", title: "Upcoming", folder: "Upcoming", description: "Coming Soon", },
+      { projectId: 12, name: "The-Social-Fablab", title: "The Social Fablab", folder: "The-Social-Fablab", description: "Speculative & Brand Design", },
+      { projectId: 13, name: "Diversa", title: "Diversa", folder: "Diversa", description: "Strategy & Brand Design", },
     ];
 
     for (const p of projectsToSeed) {
@@ -284,7 +328,7 @@ export const seedProjects = mutation({
           title: p.title,
           folder: p.folder,
           description: p.description,
-          cell: p.cell,
+          cell: { left: 0, top: 0, width: 200, height: 200, rotation: 0, zIndex: 50, isActive: true },
         });
       }
 
@@ -389,6 +433,8 @@ export const getProjectById = query({
       description: dbProject?.description || project.description,
       folder: project.folder,
       name: project.name,
+      projectType: dbProject?.projectType || "normal",
+      textContent: dbProject?.textContent || "",
       cell,
       coverImage: coverImageUrl,
       storageCoverImageId: dbProject?.coverImage || null,
@@ -484,6 +530,8 @@ export const listProjects = query({
           description: dbProject?.description || project.description,
           folder: project.folder,
           name: project.name,
+          projectType: dbProject?.projectType || "normal",
+          textContent: dbProject?.textContent || "",
           cell,
           coverImage: coverImageUrl,
           client: dbProject?.client || null,
@@ -655,11 +703,43 @@ export const saveProjectInfo = mutation({
   },
 });
 
+export const saveProjectTextContent = mutation({
+  args: {
+    projectId: v.number(),
+    textContent: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const config = await ctx.db.query("projectConfig")
+      .filter((q) => q.eq(q.field("projectId"), args.projectId))
+      .first();
+    if (!config) {
+      return { success: false, error: "Project not found" };
+    }
+
+    const existingProject = await ctx.db.query("projects")
+      .filter((q) => q.eq(q.field("name"), config.folder))
+      .first();
+    if (!existingProject) {
+      return { success: false, error: "Project metadata not found" };
+    }
+
+    await ctx.db.patch(existingProject._id, {
+      projectType: "text",
+      textContent: args.textContent,
+    });
+
+    return { success: true };
+  },
+});
+
 export const saveProjectCell = mutation({
   args: {
     projectId: v.number(),
     projectName: v.string(),
     isActive: v.boolean(),
+    width: v.optional(v.number()),
+    height: v.optional(v.number()),
+    rotation: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     console.log('saveProjectCell called with:', args);
@@ -674,13 +754,16 @@ export const saveProjectCell = mutation({
       .filter((q) => q.eq(q.field("projectId"), args.projectId))
       .first();
 
-    // Lock cell properties - only allow updating projectName and isActive
-    // Position, size, rotation are immutable
+    // Allow updating projectName, isActive, width, height, and rotation
+    // Position and zIndex are immutable
     if (existing) {
       console.log('Updating existing cell:', existing._id);
       await ctx.db.patch(existing._id, {
         projectName: args.projectName,
         isActive: args.isActive,
+        width: args.width !== undefined ? args.width : existing.width,
+        height: args.height !== undefined ? args.height : existing.height,
+        rotation: args.rotation !== undefined ? args.rotation : existing.rotation,
       });
     } else {
       console.log('Inserting new cell with locked properties');
@@ -690,9 +773,9 @@ export const saveProjectCell = mutation({
         // Use cell properties from projectConfig as source of truth
         left: project.cell.left,
         top: project.cell.top,
-        width: project.cell.width,
-        height: project.cell.height,
-        rotation: project.cell.rotation,
+        width: args.width !== undefined ? args.width : project.cell.width,
+        height: args.height !== undefined ? args.height : project.cell.height,
+        rotation: args.rotation !== undefined ? args.rotation : project.cell.rotation,
         zIndex: project.cell.zIndex,
         isActive: args.isActive,
       });
