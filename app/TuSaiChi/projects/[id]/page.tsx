@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { UserButton } from '@clerk/nextjs';
+// import { UserButton } from '@clerk/nextjs';
 import { ArrowLeft, Plus, Trash2, Save, Upload, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PROJECT_MAPPING: Record<number, { name: string; title: string; folder: string; description: string; cell: { projectName: string; left: number; top: number; width: number; height: number; rotation: number; zIndex: number; isActive: boolean } }> = {
@@ -234,7 +234,7 @@ export default function AdminProjectDetail() {
                 <Save className="w-4 h-4" />
                 {isSavingText ? 'Saving...' : 'Save Text'}
               </button>
-              <UserButton />
+              {/* <UserButton /> */}
             </div>
           </div>
         </div>
@@ -454,7 +454,7 @@ export default function AdminProjectDetail() {
               <Save className="w-4 h-4" />
               {isSaving ? 'Saving...' : 'Save Changes'}
             </button>
-            <UserButton />
+            {/* <UserButton /> */}
           </div>
         </div>
       </div>
